@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Css 之 Float - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="重识float浮动 - 目前大多数浮动应用都不是浮动应该做的 - 浮动的本质是“包裹及破坏” - 浮动的意义仅仅是文字环绕显示而已 一、浮动的原始意义是什么？ 浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-float/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Css 之 Float</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T11:07:53+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:07 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>重识float浮动</h3>
+
+<h6>- 目前大多数浮动应用都不是浮动应该做的</h6>
+
+<h6>- 浮动的本质是“包裹及破坏”</h6>
+
+<h6>- 浮动的意义仅仅是文字环绕显示而已</h6>
+
+<h3>一、浮动的原始意义是什么？</h3>
+
+<p>浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”，我是想不出来能有什么方法可以让文字环绕图片显示。好，这个替代不了的作用才是float真正的意义所在。所以请记住，浮动出现的意义其实只是用来让文字环绕图片而已，仅此而已。而我们目前用浮动实现页面布局本不是浮动该干的事情。</p>
+
+<h3>二、浮动的本质是什么？</h3>
+
+<p>我们可以将浮动的本质定义为“包裹与破坏”</p>
+
+<p>浮动的“包裹性”：撇开浮动的“破坏性”，浮动就是个带有方位的<code>display:inline-block</code>属性。<code>display:inline-block</code>某种意义上的作用就是包裹<code>(wrap)</code></p>
+
+<p>浮动的“破坏性”：文字之所以会环绕含有float属性的图片时因为浮动破坏了正常的line boxes。</p>
+
+<p>inline boxes不会让内容成块显示，而是排成一行，如果外部含inline属性的标签(span,a,cite等)，则属于inline boxes，如果是个光秃秃的文字，则属于匿名inline boxes。</p>
+
+<p>浮动破坏了inline boxes也就没有高度可言了 产生了两个结果：脱离了其原来所在的line box链无法与文字同行显示；二是没有了高度（无inline box -> 无line box -> 无高度）。真是由于浮动元素没有了inline boxes，没有了inline boxes高度，才能让其他inline boxes元素重新整合，环绕浮动元素排列。
+而这些结果恰恰是文字环绕图片显示所必须的。</p>
+
+<!--more-->
+
+
+<h3>三、列表浮动布局的局限</h3>
+
+<p>对于浮动局部的局限性，就是每个列表元素的高度必须要一致，否则就会像是俄罗斯方块一样，“锯齿相错”，例如一个左浮动列表布局，如果第一行有个列表高度高于其他列表，那就在第二行，第一个元素会沿着最高元素的右侧对齐，此原因是属于恶魔系的float属性破坏了inline box 。</p>
+
+<h3>四、那么浮动布局更好的替代方案是什么</h3>
+
+<p><code>inline-block</code>属性的元素适用于inline box模型，当其中的列表元素高度不一时，也不会有错位。下一章我们详细介绍下这个属性。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T11:07:53+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:07 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/02/css-zhi-absolute/" title="Previous Post: css 之 absolute">&laquo; css 之 absolute</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/03/css-zhi-inline-block/" title="Next Post: css 之 inline-block ">css 之 inline-block  &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

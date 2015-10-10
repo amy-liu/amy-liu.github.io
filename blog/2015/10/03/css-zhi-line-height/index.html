@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Css 之 Line-height - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="一、字面意思 “Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。 二、line-height与line boxes高度 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-line-height/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Css 之 Line-height</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T16:28:19+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>4:28 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>一、字面意思</h3>
+
+<p>“Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。</p>
+
+<p><img src="/images/base_line.jpg" alt="base_line" /></p>
+
+<h3>二、line-height与line boxes高度</h3>
+
+<p>css中起高度作用的应该就是height以及line-height了吧！如果一个标签没有定义height属性(包括百分比高度)，那么其最终表现的高度一定是由line-height起作用，即使是IE6下11像素左右默认高度bug也是如此。</p>
+
+<!--more-->
+
+
+<p>一个空的div，如果没有设置至少大于1像素高度height值时，该div的高度就是个0。如果该div里面打入了一个空格或是文字，则此div就会有一个高度。
+深入理解inline模型后，会发现，不是文字撑开了div的高度，而是line-height！测试：</p>
+
+<pre><code>.test1{font-size:20px; line-height:0; border:1px solid #cccccc; background:#eeeeee;}
+.test2{font-size:0; line-height:20px; border:1px solid #cccccc; background:#eeeeee;}
+</code></pre>
+
+<p>在inline box模型中，有个line boxes，它是看不见的，它的工作就是包裹每行文字。一行文字一个line boxes。如果它们在一行显示，只有一个line boxe，但要是竖着写，一行一个，一个字罩着一个line boxes。line boxes什么特性也没有，就高度。所以一个没有设置height属性的div的高度就是由一个一个line boxes的高度堆积而成的。</p>
+
+<p>line boxes的高度是由inline boxes决定的，inline boxes就是文字，图片啊，span之类的inline属性的标签。这些标签谁的实际line-height值最高，谁最高，line boxes就取谁的值，形成高度。</p>
+
+<p>1、单行文字的垂直居中对齐</p>
+
+<p>把<code>line-height</code>设置为需要的box的大小可以实现单行文字的垂直居中”。</p>
+
+<p>2、多行文字的垂直居中</p>
+
+<pre><code>.mulit_line{line-height:150px; border:1px dashed #cccccc; padding-left:5px;}
+.mulit_line span{display:inline-block; line-height:1.4em; vertical-align:middle;}
+</code></pre>
+
+<p>html代码：</p>
+
+<pre><code>&lt;p class="mulit_line"&gt;
+&lt;span style="font-size:12px;"&gt;这里是高度为150像素的标签内的多行文字，文字大小为12像素。&lt;br /&gt;这里是第二行，用来测试多行的显示效果。&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>兼容性还未测 待后续补充</p>
+
+<h3>三、行高在文章显示中的应用</h3>
+
+<p>文章里面的文字是有大有小的，使用px定值，由于继承性，无法实现根据文字大小自动调整间距，会出现大号文字重叠的现象。一般文章显示最好是650像素的宽度，1.5倍的行距较好。</p>
+
+<p>有个很搓的办法可以实现文字间距自动适应于文字的大小，那就是使用“*”通配符，例如：<code>.article_box *{line-height:150%;}</code>使用“*”通配符大大增加了css的渲染，效率低。</p>
+
+<p>更好的方法，就是使用数值。150%和1.5在值上是一样的，但是它们也是有差别的，差别在于继承性，使用百分比会计算<code>line-height</code>的值，然后以px像素为单位继承下去，而1.5则是先继承1.5这个值，遍历到了该标签再计算<code>line-height</code>的像素值。所以同样的效果只需要.<code>article_box{line-height:1.5;}</code>就可以实现了。</p>
+
+<h3>四、使用行高代替高度避免haslayout</h3>
+
+<p>某些情形下，line-height可以和height互换，因为实现的效果一样。都能撑开一个高度，然而这两个css属性有一个较隐蔽的差异，就是使用height会使标签haslayout，而使用line-height则不会。以前只有IE6的时候曾流行使用height清除浮动，就是利用了IE下height使haslayout的属性。但有时候，haslayout并不需要，反而要避免。</p>
+
+<p>有关自适应按钮使用了line-height代替了height，其原因在于：IE6，IE7下，类似inline-block属性的元素里如果有block属性的元素，如果该block haslayout，则该标签会冲破外部inline-block的显示而宽度100%显示，从使按钮自适应文字大小的效果失效，解决方法就是使用line-height代替height。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T16:28:19+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>4:28 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/03/css-zhi-inline-block/" title="Previous Post: css 之 inline-block ">&laquo; css 之 inline-block </a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/" title="Next Post: css 之 图片垂直居中">css 之 图片垂直居中 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

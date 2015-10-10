@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Css 之 图片垂直居中 - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="大小不固定，图片的垂直居中 ① 透明gif图片+背景定位 这里利用了background-position:center实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Css 之 图片垂直居中</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-04T23:05:07+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:05 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>大小不固定，图片的垂直居中</h3>
+
+<h4>① 透明gif图片+背景定位</h4>
+
+<p>这里利用了<code>background-position:center</code>实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，然后给这个gif图片一个<code>background-position:center center</code>的属性。而background-image建议写在页面上，因为实际项目中，这肯定是个动态的URL地址，css文件似乎不支持动态URL地址。下面就是此方法的实例表现。</p>
+
+<!--more-->
+
+
+<pre><code>&lt;ul class="zxx_align_box_3 fix"&gt;
+    &lt;li&gt;
+    &lt;img src="../image/pixel.gif" style="background-image:url(/image/study/s/s128/mm1.jpg);" /&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>css部分：</p>
+
+<pre><code>.zxx_align_box_3 li{width:1em; height:1em; font-size:128px; float:left;}
+.zxx_align_box_3 li img{display:block; width:100%; height:100%; background-repeat:no-repeat; background-position:center;}
+</code></pre>
+
+<h4>② display:inline-block和文字大小控制居中</h4>
+
+<p>代码相当简洁，是个成本很低，效果惊人的方法，适用于多图显示的情况。只需要一层必须要的a标签就解决问题了！</p>
+
+<pre><code>&lt;div class="zxx_align_box_5 fix"&gt;
+    &lt;a href="#zhangxinxu"&gt;
+        &lt;img src="http://image/study/s/s128/mm1.jpg" /&gt;
+    &lt;/a&gt;
+    &lt;a href="#zhangxinxu"&gt;
+        &lt;img src="http://image/study/s/s128/mm2.jpg" /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>css:</p>
+
+<pre><code>.zxx_align_box_5 a{display:inline-block; width:1.2em; font-size:128px; text-align:center; vertical-align:middle;}
+.zxx_align_box_5 a img{vertical-align:middle; padding:2px; border:1px solid #beceeb;}
+</code></pre>
+
+<h6>需要说明的：</h6>
+
+<p>1.img外的标签需是a标签或span这类inline属性的标签，div标签也可以，但是css代码多些:<code>display:inline; display:inline-block</code>先变成inline属性，再转变成inline-block属性，原因讲起来又是一篇长长的文章，放着。</p>
+
+<p>2.此方法只需要两层标签即可，可谓代码超简洁，但是只适用于多图垂直居中对齐的情况。因为其对齐原理是相邻的图片居中对齐，如果只是一个图片，vertical-align:middle就只有与空格对齐了。</p>
+
+<h4>③ 使用空白图片实现垂直对齐</h4>
+
+<pre><code>&lt;ul class="zxx_align_box_6 fix"&gt;
+    &lt;li&gt;
+    &lt;img class="show_img" src="/image/study/s/s128/mm1.jpg" /&gt;
+    &lt;img class="alpha_img" src="../image/pixel.gif" /&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>css:</p>
+
+<pre><code>.zxx_align_box_6 li{height:128px; width:150px;float:left;text-align:center; font-size:0;}
+.zxx_align_box_6 li .alpha_img{height:100%; width:1px; vertical-align:middle;}
+.zxx_align_box_6 li .show_img{vertical-align:middle;}
+</code></pre>
+
+<h6>原理简述：</h6>
+
+<p>一句话，将要显示的图片与一张透明的高度100%，宽度1像素的透明图片<code>vertical-align:middle</code>对齐。</p>
+
+<p>其核心原理其实与第二种利用font-size大小实现IE下图片垂直居中是一致的。将font-size设置得很大，目的是撑开IE下默认文字空间的高度，其性质类似于空格，然后通过<code>vertical-align:middle</code>属性让图片与这个高高的空白空格空间垂直居中对齐；</p>
+
+<p>而这里将这个看不见的文字空间实例成一张透明的gif图片，高度可以轻松设置为外部标签的高度，然后通过<code>vertical-align:middle</code>对齐，就实现效果了，在各个浏览器下都是一样的表现，不需要担心什么兼容性的问题。而且代码很简单，很易懂，想出错都难！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-04T23:05:07+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:05 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/03/css-zhi-line-height/" title="Previous Post: css 之 line-height">&laquo; css 之 line-height</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/05/css-zhi-margin/" title="Next Post: css 之 margin">css 之 margin &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>jQuery 之 过滤选择器 - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="学习要点: - 基本过滤器
+- 内容过滤器 - 可见性过滤器 - 子元素过滤器 - 其他方法 过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。 一、基本过滤器 通过特定的过滤规则来筛选所需的 DOM 元素, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">jQuery 之 过滤选择器</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T21:54:41+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:54 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>学习要点:</h3>
+
+<pre><code>- 基本过滤器
+- 内容过滤器 
+- 可见性过滤器 
+- 子元素过滤器 
+- 其他方法
+</code></pre>
+
+<p>过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。</p>
+
+<h2>一、基本过滤器</h2>
+
+<p>通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。</p>
+
+<pre><code>$('li:first').css('background', '#ccc');       //第一个元素
+$('li:last).css('background', '#ccc');         //最后一个元素
+$('li:not(.red)).css('background', '#ccc');    //非 class 为 red 的元素 
+
+$('li:even').css('background', '#ccc');        //索引为偶数的元素
+$('li:odd).css('background', '#ccc');          //索引为奇数的元素
+$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
+
+$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
+$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
+
+$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素
+</code></pre>
+
+<!--more-->
+
+
+<p>注意:<code>:focus</code>过滤器,必须是网页初始状态的已经被激活焦点的元素才能实现元素获取。 而不是鼠标点击或者 Tab 键盘敲击激活的。</p>
+
+<pre><code>$('input').get(0).focus();                 //先初始化激活一个元素焦点 
+$(':focus').css('background', 'red');      //被焦点的元素
+</code></pre>
+
+<p>jQuery 为最常用的过滤器提供了专用的方法,已达到提到性能和效率的作用:</p>
+
+<pre><code>$('li').eq(2).css('background', '#ccc');         //元素 li 的第三个元素,负数从后开始
+$('li').first().css('background', '#ccc');       //元素 li 的第一个元素
+$('li').last().css('background', '#ccc');        //元素 li 的最后一个元素
+$('li').not('.red').css('background', '#ccc');   //元素 li 不含 class 为 red 的元素
+</code></pre>
+
+<h2>二、内容过滤器</h2>
+
+<p>内容过滤器的过滤规则主要是包含的子元素或文本内容上。</p>
+
+<pre><code>$('div:contains("ycku.com")').css('background', '#ccc');   //选择元素文本节点含有 ycku.com 文本的元素
+$('div:empty').css('background', '#ccc');                  //选择空元素
+$('ul:has(.red)').css('background', '#ccc');               //选择子元素含有 class 是 red 的元素 
+$(':parent').css('background', '#ccc');                    //选择非空元素  选取含有子元素或文本的元素
+</code></pre>
+
+<p>jQuery 提供了一个 has()方法来提高:has 过滤器的性能:</p>
+
+<pre><code>$('ul').has('.red').css('background', '#ccc');         //选择子元素含有 class 是 red 的元素
+</code></pre>
+
+<p>jQuery 提供了一个名称和<code>:parent</code>相似的方法,但这个方法并不是选取含有子元素或文本 的元素,而是获取当前元素的父元素,返回的是元素集合。</p>
+
+<pre><code>$('li').parent().css('background', '#ccc');               //选择当前元素的父元素 
+$('li').parents().css('background', '#ccc');              //选择当前元素的父元素及祖先元素 
+$('li').parentsUntil('div').css('background', '#ccc');    //选择当前元素遇到 div 父元素停止
+</code></pre>
+
+<h2>三、可见性过滤器</h2>
+
+<pre><code>$('p:hidden).size(); //选取所有不可见元素
+$('p:visible').size(); //元素 p 显示的元素
+</code></pre>
+
+<p>注意:<code>:hidden</code>过滤器一般是包含的内容为:CSS 样式为<code>display:none、</code>input 表单类型为 <code>type="hidden"</code>和 <code>visibility:hidden</code>的元素。</p>
+
+<h2>四、子元素过滤器</h2>
+
+<p>子元素过滤器的过滤规则是通过父元素和子元素的关系来获取相应的元素。</p>
+
+<pre><code>$('li:first-child').css('background', '#ccc');       //每个父元素第一个 li 元素 
+$('li:last-child').css('background', '#ccc');        //每个父元素最后一个 li 元素 
+$('li:only-child').css('background', '#ccc');        //每个父元素只有一个 li 元素 
+$('li:nth-child(odd)').css('background', '#ccc');    //每个父元素奇数 li 元素
+$('li:nth-child(even)').css('background', '#ccc');   //每个父元素偶数 li 元素
+$('li:nth-child(2)').css('background', '#ccc');      //每个父元素第三个 li 元素
+</code></pre>
+
+<h2>五、其他方法</h2>
+
+<p>jQuery 在选择器和过滤器上,还提供了一些常用的方法,方便我们开发时灵活使用。</p>
+
+<pre><code>$('.red').is('li');                             //true,选择器,检测 class 为是否为 red
+$('.red').is($('li'));                          //true,jQuery 对象集合,同上
+$('.red').is($('li').eq(2));                    //true,jQuery 对象集合,同上
+$('.red').is($('li').get(2));                   //true,DOM 对象,同上
+$('.red').is(function () {                      //true,方法,同上
+    return $(this).attr('title') == '列表 3';    //可以自定义各种判断
+}));   
+$('li').eq(2).hasClass('red');                   //和 is 一样,只不过只能传递 class
+
+$('li').slice(0,2).css('background', '#ccc');    //前三个变成色
+</code></pre>
+
+<p>注意:这个参数有多种传法和 JavaScript 的 slice 方法是一样的比如:slice(2);slice(2,4),第三和第四被选定;slice(0,-2),从倒数第三个位置,向前选定 所有;slice(2,-2),前两个和末尾两个未选定。</p>
+
+<pre><code>$("div").find("p").end().get(0);        //返回 div 的原生 DOM
+$('div').contents().size();             //返回子节点(包括文本)数量
+
+$('li').filter('.red').css('background','#ccc');         //选择 li 的 class 为 red 的元素
+$('li').filter('.red, :first, :last').css('background','#ccc');    //增加了首尾选择
+</code></pre>
+
+<p>特殊要求函数返回</p>
+
+<pre><code>$('li').filter(function () {
+        return $(this).attr('class') == 'red' &amp;&amp; $(this).attr('title') == '列表 3'; 
+        }).css('background', '#ccc');
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T21:54:41+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:54 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jquery/'>jquery</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/09/jquery-chang-gui-qi/" title="Previous Post: jQuery 之 常规选择器">&laquo; jQuery 之 常规选择器</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/" title="Next Post: jQuery 之 基础DOM和CSS操作">jQuery 之 基础DOM和CSS操作 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

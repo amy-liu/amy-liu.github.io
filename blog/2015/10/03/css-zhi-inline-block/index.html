@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Css 之 Inline-block - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="替代float 的 inline-block列表布局 浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。 关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-inline-block/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Css 之 Inline-block</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T15:10:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>替代float 的 inline-block列表布局</h3>
+
+<p>浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。</p>
+
+<p>关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes，这个line box的高度由里面最高的元素决定。<code>inline-block</code>属性属于line box模型，其布局的列表元素高度异常时，撑开的是整个line boxes的高度，因而，不会与下一行的列表元素发生错位。</p>
+
+<!--more-->
+
+
+<h3>一、inline-block的兼容性</h3>
+
+<p>对于IE8+以及现代浏览器，直接使用：</p>
+
+<pre><code>{display:inline-block;}
+</code></pre>
+
+<p>对于不支持的IE6/7浏览器 如果是inline元素（如a标签，span标签之类）跟上面一样，直接：</p>
+
+<pre><code>{display:inline-block;}
+</code></pre>
+
+<p>如果是block元素，如下所示：</p>
+
+<pre><code>{display:inline-block; *display:inline；*zoom:1;}
+</code></pre>
+
+<h3>二、一点小阻挠：inline-block元素间的换行符空格间隙问题</h3>
+
+<p>使用display:inline-block布局经常会遇到的“换行符/空格间隙问题”。</p>
+
+<p>如果inline-block元素间有空格或是换行产生了间隙，那是正常的，真正的inline-block元素，就像个图片一样。例如，两个不在一行的img标签，形成的两个图片之间就会有间隙。要让这些空格不出现，最简单的最容易理解的就是让列表的结束标签与下一个列表的开始标签连在一起，这样代码的可读性很不好，不建议使用。</p>
+
+<p>空格符本质上就是个字符，与a,b,c,d这些字符是个同一个属性的东西，只是他是空格，透明的看不见而已（但可以选中）。所以，只要我们使用让文字宽度为0的那些方法，是不是就可以解决inline-block元素间换行符间隙的问题呢！</p>
+
+<pre><code>{font-size:0;}
+</code></pre>
+
+<p>结果IE7E和Safari 会有1像素空隙，Chrome下的空格对于<code>font-size:0</code>貌似很不屑一顾,置若罔闻，连同样内核的Safari都不会这样。</p>
+
+<p>想到有个letter-spacing属性。可以控制文字间的水平距离的，支持负值，可以让文字水平方向上重叠（line-height是让文字垂直方向上重叠）。</p>
+
+<pre><code>letter-spaceing:-4px;
+</code></pre>
+
+<p>既然IE6/7浏览器div,li 这些标签inline-block化后没有空格间隙，那么使用letter-spacing负值会不会让列表元素水平重叠呢？这个问题就不要担心了，如果元素间本身没有空格，使用letter-spacing属性是不会发生水平重叠的问题的。测试通过。
+唯一有瑕疵的是在Opera浏览器下，两个inline-block元素间空白间隙使用letter-spacing去除的极限是1像素，当看上去要正好为0的时候，letter-spacing似乎失效，空白间距恢复成letter-spacing:0时的效果。</p>
+
+<p>ok，整理一下：</p>
+
+<p>» block水平的元素inline-block化后，IE6/7没有换行符间隙问题，其他浏览器均有；</p>
+
+<p>» inline水平的元素inline-block后，所有主流浏览器都有换行符/空格间隙问题；</p>
+
+<p>» font-size:0，去除换行符间隙，在IE6/7下残留1像素间隙，Chrome浏览器无效，其他浏览器都完美去除；</p>
+
+<p>» letter-spacing负值可以去除所有浏览器的换行符间隙，但是，Opera浏览器下极限是间隙1像素，0像素会反弹，换行符间隙还原。</p>
+
+<p>虽然font-size:0有缺陷，letter-spacing负值也有不足，但是一旦将它们同时出现，互补与整合，换行符间隙问题迎刃而解。</p>
+
+<pre><code>letter-spacing:-3px; font-size:0
+</code></pre>
+
+<h6>所以，应用display:inline-block属性实现列表布局的几个关键字就是：block水平的标签，font-size:0和letter-spacing负值。</h6>
+
+<h3>三、更进一步：更加灵活的inline-block列表布局</h3>
+
+<p>使用white-space:nowrap;属性可以让列表不换行，你是否想到了列表元素的水平滚动切换</p>
+
+<p>text-align:justify可以实现自动等宽水平排列的列表布局，而且是两端对齐的，不需要计算宽度，一切都是浏览器自动的，很方便很强大。尤其在自适应布局中。</p>
+
+<pre><code>.box{width:50%; padding:20px; margin:20px auto; background-color:#f0f3f9; text-align:justify;}
+.list{width:120px; display:inline-block; padding-bottom:20px; text-align:center; vertical-align:top;}
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T15:10:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/03/css-zhi-float/" title="Previous Post: css 之 float">&laquo; css 之 float</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/03/css-zhi-line-height/" title="Next Post: css 之 line-height">css 之 line-height &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

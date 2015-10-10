@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Css | 异朽阁]]></title>
+  <link href="http://amy-liu.github.io/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://amy-liu.github.io/"/>
+  <updated>2015-10-10T21:26:13+08:00</updated>
+  <id>http://amy-liu.github.io/</id>
+  <author>
+    <name><![CDATA[amy-liu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Css 之 Margin]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/05/css-zhi-margin/"/>
+    <updated>2015-10-05T10:53:49+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/05/css-zhi-margin</id>
+    <content type="html"><![CDATA[<p>你真的了解margin吗？你知道margin有什么特性吗？你知道什么是垂直外边距合并？&hellip; 我真的有点晕！！</p>
+
+<h4>一、Margin是什么</h4>
+
+<p>边界，元素周围生成额外的空白区。“空白区”通常是指其他元素不能出现且父元素背景可见的区域。——CSS权威指南<!--more--></p>
+
+<h4>二、垂直外边距合并问题</h4>
+
+<p>外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距合并。合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。</p>
+
+<p>垂直外边距合并问题常见于第一个子元素的margin-top会顶开父元素与父元素相邻元素的间距，而且只在标准浏览器下(FirfFox、Chrome、Opera、Sarfi)产生问题，IE下反而表现良好。</p>
+
+<p>如果你读过了上面W3Shcool的CSS外边距合并的文章后，就很容易讨论这个问题了。这个问题发生的原因是根据规范，一个盒子如果没有上补白<code>(padding-top)</code>和上边框<code>(border-top)</code>，那么这个盒子的上边距会和其内部文档流中的第一个子元素的上边距重叠。</p>
+
+<p>再说了白点就是：父元素的第一个子元素的上边距margin-top如果碰不到有效的border或者padding.就会不断一层一层的找自己“领导”(父元素，祖先元素)的麻烦。只要给领导设置个有效的 border或者padding就可以有效的管制这个目无领导的margin防止它越级。</p>
+
+<p>个人认为：margin是用来隔开元素与元素的间距；padding是用来隔开元素与内容的间隔。margin用于布局分开元素使元素与元素互不相干；padding用于元素与内容之间的间隔，让内容（文字）与（包裹）元素之间有一段“呼吸距离”。</p>
+
+<h4>三、 margin在块元素、内联元素中的区别</h4>
+
+<p>HTML（这里说的是html标准，而不是xhtml）里分两种基本元素，即block和inline。</p>
+
+<p>顾名思义，block元素就是以”块”表现的元素<code>（block-like elements）</code>，inline元素即是以”行”表现的元素<code>（character level elements and text strings）</code>。二者表现的主要差别在于，在页面文档中block元素另起一行开始，并独占一行。inline元素则同其他inline元素共处一行。</p>
+
+<p>block元素（块元素）大致有：P|H1|H2|H3|H4|H5|H6|UL|OL|PRE| DL | DIV | NOSCRIPT | BLOCKQUOTE | FORM | HR | TABLE | FIELDSET | ADDRESS</p>
+
+<p>inline元素（内联元素）大致有：#PCDATA（即文本）| TT | I | B | BIG | SMALL|EM | STRONG | DFN | CODE |SAMP | KBD | VAR | CITE | ABBR | ACRONYM|A | IMG | OBJECT | BR | SCRIPT | MAP | Q | SUB | SUP | SPAN | BDO|INPUT | SELECT | TEXTAREA | LABEL | BUTTON</p>
+
+<p>其中有类特殊的元素：如img|input|select|textarea|button|label等，他们被称为可置换元素（Replaced element）。他们区别一般inline元素（相对而言，称non-replaced element）是：这些元素拥有内在尺寸(intrinsic dimensions),他们可以设置width/height属性。他们的性质同设置了display:inline-block的元素一致。</p>
+
+<p>置换元素（replaced element）主要是指<code>img, input, textarea, select, object</code>等这类默认就有 CSS 格式化外表范围的元素。进而可知，非置换元素（non-replaced element）就是除了<code>img, input, textarea, select, object</code>等置换元素以外的元素。</p>
+
+<p><code>margin-top/margin-bottom</code>对内联元素没有多大实际效果，不过<code>margin-left/margin-right</code>还是能够对内联元素产生影响的。</p>
+
+<h4>四、  负margin技术及其应用</h4>
+
+<pre><code>margin:-10px 20px -30px 40px;
+</code></pre>
+
+<p><img src="http://www.planabc.net/wp-content/uploads/2008/02/margin_example.gif" alt="margin" /></p>
+
+<p>物理大小指的是除去 margin，也就是包含 border 以内的 box 大小，而逻辑大小，则是 box 通过 margin 解析规则解析后得到的大小</p>
+
+<p>box 的实际大小 = box 的物理大小 + 正的 margin</p>
+
+<h5>结论：</h5>
+
+<p>box 最后的显示大小等于 box 的 border 及 border 内的大小加上正的 margin 值。而负的 margin 值不会影响 box 的实际大小，如果是负的 top 或 left 值会引起 box 的向上或向左位置移动，如果是 bottom 或 right 只会影响下面 box 的显示的参考线。</p>
+
+<h4>四、 常见的浏览器下margin出现的bug</h4>
+
+<h5>IE6中双边距Bug</h5>
+
+<ul>
+<li>发生场合：当给父元素内第一个浮动元素设置<code>margin-left（元素float:left）</code>或<code>margin-right（元素float:right）</code>时margin加倍。</li>
+</ul>
+
+
+<p>解决方法：是给浮动元素加上<code>display:inline;</code>；或者用<code>padding-left</code>代替<code>margin-left</code>。</p>
+
+<p>待整理。。。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Css 之 图片垂直居中]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/"/>
+    <updated>2015-10-04T23:05:07+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong</id>
+    <content type="html"><![CDATA[<h3>大小不固定，图片的垂直居中</h3>
+
+<h4>① 透明gif图片+背景定位</h4>
+
+<p>这里利用了<code>background-position:center</code>实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，然后给这个gif图片一个<code>background-position:center center</code>的属性。而background-image建议写在页面上，因为实际项目中，这肯定是个动态的URL地址，css文件似乎不支持动态URL地址。下面就是此方法的实例表现。</p>
+
+<!--more-->
+
+
+<pre><code>&lt;ul class="zxx_align_box_3 fix"&gt;
+    &lt;li&gt;
+    &lt;img src="../image/pixel.gif" style="background-image:url(/image/study/s/s128/mm1.jpg);" /&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>css部分：</p>
+
+<pre><code>.zxx_align_box_3 li{width:1em; height:1em; font-size:128px; float:left;}
+.zxx_align_box_3 li img{display:block; width:100%; height:100%; background-repeat:no-repeat; background-position:center;}
+</code></pre>
+
+<h4>② display:inline-block和文字大小控制居中</h4>
+
+<p>代码相当简洁，是个成本很低，效果惊人的方法，适用于多图显示的情况。只需要一层必须要的a标签就解决问题了！</p>
+
+<pre><code>&lt;div class="zxx_align_box_5 fix"&gt;
+    &lt;a href="#zhangxinxu"&gt;
+        &lt;img src="http://image/study/s/s128/mm1.jpg" /&gt;
+    &lt;/a&gt;
+    &lt;a href="#zhangxinxu"&gt;
+        &lt;img src="http://image/study/s/s128/mm2.jpg" /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>css:</p>
+
+<pre><code>.zxx_align_box_5 a{display:inline-block; width:1.2em; font-size:128px; text-align:center; vertical-align:middle;}
+.zxx_align_box_5 a img{vertical-align:middle; padding:2px; border:1px solid #beceeb;}
+</code></pre>
+
+<h6>需要说明的：</h6>
+
+<p>1.img外的标签需是a标签或span这类inline属性的标签，div标签也可以，但是css代码多些:<code>display:inline; display:inline-block</code>先变成inline属性，再转变成inline-block属性，原因讲起来又是一篇长长的文章，放着。</p>
+
+<p>2.此方法只需要两层标签即可，可谓代码超简洁，但是只适用于多图垂直居中对齐的情况。因为其对齐原理是相邻的图片居中对齐，如果只是一个图片，vertical-align:middle就只有与空格对齐了。</p>
+
+<h4>③ 使用空白图片实现垂直对齐</h4>
+
+<pre><code>&lt;ul class="zxx_align_box_6 fix"&gt;
+    &lt;li&gt;
+    &lt;img class="show_img" src="http://amy-liu.github.io/image/study/s/s128/mm1.jpg" /&gt;
+    &lt;img class="alpha_img" src="../image/pixel.gif" /&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>css:</p>
+
+<pre><code>.zxx_align_box_6 li{height:128px; width:150px;float:left;text-align:center; font-size:0;}
+.zxx_align_box_6 li .alpha_img{height:100%; width:1px; vertical-align:middle;}
+.zxx_align_box_6 li .show_img{vertical-align:middle;}
+</code></pre>
+
+<h6>原理简述：</h6>
+
+<p>一句话，将要显示的图片与一张透明的高度100%，宽度1像素的透明图片<code>vertical-align:middle</code>对齐。</p>
+
+<p>其核心原理其实与第二种利用font-size大小实现IE下图片垂直居中是一致的。将font-size设置得很大，目的是撑开IE下默认文字空间的高度，其性质类似于空格，然后通过<code>vertical-align:middle</code>属性让图片与这个高高的空白空格空间垂直居中对齐；</p>
+
+<p>而这里将这个看不见的文字空间实例成一张透明的gif图片，高度可以轻松设置为外部标签的高度，然后通过<code>vertical-align:middle</code>对齐，就实现效果了，在各个浏览器下都是一样的表现，不需要担心什么兼容性的问题。而且代码很简单，很易懂，想出错都难！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Css 之 Line-height]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-line-height/"/>
+    <updated>2015-10-03T16:28:19+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/03/css-zhi-line-height</id>
+    <content type="html"><![CDATA[<h3>一、字面意思</h3>
+
+<p>“Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。</p>
+
+<p><img src="/images/base_line.jpg" alt="base_line" /></p>
+
+<h3>二、line-height与line boxes高度</h3>
+
+<p>css中起高度作用的应该就是height以及line-height了吧！如果一个标签没有定义height属性(包括百分比高度)，那么其最终表现的高度一定是由line-height起作用，即使是IE6下11像素左右默认高度bug也是如此。</p>
+
+<!--more-->
+
+
+<p>一个空的div，如果没有设置至少大于1像素高度height值时，该div的高度就是个0。如果该div里面打入了一个空格或是文字，则此div就会有一个高度。
+深入理解inline模型后，会发现，不是文字撑开了div的高度，而是line-height！测试：</p>
+
+<pre><code>.test1{font-size:20px; line-height:0; border:1px solid #cccccc; background:#eeeeee;}
+.test2{font-size:0; line-height:20px; border:1px solid #cccccc; background:#eeeeee;}
+</code></pre>
+
+<p>在inline box模型中，有个line boxes，它是看不见的，它的工作就是包裹每行文字。一行文字一个line boxes。如果它们在一行显示，只有一个line boxe，但要是竖着写，一行一个，一个字罩着一个line boxes。line boxes什么特性也没有，就高度。所以一个没有设置height属性的div的高度就是由一个一个line boxes的高度堆积而成的。</p>
+
+<p>line boxes的高度是由inline boxes决定的，inline boxes就是文字，图片啊，span之类的inline属性的标签。这些标签谁的实际line-height值最高，谁最高，line boxes就取谁的值，形成高度。</p>
+
+<p>1、单行文字的垂直居中对齐</p>
+
+<p>把<code>line-height</code>设置为需要的box的大小可以实现单行文字的垂直居中”。</p>
+
+<p>2、多行文字的垂直居中</p>
+
+<pre><code>.mulit_line{line-height:150px; border:1px dashed #cccccc; padding-left:5px;}
+.mulit_line span{display:inline-block; line-height:1.4em; vertical-align:middle;}
+</code></pre>
+
+<p>html代码：</p>
+
+<pre><code>&lt;p class="mulit_line"&gt;
+&lt;span style="font-size:12px;"&gt;这里是高度为150像素的标签内的多行文字，文字大小为12像素。&lt;br /&gt;这里是第二行，用来测试多行的显示效果。&lt;/span&gt;&lt;/p&gt;
+</code></pre>
+
+<p>兼容性还未测 待后续补充</p>
+
+<h3>三、行高在文章显示中的应用</h3>
+
+<p>文章里面的文字是有大有小的，使用px定值，由于继承性，无法实现根据文字大小自动调整间距，会出现大号文字重叠的现象。一般文章显示最好是650像素的宽度，1.5倍的行距较好。</p>
+
+<p>有个很搓的办法可以实现文字间距自动适应于文字的大小，那就是使用“*”通配符，例如：<code>.article_box *{line-height:150%;}</code>使用“*”通配符大大增加了css的渲染，效率低。</p>
+
+<p>更好的方法，就是使用数值。150%和1.5在值上是一样的，但是它们也是有差别的，差别在于继承性，使用百分比会计算<code>line-height</code>的值，然后以px像素为单位继承下去，而1.5则是先继承1.5这个值，遍历到了该标签再计算<code>line-height</code>的像素值。所以同样的效果只需要.<code>article_box{line-height:1.5;}</code>就可以实现了。</p>
+
+<h3>四、使用行高代替高度避免haslayout</h3>
+
+<p>某些情形下，line-height可以和height互换，因为实现的效果一样。都能撑开一个高度，然而这两个css属性有一个较隐蔽的差异，就是使用height会使标签haslayout，而使用line-height则不会。以前只有IE6的时候曾流行使用height清除浮动，就是利用了IE下height使haslayout的属性。但有时候，haslayout并不需要，反而要避免。</p>
+
+<p>有关自适应按钮使用了line-height代替了height，其原因在于：IE6，IE7下，类似inline-block属性的元素里如果有block属性的元素，如果该block haslayout，则该标签会冲破外部inline-block的显示而宽度100%显示，从使按钮自适应文字大小的效果失效，解决方法就是使用line-height代替height。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Css 之 Inline-block]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-inline-block/"/>
+    <updated>2015-10-03T15:10:13+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/03/css-zhi-inline-block</id>
+    <content type="html"><![CDATA[<h3>替代float 的 inline-block列表布局</h3>
+
+<p>浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。</p>
+
+<p>关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes，这个line box的高度由里面最高的元素决定。<code>inline-block</code>属性属于line box模型，其布局的列表元素高度异常时，撑开的是整个line boxes的高度，因而，不会与下一行的列表元素发生错位。</p>
+
+<!--more-->
+
+
+<h3>一、inline-block的兼容性</h3>
+
+<p>对于IE8+以及现代浏览器，直接使用：</p>
+
+<pre><code>{display:inline-block;}
+</code></pre>
+
+<p>对于不支持的IE6/7浏览器 如果是inline元素（如a标签，span标签之类）跟上面一样，直接：</p>
+
+<pre><code>{display:inline-block;}
+</code></pre>
+
+<p>如果是block元素，如下所示：</p>
+
+<pre><code>{display:inline-block; *display:inline；*zoom:1;}
+</code></pre>
+
+<h3>二、一点小阻挠：inline-block元素间的换行符空格间隙问题</h3>
+
+<p>使用display:inline-block布局经常会遇到的“换行符/空格间隙问题”。</p>
+
+<p>如果inline-block元素间有空格或是换行产生了间隙，那是正常的，真正的inline-block元素，就像个图片一样。例如，两个不在一行的img标签，形成的两个图片之间就会有间隙。要让这些空格不出现，最简单的最容易理解的就是让列表的结束标签与下一个列表的开始标签连在一起，这样代码的可读性很不好，不建议使用。</p>
+
+<p>空格符本质上就是个字符，与a,b,c,d这些字符是个同一个属性的东西，只是他是空格，透明的看不见而已（但可以选中）。所以，只要我们使用让文字宽度为0的那些方法，是不是就可以解决inline-block元素间换行符间隙的问题呢！</p>
+
+<pre><code>{font-size:0;}
+</code></pre>
+
+<p>结果IE7E和Safari 会有1像素空隙，Chrome下的空格对于<code>font-size:0</code>貌似很不屑一顾,置若罔闻，连同样内核的Safari都不会这样。</p>
+
+<p>想到有个letter-spacing属性。可以控制文字间的水平距离的，支持负值，可以让文字水平方向上重叠（line-height是让文字垂直方向上重叠）。</p>
+
+<pre><code>letter-spaceing:-4px;
+</code></pre>
+
+<p>既然IE6/7浏览器div,li 这些标签inline-block化后没有空格间隙，那么使用letter-spacing负值会不会让列表元素水平重叠呢？这个问题就不要担心了，如果元素间本身没有空格，使用letter-spacing属性是不会发生水平重叠的问题的。测试通过。
+唯一有瑕疵的是在Opera浏览器下，两个inline-block元素间空白间隙使用letter-spacing去除的极限是1像素，当看上去要正好为0的时候，letter-spacing似乎失效，空白间距恢复成letter-spacing:0时的效果。</p>
+
+<p>ok，整理一下：</p>
+
+<p>» block水平的元素inline-block化后，IE6/7没有换行符间隙问题，其他浏览器均有；</p>
+
+<p>» inline水平的元素inline-block后，所有主流浏览器都有换行符/空格间隙问题；</p>
+
+<p>» font-size:0，去除换行符间隙，在IE6/7下残留1像素间隙，Chrome浏览器无效，其他浏览器都完美去除；</p>
+
+<p>» letter-spacing负值可以去除所有浏览器的换行符间隙，但是，Opera浏览器下极限是间隙1像素，0像素会反弹，换行符间隙还原。</p>
+
+<p>虽然font-size:0有缺陷，letter-spacing负值也有不足，但是一旦将它们同时出现，互补与整合，换行符间隙问题迎刃而解。</p>
+
+<pre><code>letter-spacing:-3px; font-size:0
+</code></pre>
+
+<h6>所以，应用display:inline-block属性实现列表布局的几个关键字就是：block水平的标签，font-size:0和letter-spacing负值。</h6>
+
+<h3>三、更进一步：更加灵活的inline-block列表布局</h3>
+
+<p>使用white-space:nowrap;属性可以让列表不换行，你是否想到了列表元素的水平滚动切换</p>
+
+<p>text-align:justify可以实现自动等宽水平排列的列表布局，而且是两端对齐的，不需要计算宽度，一切都是浏览器自动的，很方便很强大。尤其在自适应布局中。</p>
+
+<pre><code>.box{width:50%; padding:20px; margin:20px auto; background-color:#f0f3f9; text-align:justify;}
+.list{width:120px; display:inline-block; padding-bottom:20px; text-align:center; vertical-align:top;}
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Css 之 Float]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-float/"/>
+    <updated>2015-10-03T11:07:53+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/03/css-zhi-float</id>
+    <content type="html"><![CDATA[<h3>重识float浮动</h3>
+
+<h6>- 目前大多数浮动应用都不是浮动应该做的</h6>
+
+<h6>- 浮动的本质是“包裹及破坏”</h6>
+
+<h6>- 浮动的意义仅仅是文字环绕显示而已</h6>
+
+<h3>一、浮动的原始意义是什么？</h3>
+
+<p>浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”，我是想不出来能有什么方法可以让文字环绕图片显示。好，这个替代不了的作用才是float真正的意义所在。所以请记住，浮动出现的意义其实只是用来让文字环绕图片而已，仅此而已。而我们目前用浮动实现页面布局本不是浮动该干的事情。</p>
+
+<h3>二、浮动的本质是什么？</h3>
+
+<p>我们可以将浮动的本质定义为“包裹与破坏”</p>
+
+<p>浮动的“包裹性”：撇开浮动的“破坏性”，浮动就是个带有方位的<code>display:inline-block</code>属性。<code>display:inline-block</code>某种意义上的作用就是包裹<code>(wrap)</code></p>
+
+<p>浮动的“破坏性”：文字之所以会环绕含有float属性的图片时因为浮动破坏了正常的line boxes。</p>
+
+<p>inline boxes不会让内容成块显示，而是排成一行，如果外部含inline属性的标签(span,a,cite等)，则属于inline boxes，如果是个光秃秃的文字，则属于匿名inline boxes。</p>
+
+<p>浮动破坏了inline boxes也就没有高度可言了 产生了两个结果：脱离了其原来所在的line box链无法与文字同行显示；二是没有了高度（无inline box -> 无line box -> 无高度）。真是由于浮动元素没有了inline boxes，没有了inline boxes高度，才能让其他inline boxes元素重新整合，环绕浮动元素排列。
+而这些结果恰恰是文字环绕图片显示所必须的。</p>
+
+<!--more-->
+
+
+<h3>三、列表浮动布局的局限</h3>
+
+<p>对于浮动局部的局限性，就是每个列表元素的高度必须要一致，否则就会像是俄罗斯方块一样，“锯齿相错”，例如一个左浮动列表布局，如果第一行有个列表高度高于其他列表，那就在第二行，第一个元素会沿着最高元素的右侧对齐，此原因是属于恶魔系的float属性破坏了inline box 。</p>
+
+<h3>四、那么浮动布局更好的替代方案是什么</h3>
+
+<p><code>inline-block</code>属性的元素适用于inline box模型，当其中的列表元素高度不一时，也不会有错位。下一章我们详细介绍下这个属性。</p>
+]]></content>
+  </entry>
+  
+</feed>

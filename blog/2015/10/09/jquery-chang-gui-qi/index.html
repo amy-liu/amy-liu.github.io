@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>jQuery 之 常规选择器 - 异朽阁</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="jQuery 最核心的组成部分就是：选择器引擎。它继承了 CSS 的语法,不必担心浏览器的兼容性。 一、简单选择器 $('div').css('color', 'red'); //元素名选择器,返回多个元素 $('#box').css('color', 'red'); //ID 选择器, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/09/jquery-chang-gui-qi/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="异朽阁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">异朽阁</a></h1>
+  
+    <h2>--前端笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">jQuery 之 常规选择器</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T20:49:48+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:49 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>jQuery 最核心的组成部分就是：选择器引擎。它继承了 CSS 的语法,不必担心浏览器的兼容性。</p>
+
+<h3>一、简单选择器</h3>
+
+<pre><code>$('div').css('color', 'red');          //元素名选择器,返回多个元素 
+$('#box').css('color', 'red');         //ID 选择器,返回单个元素
+$('.box').css('color', 'red');         //类(class)选择器,返回多个元素
+</code></pre>
+
+<p>可以用 jQuery 核心自带的一个属性 length 或 size()方法来查看返回的元素个数。</p>
+
+<h5>容错功能：</h5>
+
+<pre><code>$('#pox').css('color', 'red');       //不存在 ID 为 pox 的元素,也不报错 
+document.getElementById('pox').style.color = 'red';     //报错了
+</code></pre>
+
+<!--more-->
+
+
+<p>原生方法可以这么判断解决这个问题:</p>
+
+<pre><code>if (document.getElementById('pox')) { //先判断是否存在这个对象 
+    document.getElementById('pox').style.color = 'red';
+}
+</code></pre>
+
+<p>使用 jQuery 调用的话,怎么去判断是否存在呢?因 为本身返回的是 jQuery 对象,可能会导致不存在元素存在与否,都会返回 true。</p>
+
+<pre><code>if ($('#pox').length &gt; 0) { //判断元素包含数量即可 
+    $('#pox').css('color', 'red');
+}
+</code></pre>
+
+<p>可以用转换为 DOM 对象的方式来判断,例如:</p>
+
+<pre><code>if ($('#pox').get(0)) {} 或 if ($('#pox')[0]) {} //通过数组下标也可以获取 DOM 对象
+</code></pre>
+
+<h3>二、进阶选择器</h3>
+
+<pre><code>$('span, em, .box').css('color', 'red');    //群组选择器 
+$('ul li a').css('color', 'red');           //后代选择器
+$('*').css('color', 'red');                 //通配选择器
+</code></pre>
+
+<h3>三、高级选择器</h3>
+
+<h4>1、层次选择器</h4>
+
+<pre><code>$('#box p').css('color', 'red');              //后代选择器
+$('#box').find('p').css('color', 'red');      //和后代选择器等价
+
+$('#box &gt; p').css('color', 'red');            //子选择器,孙子后失明
+$('#box').children('p').css('color', 'red');  //和子选择器等价
+
+$('#box+p').css('color', 'red');              //next 选择器(下一个同级节点)
+$('#box').next('p').css('color', 'red');      //和 next 选择器等价
+
+$('#box ~ p').css('color', 'red');            //nextAll 选择器(后面所有同级节点)
+$('#box').nextAll('p').css('color', 'red');   //和 nextAll 选择器等价
+</code></pre>
+
+<p>在 <code>find()、next()、nextAll()和 children()</code>这四个方法中,如果不传递参数,就相当于传递 了“*”,我们不建议这么做,不但影响性能,而且由于精准度不佳可能产生怪异的结果。</p>
+
+<p>补充：</p>
+
+<pre><code>$('#box').prev('p').css('color', 'red'); //同级上一个元素 
+$('#box').prevAll('p').css('color', 'red'); //同级所有上面的元素
+
+$('#box').prevUntil('p').css('color', 'red'); //同级上非指定元素选定,遇到则停止 
+$('#box').nextUntil('p').css('color', 'red'); //同级下非指定元素选定,遇到则停止
+</code></pre>
+
+<p>siblings()方法正好集成了 prevAll()和 nextAll()两个功能的效果,及上下相邻的所有元素 进行选定:</p>
+
+<pre><code>$('#box').siblings('p').css('color', 'red'); //同级上下所有元素选定
+</code></pre>
+
+<p>选择器快慢分析:</p>
+
+<p>最快的是 find()方法,最慢的是$(&lsquo;#box p&rsquo;)这种高级选择器。如果一开始将 $(&lsquo;#box&rsquo;)进行赋值,那么 jQuery 就对其变量进行缓存,那么速度会进一步提高。</p>
+
+<pre><code>var box = $('#box'); 
+var p = box.find('p');
+</code></pre>
+
+<h4>2、属性选择器</h4>
+
+<pre><code>$('a[title]').css('color', 'red');           //选定这个属性的
+$('a[title=num1]').css('color', 'red');      //选定具有这个属性=这个属性值的
+$('a[title=^num]').css('color', 'red');      //选定具有这个属性且开头属性值匹配的
+$('a[title|="num"]').css('color', 'red');    //选定具有这个属性且等于属性值或开头属性值匹配后面跟一个“-”号
+$('a[title$=num]').css('color','red');       //选定具有这个属性且结尾属性值匹配的
+$('a[title!=num1]').css('color','red');      //选定具有这个属性且属性值不想等的
+$('a[title~=num1]').css('color','red');      //选定具有这个属性且属性值是以一个空格分割的列表,其中包含属性值的
+$('a[title*=num]').css('color','red');       //选定具有这个属性且属性值含有一个指定字串的
+$('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性值匹配成功的
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T20:49:48+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:49 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jquery/'>jquery</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/07/css3-box-flexshu-xing/" title="Previous Post: css3 box-flex">&laquo; css3 box-flex</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/" title="Next Post: jQuery 之 过滤选择器">jQuery 之 过滤选择器 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM和CSS操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
