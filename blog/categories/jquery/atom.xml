@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-11T09:05:41+08:00</updated>
+  <updated>2015-10-11T23:25:23+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,40 @@
 
   
   <entry>
-    <title type="html"><![CDATA[jQuery 之 DOM操作]]></title>
+    <title type="html"><![CDATA[jQuery 之 基础DOM操作]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/"/>
     <updated>2015-10-10T21:00:03+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo</id>
-    <content type="html"><![CDATA[<h3>学习要点:</h3>
+    <content type="html"><![CDATA[<h2>一、设置元素及内容</h2>
+
+<p>在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。</p>
+
+<pre><code>$('#box').html();                       //获取 html 内容 
+$('#box').text();                       //获取文本内容,会自动清理 html 标签
+$('#box').html('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置 html 内容 
+$('#box').text('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置文本内容,会自动转义 html 标签
+</code></pre>
+
+<p>使用 html()或 text()设置元素里的内容时,会清空原来的数据。而我们期 望能够追加数据的话,需要先获取原本的数据。</p>
+
+<pre><code>$('#box').html($('#box').html() + '&lt;em&gt;www.li.cc&lt;/em&gt;'); //追加数据
+</code></pre>
+
+<p>如果元素是表单的话,jQuery 提供了 <code>val()</code>方法进行获取或设置内部的文本数据。</p>
+
+<pre><code>$('input').val(); //获取表单内容 
+$('input').val('www.li.cc'); //设置表单内容
+</code></pre>
+
+<p>如果想设置多个选项的选定状态,比如下拉列表、单选复选框等等,可以通过数组传递 操作。</p>
+
+<pre><code>$("input").val(["check1","check2", "radio1" ]); //value 值是这些的将被选定
+</code></pre>
+
+<!--more-->
+
+
+<h2>二、元素属性操作</h2>
 ]]></content>
   </entry>
   

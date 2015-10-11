@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>jQuery 之 DOM操作 - 云端笔记</title>
+  <title>jQuery 之 基础DOM操作 - 云端笔记</title>
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="学习要点:
-">
+  <meta name="description" content="一、设置元素及内容 在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。 $('#box').html(); //获取 html 内容 $('#box').text(); //获取文本内容,会自动清理 html 标签
+$('#box').html('&lt;em&gt; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">jQuery 之 DOM操作</h1>
+      <h1 class="entry-title">jQuery 之 基础DOM操作</h1>
     
     
       <p class="meta">
@@ -84,7 +84,36 @@
   </header>
 
 
-<div class="entry-content"><h3>学习要点:</h3>
+<div class="entry-content"><h2>一、设置元素及内容</h2>
+
+<p>在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。</p>
+
+<pre><code>$('#box').html();                       //获取 html 内容 
+$('#box').text();                       //获取文本内容,会自动清理 html 标签
+$('#box').html('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置 html 内容 
+$('#box').text('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置文本内容,会自动转义 html 标签
+</code></pre>
+
+<p>使用 html()或 text()设置元素里的内容时,会清空原来的数据。而我们期 望能够追加数据的话,需要先获取原本的数据。</p>
+
+<pre><code>$('#box').html($('#box').html() + '&lt;em&gt;www.li.cc&lt;/em&gt;'); //追加数据
+</code></pre>
+
+<p>如果元素是表单的话,jQuery 提供了 <code>val()</code>方法进行获取或设置内部的文本数据。</p>
+
+<pre><code>$('input').val(); //获取表单内容 
+$('input').val('www.li.cc'); //设置表单内容
+</code></pre>
+
+<p>如果想设置多个选项的选定状态,比如下拉列表、单选复选框等等,可以通过数组传递 操作。</p>
+
+<pre><code>$("input").val(["check1","check2", "radio1" ]); //value 值是这些的将被选定
+</code></pre>
+
+<!--more-->
+
+
+<h2>二、元素属性操作</h2>
 </div>
 
 
@@ -146,7 +175,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 DOM操作</a>
+        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
       </li>
     
       <li class="post">
