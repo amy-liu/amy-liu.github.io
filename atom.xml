@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-11T08:59:40+08:00</updated>
+  <updated>2015-10-11T09:05:41+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[jQuery 之 基础DOM和CSS操作]]></title>
+    <title type="html"><![CDATA[jQuery 之 DOM操作]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/"/>
     <updated>2015-10-10T21:00:03+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo</id>
@@ -27,16 +27,7 @@
     <link href="http://amy-liu.github.io/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/"/>
     <updated>2015-10-09T21:54:41+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi</id>
-    <content type="html"><![CDATA[<h3>学习要点:</h3>
-
-<pre><code>- 基本过滤器
-- 内容过滤器 
-- 可见性过滤器 
-- 子元素过滤器 
-- 其他方法
-</code></pre>
-
-<p>过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。</p>
+    <content type="html"><![CDATA[<p>过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。</p>
 
 <h2>一、基本过滤器</h2>
 
