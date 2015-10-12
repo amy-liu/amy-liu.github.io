@@ -9,7 +9,18 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。 一、基本过滤器 通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。 $('li:first').css(' &hellip;">
+  <meta name="description" content="过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。 一、基本过滤器 通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,19 +100,33 @@
 
 <p>通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。</p>
 
-<pre><code>$('li:first').css('background', '#ccc');       //第一个元素
-$('li:last).css('background', '#ccc');         //最后一个元素
-$('li:not(.red)).css('background', '#ccc');    //非 class 为 red 的元素 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('li:first').css('background', '#ccc');       //第一个元素
+</span><span class='line'>$('li:last).css('background', '#ccc');         //最后一个元素
+</span><span class='line'>$('li:not(.red)).css('background', '#ccc');    //非 class 为 red 的元素 
+</span><span class='line'>
+</span><span class='line'>$('li:even').css('background', '#ccc');        //索引为偶数的元素
+</span><span class='line'>$('li:odd).css('background', '#ccc');          //索引为奇数的元素
+</span><span class='line'>$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
+</span><span class='line'>
+</span><span class='line'>$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
+</span><span class='line'>$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
+</span><span class='line'>
+</span><span class='line'>$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素</span></code></pre></td></tr></table></div></figure>
 
-$('li:even').css('background', '#ccc');        //索引为偶数的元素
-$('li:odd).css('background', '#ccc');          //索引为奇数的元素
-$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
 
-$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
-$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
-
-$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素
-</code></pre>
+<p></p>
 
 <!--more-->
 
@@ -247,13 +272,17 @@ $('li').filter('.red, :first, :last').css('background','#ccc');    //增加了�
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (3)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (4)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
@@ -269,10 +298,6 @@ $('li').filter('.red, :first, :last').css('background','#ccc');    //增加了�
     
       <li class="post">
         <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/05/css3-zhi-transform/">Css3 之 Transform</a>
       </li>
     
   </ul>

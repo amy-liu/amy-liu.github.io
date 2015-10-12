@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-11T23:25:23+08:00</updated>
+  <updated>2015-10-13T00:34:32+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,19 +14,32 @@
 
   
   <entry>
+    <title type="html"><![CDATA[jQuery 之 DOM节点操作]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo/"/>
+    <updated>2015-10-13T00:33:04+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[jQuery 之 基础DOM操作]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/"/>
     <updated>2015-10-10T21:00:03+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo</id>
-    <content type="html"><![CDATA[<h2>一、设置元素及内容</h2>
+    <content type="html"><![CDATA[<h3>一、设置元素及内容</h3>
 
 <p>在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。</p>
 
-<pre><code>$('#box').html();                       //获取 html 内容 
-$('#box').text();                       //获取文本内容,会自动清理 html 标签
-$('#box').html('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置 html 内容 
-$('#box').text('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置文本内容,会自动转义 html 标签
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('#box').html();                       //获取 html 内容 
+</span><span class='line'>$('#box').text();                       //获取文本内容,会自动清理 html 标签
+</span><span class='line'>$('#box').html('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置 html 内容 
+</span><span class='line'>$('#box').text('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置文本内容,会自动转义 html 标签</span></code></pre></td></tr></table></div></figure>
+
 
 <p>使用 html()或 text()设置元素里的内容时,会清空原来的数据。而我们期 望能够追加数据的话,需要先获取原本的数据。</p>
 
@@ -48,6 +61,116 @@ $('input').val('www.li.cc'); //设置表单内容
 
 
 <h2>二、元素属性操作</h2>
+
+<p>除了对元素内容进行设置和获取,通过 jQuery 也可以对元素本身的属性进行操作,包 括获取属性的属性值、设置属性的属性值,并且可以删除掉属性。</p>
+
+<pre><code>$('div').attr('title');                            //获取属性的属性值
+$('div').attr('title', '我是域名');                 //设置属性及属性值 
+$('div').attr('title', function () {               //通过匿名函数返回属性值
+    return '我是域名';});
+$('div').attr('title', function (index, value) {  
+    return value + (index+1) + ',我是域名';          //可以接受两个参数
+});
+</code></pre>
+
+<p>注意: <code>attr()</code>方法里的 <code>function() {},</code>可以不传参数。可以只传一个参数 index,表示当前 元素的索引(从 0 开始)。也可以传递两个参数 index、value,第二个参数表示属性原本的值。</p>
+
+<p>注意: jQuery 中很多方法都可以使用 <code>function() {}</code>来返回出字符串,比如<code>html()、text()、 val()</code>和上一章刚学过的 <code>is()、filter()</code>方法。而如果又涉及到多个元素集合的话,还可以传递 <code>index</code> 参数来获取索引值,并且可以使用第二个参数 <code>value</code>(并不是所有方法都适合,有兴趣 可以自己逐个尝试)。</p>
+
+<pre><code>$('div').html(function (index) { //通过匿名函数赋值,并传递 index 
+    return '我是' + (index+1) + '号 div';
+});
+$('div').html(function (index, value) { //还可以实现追加内容
+     return '我是' + (index+1) + '号 div:'+value ;
+});
+$('div').removeAttr('title'); //这个方法就不可以使用匿名函数,传递 index 和 value 均无效。
+</code></pre>
+
+<h2>三、元素样式操作</h2>
+
+<p>元素样式操作包括了直接设置 CSS 样式、增加 CSS 类别、类别切换、删除类别这几种操作方法。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').css('color');                   //获取元素行内 CSS 样式的颜色 
+</span><span class='line'>$('div').css('color', 'red');           //设置元素行内 CSS 样式颜色为红色</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以获取多个 CSS 样式,而获取到的是一个对象数组,如果用 传统方式进行解析需要使用 for in 遍历。</p>
+
+<pre><code>var box = $('div').css(['color', 'height', 'width']);              //得到多个 CSS 样式的数组对象 
+    for (var i in box) {                                           //逐个遍历出来
+    alert(i + ':' + box[i]); }
+</code></pre>
+
+<p>jQuery 提供了一个遍历工具专门来处理这种对象数组,<code>$.each()</code>方法,这个方法可以轻 松的遍历对象数组。</p>
+
+<pre><code>$.each(box, function (attr, value) { //遍历 JavaScript 原生态的对象数组 
+    alert(attr + ':' + value);
+});
+</code></pre>
+
+<p>使用<code>$.each()</code>可以遍历原生的 JavaScript 对象数组,如果是 jQuery 对象的数组怎么使 用<code>.each()</code>方法呢?</p>
+
+<pre><code>$('div').each(function (index, element) { //index 为索引,element 为元素 DOM 
+    alert(index + ':' + element);
+});
+</code></pre>
+
+<p>在需要设置多个样式的时候,我们可以传递多个 CSS 样式的键值对即可。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> $('div').css({
+</span><span class='line'>      'background-color' : '#ccc', 
+</span><span class='line'>      'color' : 'red',
+</span><span class='line'>      font-size' : '20px' 
+</span><span class='line'>  });</span></code></pre></td></tr></table></div></figure>
+
+
+<p> CSS 类的样式切换功能。</p>
+
+<pre><code>$('div').click(function () { //当点击后触发
+    $(this).toggleClass('red size'); //单个样式多个样式均可 
+    });
+</code></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').click(function () { 
+</span><span class='line'>  $(this).toggleClass(function () {
+</span><span class='line'>      if ($(this).hasClass('red')) { 
+</span><span class='line'>          $(this).removeClass('red'); 
+</span><span class='line'>          return 'green';
+</span><span class='line'>      } else { 
+</span><span class='line'>          $(this).removeClass('green');
+</span><span class='line'>          return 'red';
+</span><span class='line'>      } 
+</span><span class='line'>  });
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>四、CSS 方法</h2>
+
+<pre><code>$('div').width();                          //获取元素的长度,返回的类型为number 
+$('div').width(500);                       //设置元素长度,直接传数值,默认加 px  
+$('div').width('500pt');                   //同上,设置了 pt 单位
+$('div').width(function (index, value) {   //index 是索引,value 是原本值 
+    return value - 500;                    //无须调整类型,直接计算
+});
+</code></pre>
 ]]></content>
   </entry>
   
@@ -62,19 +185,33 @@ $('input').val('www.li.cc'); //设置表单内容
 
 <p>通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。</p>
 
-<pre><code>$('li:first').css('background', '#ccc');       //第一个元素
-$('li:last).css('background', '#ccc');         //最后一个元素
-$('li:not(.red)).css('background', '#ccc');    //非 class 为 red 的元素 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('li:first').css('background', '#ccc');       //第一个元素
+</span><span class='line'>$('li:last).css('background', '#ccc');         //最后一个元素
+</span><span class='line'>$('li:not(.red)).css('background', '#ccc');    //非 class 为 red 的元素 
+</span><span class='line'>
+</span><span class='line'>$('li:even').css('background', '#ccc');        //索引为偶数的元素
+</span><span class='line'>$('li:odd).css('background', '#ccc');          //索引为奇数的元素
+</span><span class='line'>$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
+</span><span class='line'>
+</span><span class='line'>$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
+</span><span class='line'>$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
+</span><span class='line'>
+</span><span class='line'>$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素</span></code></pre></td></tr></table></div></figure>
 
-$('li:even').css('background', '#ccc');        //索引为偶数的元素
-$('li:odd).css('background', '#ccc');          //索引为奇数的元素
-$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
 
-$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
-$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
-
-$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素
-</code></pre>
+<p></p>
 
 <!--more-->
 

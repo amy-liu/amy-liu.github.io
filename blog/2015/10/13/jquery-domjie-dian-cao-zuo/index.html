@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Css 疑难杂症 ［兼容篇］ - 云端笔记</title>
+  <title>jQuery 之 DOM节点操作 - 云端笔记</title>
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="一、移除超链接的虚线 FireFox下,当你点击一个超链接时会在外围出现一个虚线轮廓. 这很容易解决, 只需要在标签样式中加入：
-a{outline: none;} 二、文字重复问题 在IE中文字重复问题可能由于注释带来的,可以把注释改为：
-&lt;!–[if !IE]&gt;Put your &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ a{outline: none;} 二、文字重复问题 在IE中文字重复问题可能由�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/02/css/">
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="云端笔记" type="application/atom+xml">
@@ -69,7 +68,7 @@ a{outline: none;} 二、文字重复问题 在IE中文字重复问题可能由�
   
   <header>
     
-      <h1 class="entry-title">Css 疑难杂症 ［兼容篇］</h1>
+      <h1 class="entry-title">jQuery 之 DOM节点操作</h1>
     
     
       <p class="meta">
@@ -78,68 +77,14 @@ a{outline: none;} 二、文字重复问题 在IE中文字重复问题可能由�
 
 
 
-<time class='entry-date' datetime='2015-10-02T12:52:42+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:52 pm</span></time>
+<time class='entry-date' datetime='2015-10-13T00:33:04+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 am</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h4>一、移除超链接的虚线</h4>
-
-<p> FireFox下,当你点击一个超链接时会在外围出现一个虚线轮廓. 这很容易解决, 只需要在标签样式中加入：
-<code>a{outline: none;}</code></p>
-
-<h4>二、文字重复问题</h4>
-
-<p>在IE中文字重复问题可能由于注释带来的,可以把注释改为：
-<code>&lt;!–[if !IE]&gt;Put your commentary in here…&lt;![endif]–&gt;</code></p>
-
-<!--more-->
-
-
-<h4>三、完美的单象素外框线表格（在IE5、IE6、IE7及FF1.0.4以上中均可通过测试）</h4>
-
-<pre><code>table{ border-collapse:collapse; }
-td{ border:#000 solid 1px;}
-</code></pre>
-
-<h4>四、如果文字过长,则将过长的部分变成省略号显示：</h4>
-
-<pre><code>&lt;div style="width:120px;height:50px;overflow:hidden;text-overflow:ellipsis"&gt;&lt;/div&gt;
-</code></pre>
-
-<p>另外介绍下：<code>white-space:nowrap;</code>是指禁止文字自动换行。</p>
-
-<h4>五、min-height和min-width</h4>
-
-<pre><code>&lt;div style="border:1px;min-height:100px;width:200px;padding:12px;"&gt;test&lt;/div&gt;
-</code></pre>
-
-<p><code>min-height</code> 不支持ie6.0,采用hack  <code>_height:100px</code>经测试完美支持.</p>
-
-<p>我们想要min-width也达这样的效果。结果让我们很是意外，所有浏览器里统统失效。原因是容器的高度默认情况下是由内容多少决定的，但宽度不是啊！默认情况下是继承了父容器的宽度。当然，前提是display是block。so 我们想到了<code>display:inline-block;</code> , 为了兼容ie6 ie7 不得不填加如下代码：</p>
-
-<pre><code>display:inline-block;*display:inline;zoom:1;min-width:220px;_width:220px；white-space:nowrap；
-</code></pre>
-
-<p>那么position:absolute 和 float 这两个看起来也行。</p>
-
-<pre><code>position:absolute;min-width:220px;_width:220px;white-space:nowrap；
-float:left;min-width:220px;_width:220px;white-space:nowrap
-</code></pre>
-
-<h4>六、兼容hack 写法。</h4>
-
-<p>IE都能识别*，标准浏览器(如FF)不能识别</p>
-
-<p>IE6能识别*，但不能识别 !important</p>
-
-<p>IE7能识别*，也能识别!important</p>
-
-<p>FF不能识别*，但能识别!important</p>
-
-<p>另外再补充一个，下划线" _ ” ，IE6支持下划线，IE7和firefox均不支持下划线。</p>
+<div class="entry-content">
 </div>
 
 
@@ -155,12 +100,12 @@ float:left;min-width:220px;_width:220px;white-space:nowrap
 
 
 
-<time class='entry-date' datetime='2015-10-02T12:52:42+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:52 pm</span></time>
+<time class='entry-date' datetime='2015-10-13T00:33:04+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/css/'>css</a>
+    <a class='category' href='/blog/categories/jquery/'>jquery</a>
   
 </span>
 
@@ -176,10 +121,8 @@ float:left;min-width:220px;_width:220px;white-space:nowrap
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/10/01/test/" title="Previous Post: 用 Octopress 搭建个人博客">&laquo; 用 Octopress 搭建个人博客</a>
+        <a class="basic-alignment left" href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/" title="Previous Post: jQuery 之 基础DOM操作">&laquo; jQuery 之 基础DOM操作</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/10/02/css-zhi-absolute/" title="Next Post: css 之 absolute">css 之 absolute &raquo;</a>
       
     </p>
   </footer>
