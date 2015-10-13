@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-13T00:34:32+08:00</updated>
+  <updated>2015-10-13T21:43:07+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,109 @@
 
   
   <entry>
+    <title type="html"><![CDATA[jQuery 之 基础事件]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/"/>
+    <updated>2015-10-13T21:42:16+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[jQuery 之 DOM节点操作]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo/"/>
     <updated>2015-10-13T00:33:04+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。</p>
+
+<h3>一、创建节点</h3>
+
+<p>为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。
+<code>
+    var box = $('&lt;div id="box"&gt;节点&lt;/div&gt;');         //创建一个节点
+    $('body').append(box);                           //将节点插入到&lt;body&gt;元素内部
+</code></p>
+
+<h2>二、插入节点</h2>
+
+<h4>> 内部插入节点方法:</h4>
+
+<pre><code>    $('div').append('&lt;strong&gt;节点&lt;/strong&gt;');    //向 div 内部插入 strong 节点 
+    $('div').append(function (index, html) {    //使用匿名函数插入节点,html 是原节点
+        return '&lt;strong&gt;节点&lt;/strong&gt;';
+    ￼￼});
+
+    $('span').appendTo('div');                 //讲 span 节点移入 div 节点内
+    $('span').appendTo($('div'));              //同上
+
+    $('div').prepend('&lt;span&gt;节点&lt;/span&gt;');     //将 span 插入到 div 内部的前面 
+    $('div').append(function (index, html) {  //使用匿名函数,同上
+        return '&lt;span&gt;节点&lt;/span&gt;'; 
+        });
+
+    $('span').prependTo('div');               //将 span 移入 div 内部的前面
+    $('span').prependTo($('div'));            //同上
+</code></pre>
+
+<h4>> 外部插入节点方法:</h4>
+
+<pre><code>    $('div').after('&lt;span&gt;节点&lt;/span&gt;');           //向 div 的同级节点后面插入 span
+    $('div').after(function (index, html) {       //使用匿名函数,同上
+        return '&lt;span&gt;节点&lt;/span&gt;';
+        });
+    $('div').before('&lt;span&gt;节点&lt;/span&gt;');         //向 div 的同级节点前面插入 span
+    $('div').before(function (index, html) { 
+        return '&lt;span&gt;节点&lt;/span&gt;';
+        }); 
+    $('span').insertAfter('div');                //将 span 元素移到 div 元素外部的后面
+    $('span').insertBefore('div');               //将 span 元素移到 div 元素外部的前面
+</code></pre>
+
+<h4>> 包裹节点</h4>
+
+<pre><code>$('div').wrap('&lt;strong&gt;&lt;/strong&gt;');                   //在 div 外层包裹一层 strong
+$('div').wrap('&lt;strong&gt;123&lt;/strong&gt;');                //包裹的元素可以带内容
+$('div').wrap('&lt;strong&gt;&lt;em&gt;&lt;/em&gt;&lt;/strong&gt;');          //包裹多个元素
+$('div').wrap($('strong').get(0));                    //也可以包裹一个原生 DOM 
+$('div').wrap(document.createElement('strong'));      //临时的原生DOM
+$('div').wrap(function (index) {
+    return '&lt;strong&gt;&lt;/strong&gt;'; 
+    });
+$('div').unwrap();                                    //移除一层包裹内容,多个需移除多次
+$('div').wrapAll('&lt;strong&gt;&lt;/strong&gt;');                //所有 div 外面只包一层 strong
+$('div').wrapAll($('strong').get(0)); 
+$('div').wrapInner('&lt;strong&gt;&lt;/strong&gt;');              //向指定元素的子内容包裹一层 html 
+$('div').wrapInner($('strong').get(0));               //DOM 节点
+$('div').wrapInner(function () {
+    return '&lt;strong&gt;&lt;/strong&gt;'; 
+    });
+</code></pre>
+
+<h2>三、节点操作</h2>
+
+<pre><code>$('body').append($('div').clone(true));     //复制一个节点添加到 HTML 中
+</code></pre>
+
+<p>注意 : <code>clone(true)</code> 参数可以为空,表示只复制元素和内容,不复制事件行为。而加上 <code>true</code> 参数的话,这个元素附带的事件处理行为也复制出来。</p>
+
+<pre><code>$('div').remove(); //直接删除 div 元素
+</code></pre>
+
+<p>注意 : <code>.remove()</code> 不带参数时,删除前面对象选择器指定的元素。而<code>.remove()</code> 也可以 带选择符参数的,比如 :<code>$('div').remove('#box');</code> 只删除 <code>id=box</code>  的<code>div。</code></p>
+
+<pre><code>$('div').detach(); //保留事件行为的删除
+</code></pre>
+
+<p>注意 : <code>.remove()</code> 和 <code>.detach()</code> 都是删除节点,而删除后本身方法可以返回当前被删除的节 点对象,但区别在于前者在恢复时不保留事件行为,后者则保留。</p>
+
+<pre><code>$('div').empty();   //删除掉节点里的内容
+</code></pre>
+
+<pre><code>    $('div').replaceWith('&lt;span&gt;节点&lt;/span&gt;');      //将 div 替换成 span 元素
+    $('&lt;span&gt;节点&lt;/span&gt;').replaceAll('div');        //同上
+</code></pre>
+
+<p>注意 : 节点被替换后,所包含的事件行为就全部消失了。</p>
 ]]></content>
   </entry>
   
@@ -140,12 +238,32 @@ $('div').removeAttr('title'); //这个方法就不可以使用匿名函数,传�
 
 <h2>四、CSS 方法</h2>
 
+<p>jQuery 不但提供了 CSS 的核心操作方法,比如.css()、.addClass()等。还封装了一些特殊功能的 CSS 操作方法,我们分别来了解一下。</p>
+
 <pre><code>$('div').width();                          //获取元素的长度,返回的类型为number 
 $('div').width(500);                       //设置元素长度,直接传数值,默认加 px  
 $('div').width('500pt');                   //同上,设置了 pt 单位
 $('div').width(function (index, value) {   //index 是索引,value 是原本值 
     return value - 500;                    //无须调整类型,直接计算
 });
+</code></pre>
+
+<p><code>height()</code>方法同上。</p>
+
+<h4>内外边距和边框尺寸方法</h4>
+
+<pre><code>    alert($('div').width());           //获取元素宽度 不包含
+    alert($('div').innerWidth());      //包含内边距 padding
+    alert($('div').outerWidth());      //包含内边距 padding+边框 border
+    alert($('div').outerWidth(true));  //包含内边距 padding+边框 border+外边距 margin
+</code></pre>
+
+<h4>元素偏移方法</h4>
+
+<pre><code>    $('strong').offset().left;       //获取某个元素相对于视口的偏移位置
+    $('strong').position().left;     //相对于父元素的偏移
+    $(window).scrollTop();           //获取当前滚动条的位置
+    $(window).scrollTop(300);        //设置当前滚动条的位置
 </code></pre>
 ]]></content>
   </entry>

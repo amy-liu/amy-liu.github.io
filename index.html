@@ -71,6 +71,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-13T21:42:16+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:42 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a></h1>
     
     
@@ -87,7 +116,141 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。</p>
+
+<h3>一、创建节点</h3>
+
+<p>为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = $('&lt;div id="box"&gt;节点&lt;/div&gt;');         //创建一个节点 
+</span><span class='line'>$('body').append(box);                           //将节点插入到&lt;body&gt;元素内部</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>二、插入节点</h2>
+
+<h4>> 内部插入节点方法:</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').append('&lt;strong&gt;节点&lt;/strong&gt;');    //向 div 内部插入 strong 节点 
+</span><span class='line'>$('div').append(function (index, html) {    //使用匿名函数插入节点,html 是原节点
+</span><span class='line'>  return '&lt;strong&gt;节点&lt;/strong&gt;';
+</span><span class='line'>￼￼});
+</span><span class='line'>
+</span><span class='line'>$('span').appendTo('div');                 //讲 span 节点移入 div 节点内
+</span><span class='line'>$('span').appendTo($('div'));              //同上
+</span><span class='line'>
+</span><span class='line'>$('div').prepend('&lt;span&gt;节点&lt;/span&gt;');     //将 span 插入到 div 内部的前面 
+</span><span class='line'>$('div').append(function (index, html) {  //使用匿名函数,同上
+</span><span class='line'>  return '&lt;span&gt;节点&lt;/span&gt;'; 
+</span><span class='line'>  });
+</span><span class='line'>
+</span><span class='line'>$('span').prependTo('div');               //将 span 移入 div 内部的前面
+</span><span class='line'>$('span').prependTo($('div'));            //同上</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>> 外部插入节点方法:</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').after('&lt;span&gt;节点&lt;/span&gt;');           //向 div 的同级节点后面插入 span
+</span><span class='line'>$('div').after(function (index, html) {       //使用匿名函数,同上
+</span><span class='line'>  return '&lt;span&gt;节点&lt;/span&gt;';
+</span><span class='line'>  });
+</span><span class='line'>$('div').before('&lt;span&gt;节点&lt;/span&gt;');         //向 div 的同级节点前面插入 span
+</span><span class='line'>$('div').before(function (index, html) { 
+</span><span class='line'>  return '&lt;span&gt;节点&lt;/span&gt;';
+</span><span class='line'>  }); 
+</span><span class='line'>$('span').insertAfter('div');                //将 span 元素移到 div 元素外部的后面
+</span><span class='line'>$('span').insertBefore('div');               //将 span 元素移到 div 元素外部的前面</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>> 包裹节点</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').wrap('&lt;strong&gt;&lt;/strong&gt;');                   //在 div 外层包裹一层 strong
+</span><span class='line'>$('div').wrap('&lt;strong&gt;123&lt;/strong&gt;');                //包裹的元素可以带内容
+</span><span class='line'>$('div').wrap('&lt;strong&gt;&lt;em&gt;&lt;/em&gt;&lt;/strong&gt;');          //包裹多个元素
+</span><span class='line'>$('div').wrap($('strong').get(0));                    //也可以包裹一个原生 DOM 
+</span><span class='line'>$('div').wrap(document.createElement('strong'));      //临时的原生DOM
+</span><span class='line'>$('div').wrap(function (index) {
+</span><span class='line'>  return '&lt;strong&gt;&lt;/strong&gt;'; 
+</span><span class='line'>  });
+</span><span class='line'>$('div').unwrap();                                    //移除一层包裹内容,多个需移除多次
+</span><span class='line'>$('div').wrapAll('&lt;strong&gt;&lt;/strong&gt;');                //所有 div 外面只包一层 strong
+</span><span class='line'>$('div').wrapAll($('strong').get(0)); 
+</span><span class='line'>$('div').wrapInner('&lt;strong&gt;&lt;/strong&gt;');              //向指定元素的子内容包裹一层 html 
+</span><span class='line'>$('div').wrapInner($('strong').get(0));               //DOM 节点
+</span><span class='line'>$('div').wrapInner(function () {
+</span><span class='line'>  return '&lt;strong&gt;&lt;/strong&gt;'; 
+</span><span class='line'>  });</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>三、节点操作</h2>
+
+<pre><code>$('body').append($('div').clone(true));     //复制一个节点添加到 HTML 中
+</code></pre>
+
+<p>注意 : <code>clone(true)</code> 参数可以为空,表示只复制元素和内容,不复制事件行为。而加上 <code>true</code> 参数的话,这个元素附带的事件处理行为也复制出来。</p>
+
+<pre><code>$('div').remove(); //直接删除 div 元素
+</code></pre>
+
+<p>注意 : <code>.remove()</code> 不带参数时,删除前面对象选择器指定的元素。而<code>.remove()</code> 也可以 带选择符参数的,比如 :<code>$('div').remove('#box');</code> 只删除 <code>id=box</code>  的<code>div。</code></p>
+
+<pre><code>$('div').detach(); //保留事件行为的删除
+</code></pre>
+
+<p>注意 : <code>.remove()</code> 和 <code>.detach()</code> 都是删除节点,而删除后本身方法可以返回当前被删除的节 点对象,但区别在于前者在恢复时不保留事件行为,后者则保留。</p>
+
+<pre><code>$('div').empty();   //删除掉节点里的内容
+</code></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').replaceWith('&lt;span&gt;节点&lt;/span&gt;');      //将 div 替换成 span 元素
+</span><span class='line'>$('&lt;span&gt;节点&lt;/span&gt;').replaceAll('div');        //同上</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意 : 节点被替换后,所包含的事件行为就全部消失了。</p>
 </div>
   
   
@@ -455,44 +618,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/03/css-zhi-inline-block/">Css 之 Inline-block</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-03T15:10:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>替代float 的 inline-block列表布局</h3>
-
-<p>浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。</p>
-
-<p>关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes，这个line box的高度由里面最高的元素决定。<code>inline-block</code>属性属于line box模型，其布局的列表元素高度异常时，撑开的是整个line boxes的高度，因而，不会与下一行的列表元素发生错位。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/03/css-zhi-inline-block/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -508,13 +633,17 @@ document.getElementById('pox').style.color = 'red';     //报错了
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (4)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (5)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a>
@@ -530,10 +659,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
     
       <li class="post">
         <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
       </li>
     
   </ul>

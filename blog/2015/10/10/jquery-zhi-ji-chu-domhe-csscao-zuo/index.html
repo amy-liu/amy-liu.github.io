@@ -225,6 +225,8 @@ $('div').removeAttr('title'); //这个方法就不可以使用匿名函数,传�
 
 <h2>四、CSS 方法</h2>
 
+<p>jQuery 不但提供了 CSS 的核心操作方法,比如.css()、.addClass()等。还封装了一些特殊功能的 CSS 操作方法,我们分别来了解一下。</p>
+
 <pre><code>$('div').width();                          //获取元素的长度,返回的类型为number 
 $('div').width(500);                       //设置元素长度,直接传数值,默认加 px  
 $('div').width('500pt');                   //同上,设置了 pt 单位
@@ -232,6 +234,34 @@ $('div').width(function (index, value) {   //index 是索引,value 是原本值
     return value - 500;                    //无须调整类型,直接计算
 });
 </code></pre>
+
+<p><code>height()</code>方法同上。</p>
+
+<h4>内外边距和边框尺寸方法</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alert($('div').width());           //获取元素宽度 不包含
+</span><span class='line'>alert($('div').innerWidth());      //包含内边距 padding
+</span><span class='line'>alert($('div').outerWidth());      //包含内边距 padding+边框 border
+</span><span class='line'>alert($('div').outerWidth(true));  //包含内边距 padding+边框 border+外边距 margin</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>元素偏移方法</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('strong').offset().left;       //获取某个元素相对于视口的偏移位置
+</span><span class='line'>$('strong').position().left;     //相对于父元素的偏移
+</span><span class='line'>$(window).scrollTop();           //获取当前滚动条的位置
+</span><span class='line'>$(window).scrollTop(300);        //设置当前滚动条的位置</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -286,13 +316,17 @@ $('div').width(function (index, value) {   //index 是索引,value 是原本值
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (4)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (5)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a>
@@ -308,10 +342,6 @@ $('div').width(function (index, value) {   //index 是索引,value 是原本值
     
       <li class="post">
         <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/07/css3-box-flexshu-xing/">Css3 Box-flex</a>
       </li>
     
   </ul>
