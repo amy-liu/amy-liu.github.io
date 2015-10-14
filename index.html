@@ -128,8 +128,6 @@
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="/images/event.png" alt="event" /></p>
-
 <p>通过 event.type 属性获取触发事件名</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -150,184 +148,12 @@
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
-<p>通过 event.data 获取额外数据,可以是数字、字符串、数组、对象</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', 123, function () {          //传递 data 数据 
-</span><span class='line'>  alert(e.data);                                   //获取数字数据
-</span><span class='line'>});&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意 : 如果字符串就传递:<code>'123'</code>、如果是数组就传递: <code>[123,'abc']</code> ,如果是对象就传递: <code>{user : 'Lee', age : 100}</code> 。数组的调用方式是: <code>e.data[1],</code> 对象的调用方式是: <code>e.data.user。</code></p>
-
-<p>event.data 获取额外数据,对于封装的简写事件也可以使用</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click({user : 'Lee', age : 100},function (e) {
-</span><span class='line'>  alert(e.data.user); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意 : 键值对的键可以加上引号,也可以不加;在调用的时候也可以使用数组的方式: <code>alert(e.data['user']);</code></p>
-
-<p>获取移入到 div 之前的那个 DOM 元素</p>
-
-<pre><code>$('div').mouseover(function (e) {
-    alert(e.relatedTarget); 
-});
-</code></pre>
-
-<p>获取移出 div 之后到达最近的那个 DOM 元素</p>
-
-<pre><code>$('div').mouseout(function (e) {
-    alert(e.relatedTarget);
- });
-</code></pre>
-
-<p>获取绑定的那个 DOM 元素,相当于 this,区别与 <code>event.target</code></p>
-
-<pre><code>$('div').click(function (e) {
-    alert(e.currentTarget); 
-});
-</code></pre>
-
-<p>注意 : <code>event.target</code> 得到的是触发元素的 DOM,<code>event.currentTarget</code> 得到的是监听元素的 DOM。而 <code>this</code>也是得到监听元素的 DOM。</p>
-
-<p>获取上一次事件的返回值</p>
-
-<pre><code>$('div').click(function (e) {
-    return '123'; 
-});
-$('div').click(function (e) { 
-    alert(e.result);
-});
-</code></pre>
-
-<p>获取当前的时间戳</p>
-
-<pre><code>$('div').click(function (e) {
-    alert(e.timeStamp); 
-});
-</code></pre>
-
-<p>获取触发元素鼠标当前的位置</p>
-
-<pre><code>$(document).click(function (e) {
-    alert(e.screenY+ ',' + e.pageY + ',' + e.clientY); 
-});
-</code></pre>
-
-<h3>二、冒泡和默认行为</h3>
-
-<p>如果在页面中重叠了多个元素,并且重叠的这些元素都绑定了同一个事件,那么就会出 现冒泡问题。</p>
-
-<p>jQuery 提供了一个事件对象的方法: <code>event.stopPropagation();</code> 这个方法设置到需要触发 的事件上时,所有上层的冒泡行为都将被取消。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e) { 
-</span><span class='line'>  alert('按钮被触发了!'); 
-</span><span class='line'>  e.stopPropagation();
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>默认行为</p>
-
-<p>网页中的元素,在操作的时候会有自己的默认行为。比如:右击文本框输入区域,会弹 出系统菜单、点击超链接会跳转到指定页面、点击提交按钮会提交数据。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('a').click(function (e) { 
-</span><span class='line'>  e.preventDefault();
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>禁止提交表单跳转</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('form').submit(function (e) {
-</span><span class='line'>  e.preventDefault(); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意 : 如果想让上面的超链接同时阻止默认行为且禁止冒泡行为,可以把两个方法同时 写上: <code>event.stopPropagation()</code> 和 <code>event.preventDefault()</code> 。这两个方法如果需要同时启用的时候, 还有一种简写方案代替,就是直接 <code>return false。</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('a').click(function (e) { 
-</span><span class='line'>  return false;
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>冒泡和默认行为的一些方法</h2>
-
-<p>判断是否取消了元素的默认行为</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> $('input').keyup(function (e) {
-</span><span class='line'>  e.preventDefault();
-</span><span class='line'>  alert(e.isDefaultPrevented()); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>取消冒泡并取消后续事件处理函数</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e) {
-</span><span class='line'>  alert('input');
-</span><span class='line'>  e.stopImmediatePropagation();
-</span><span class='line'> });
-</span><span class='line'>
-</span><span class='line'>$('input').click(function () { 
-</span><span class='line'>  alert('input2');
-</span><span class='line'>});
-</span><span class='line'>
-</span><span class='line'>$(document).click(function () { 
-</span><span class='line'>  alert('document');
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>判断是否调用了 <code>stopPropagation()</code> 方法</p>
-
-<pre><code>$('input').click(function (e) {
-    e.stopPropagation();
-    alert(e.isPropagationStopped()); 
-});
-</code></pre>
-
-<p>判断是否执行了 <code>stopImmediatePropagation()</code> 方法</p>
-
-<pre><code>$('input').click(function (e) {
-    e.stopImmediatePropagation();
-    alert(e.isImmediatePropagationStopped());
-});
-</code></pre>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -387,83 +213,19 @@ $('div').click(function (e) {
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
 </span><span class='line'>  $('div').html(function (index, value) { 
 </span><span class='line'>      return value + '1';
 </span><span class='line'>  }); 
-</span><span class='line'>});
-</span><span class='line'>&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>通过对象键值对绑定多个参数</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind({             传递一个对象 
-</span><span class='line'>  'mouseout' : function () {     //事件名的引号可以省略
-</span><span class='line'>      alert('移出');
-</span><span class='line'>  },
-</span><span class='line'>  'mouseover' : function () {
-</span><span class='line'>      alert('移入'); 
-</span><span class='line'>  }
-</span><span class='line'>});
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用 unbind 删除绑定的事件</p>
-
-<pre><code> $('input').unbind();
-</code></pre>
-
-<p>使用 unbind 参数删除指定类型事件</p>
-
-<pre><code>$('input').unbind('click');
-</code></pre>
-
-<p><code>.mouseover()和.mouseout()</code> 表示鼠标移入和移出的时候触发。<code>.mouseenter()和.mouseleave()</code> 这组穿过,子元素不会触发。</p>
-
-<p><code>.keydown()、.keyup()</code>返回的是键码,而 <code>.keypress</code>  返回的是字符编码。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').keydown(function (e) {
-</span><span class='line'>  alert(e.keyCode);
-</span><span class='line'>});
-</span><span class='line'>$('input').keypress(function (e) { 
-</span><span class='line'>  alert(e.charCode);
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>.focus()和.blur()</code> 分别表示光标激活和丢失,事件触发时机是当前元素。而<code>.focusin() 和.focusout()</code> 也表示光标激活和丢失,但事件触发时机可以是子元素。</p>
-
-<h2>二、复合事件</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').hover(function () {                    //mouseenter 效果
-</span><span class='line'>      $(this).css('background', 'black'); 
-</span><span class='line'>  }, function () {                            //mouseleave 效果  可省略
-</span><span class='line'>      $(this).css('background', 'red');
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意 : <code>.hover()</code> 方法是结合了 <code>.mouseenter()</code> 方法和 <code>.mouseleva()</code> 方法,并非 <code>.mouseover()</code> 和 <code>.mouseout()</code> 方法。</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">Read on &rarr;</a>
+    </footer>
   
 
 

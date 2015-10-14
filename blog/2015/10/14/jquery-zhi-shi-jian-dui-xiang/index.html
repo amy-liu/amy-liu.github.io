@@ -98,8 +98,6 @@ $('input').bind('click', function (e) { //接受事件对象参数 alert(e); });
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="/images/event.png" alt="event" /></p>
-
 <p>通过 event.type 属性获取触发事件名</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -120,6 +118,9 @@ $('input').bind('click', function (e) { //接受事件对象参数 alert(e); });
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
+<!--more-->
+
+
 <p>通过 event.data 获取额外数据,可以是数字、字符串、数组、对象</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -127,7 +128,7 @@ $('input').bind('click', function (e) { //接受事件对象参数 alert(e); });
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', 123, function () {          //传递 data 数据 
 </span><span class='line'>  alert(e.data);                                   //获取数字数据
-</span><span class='line'>});&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
 <p>注意 : 如果字符串就传递:<code>'123'</code>、如果是数组就传递: <code>[123,'abc']</code> ,如果是对象就传递: <code>{user : 'Lee', age : 100}</code> 。数组的调用方式是: <code>e.data[1],</code> 对象的调用方式是: <code>e.data.user。</code></p>

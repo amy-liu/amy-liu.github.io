@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-14T22:42:29+08:00</updated>
+  <updated>2015-10-14T22:44:28+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -43,22 +43,22 @@ $('input').click(function (e) {
 });
 </code>
 通过 event.target 获取绑定的 DOM 元素
-```
-$(&lsquo;input&rsquo;).click(function (e) {
+<code>
+$('input').click(function (e) {
     alert(e.target);
-});</p>
+});
+</code></p>
 
 <!--more-->
 
 
-<pre><code>通过 event.data 获取额外数据,可以是数字、字符串、数组、对象 
-</code></pre>
-
-<p>$(&lsquo;input&rsquo;).bind(&lsquo;click&rsquo;, 123, function () {          //传递 data 数据
+<p>通过 event.data 获取额外数据,可以是数字、字符串、数组、对象
+<code>
+$('input').bind('click', 123, function () {          //传递 data 数据
     alert(e.data);                                   //获取数字数据
 });
-<code>``
-注意 : 如果字符串就传递:</code>&lsquo;123&rsquo;<code>、如果是数组就传递:</code>[123,&lsquo;abc&rsquo;]<code>,如果是对象就传递:</code>{user : &lsquo;Lee&rsquo;, age : 100}<code>。数组的调用方式是:</code>e.data[1],<code>对象的调用方式是:</code>e.data.user。`</p>
+</code>
+注意 : 如果字符串就传递:<code>'123'</code>、如果是数组就传递: <code>[123,'abc']</code> ,如果是对象就传递: <code>{user : 'Lee', age : 100}</code> 。数组的调用方式是: <code>e.data[1],</code> 对象的调用方式是: <code>e.data.user。</code></p>
 
 <p>event.data 获取额外数据,对于封装的简写事件也可以使用
 <code>
@@ -158,20 +158,30 @@ $('form').submit(function (e) {
 </code></p>
 
 <p>取消冒泡并取消后续事件处理函数
-```
-$(&lsquo;input&rsquo;).click(function (e) {
-    alert(&lsquo;input&rsquo;);
-    e.stopImmediatePropagation();
- });</p>
-
-<p>$(&lsquo;input&rsquo;).click(function () {
-    alert(&lsquo;input2&rsquo;);
-});</p>
-
-<p>$(document).click(function () {
-    alert(&lsquo;document&rsquo;);
-});
-```</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$(&lsquo;input&rsquo;).click(function (e) {
+</span><span class='line'>    alert(&lsquo;input&rsquo;);
+</span><span class='line'>    e.stopImmediatePropagation();
+</span><span class='line'> });&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(&lsquo;input&rsquo;).click(function () {
+</span><span class='line'>    alert(&lsquo;input2&rsquo;);
+</span><span class='line'>});&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(document).click(function () {
+</span><span class='line'>    alert(&lsquo;document&rsquo;);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure></p>
 
 <p>判断是否调用了 <code>stopPropagation()</code> 方法</p>
 
@@ -216,66 +226,60 @@ $(&lsquo;input&rsquo;).click(function (e) {
 </code></pre>
 
 <p>可以同时绑定多个事件
-```
-$(&lsquo;input&rsquo;).bind(&lsquo;mouseout mouseover&rsquo;, function () {    //移入和移出分别执行一次
-    $(&lsquo;div&rsquo;).html(function (index, value) {
-        return value + &lsquo;1&rsquo;;
+<code>
+$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
+    $('div').html(function (index, value) {
+        return value + '1';
     });
-});</p>
+});
+</code></p>
 
 <!--more-->
 
 
-<pre><code>通过对象键值对绑定多个参数
-</code></pre>
+<p>通过对象键值对绑定多个参数</p>
 
-<p>$(&lsquo;input&rsquo;).bind({             传递一个对象
-    &lsquo;mouseout&rsquo; : function () {     //事件名的引号可以省略
-        alert(&lsquo;移出&rsquo;);
+<pre><code>$('input').bind({             传递一个对象 
+    'mouseout' : function () {     //事件名的引号可以省略
+        alert('移出');
     },
-    &lsquo;mouseover&rsquo; : function () {
-        alert(&lsquo;移入&rsquo;);
+    'mouseover' : function () {
+        alert('移入'); 
     }
-});</p>
-
-<pre><code>
-使用 unbind 删除绑定的事件
-
-     $('input').unbind();
-
-使用 unbind 参数删除指定类型事件 
-
-    $('input').unbind('click');
-
-
-`.mouseover()和.mouseout()` 表示鼠标移入和移出的时候触发。`.mouseenter()和.mouseleave()` 这组穿过,子元素不会触发。
-
-
-`.keydown()、.keyup()`返回的是键码,而 `.keypress`  返回的是字符编码。 
-</code></pre>
-
-<pre><code>$('input').keydown(function (e) {
-    alert(e.keyCode);
-});
-$('input').keypress(function (e) { 
-    alert(e.charCode);
 });
 </code></pre>
 
-<pre><code>`.focus()和.blur()` 分别表示光标激活和丢失,事件触发时机是当前元素。而`.focusin() 和.focusout()` 也表示光标激活和丢失,但事件触发时机可以是子元素。
+<p>使用 unbind 删除绑定的事件</p>
 
-
-
-
-## 二、复合事件
+<pre><code> $('input').unbind();
 </code></pre>
 
-<p>$(&lsquo;div&rsquo;).hover(function () {                    //mouseenter 效果
-        $(this).css(&lsquo;background&rsquo;, &lsquo;black&rsquo;);
+<p>使用 unbind 参数删除指定类型事件</p>
+
+<pre><code>$('input').unbind('click');
+</code></pre>
+
+<p><code>.mouseover()和.mouseout()</code> 表示鼠标移入和移出的时候触发。<code>.mouseenter()和.mouseleave()</code> 这组穿过,子元素不会触发。</p>
+
+<p><code>.keydown()、.keyup()</code>返回的是键码,而 <code>.keypress</code>  返回的是字符编码。
+<code>
+    $('input').keydown(function (e) {
+        alert(e.keyCode);
+    });
+    $('input').keypress(function (e) {
+        alert(e.charCode);
+    });
+</code>
+<code>.focus()和.blur()</code> 分别表示光标激活和丢失,事件触发时机是当前元素。而<code>.focusin() 和.focusout()</code> 也表示光标激活和丢失,但事件触发时机可以是子元素。</p>
+
+<h2>二、复合事件</h2>
+
+<pre><code>$('div').hover(function () {                    //mouseenter 效果
+        $(this).css('background', 'black'); 
     }, function () {                            //mouseleave 效果  可省略
-        $(this).css(&lsquo;background&rsquo;, &lsquo;red&rsquo;);
+        $(this).css('background', 'red');
 });
-```</p>
+</code></pre>
 
 <p>注意 : <code>.hover()</code> 方法是结合了 <code>.mouseenter()</code> 方法和 <code>.mouseleva()</code> 方法,并非 <code>.mouseover()</code> 和 <code>.mouseout()</code> 方法。</p>
 ]]></content>

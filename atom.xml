@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-14T22:34:40+08:00</updated>
+  <updated>2015-10-14T22:44:28+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -39,8 +39,6 @@
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://amy-liu.github.io/images/event.png" alt="event" /></p>
-
 <p>通过 event.type 属性获取触发事件名</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -61,6 +59,9 @@
 </span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
+<!--more-->
+
+
 <p>通过 event.data 获取额外数据,可以是数字、字符串、数组、对象</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -68,7 +69,7 @@
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', 123, function () {          //传递 data 数据 
 </span><span class='line'>  alert(e.data);                                   //获取数字数据
-</span><span class='line'>});&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
 
 
 <p>注意 : 如果字符串就传递:<code>'123'</code>、如果是数组就传递: <code>[123,'abc']</code> ,如果是对象就传递: <code>{user : 'Lee', age : 100}</code> 。数组的调用方式是: <code>e.data[1],</code> 对象的调用方式是: <code>e.data.user。</code></p>
@@ -278,13 +279,14 @@ $('div').click(function (e) {
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
 </span><span class='line'>  $('div').html(function (index, value) { 
 </span><span class='line'>      return value + '1';
 </span><span class='line'>  }); 
-</span><span class='line'>});
-</span><span class='line'>&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<!--more-->
 
 
 <p>通过对象键值对绑定多个参数</p>
