@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-14T22:36:30+08:00</updated>
+  <updated>2015-10-14T22:40:46+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -35,8 +35,6 @@
     alert(e); 
 });
 </code></pre>
-
-<p><img src="/images/event.png" alt="event" /></p>
 
 <p>通过 event.type 属性获取触发事件名
 <code>
