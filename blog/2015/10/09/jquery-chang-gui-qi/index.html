@@ -182,6 +182,20 @@ $('a[title~=num1]').css('color','red');      //选定具有这个属性且属性
 $('a[title*=num]').css('color','red');       //选定具有这个属性且属性值含有一个指定字串的
 $('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性值匹配成功的
 </code></pre>
+
+<h2>四、表单选择器</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').val();                     //元素名定位,默认获取第一个
+</span><span class='line'>$('input').eq(1).val();               //同上,获取第二个
+</span><span class='line'>$('input[type=password]').val();      //选择 type 为 password 的字段
+</span><span class='line'>$('input[name=user]').val();          //选择 name 为 user 的字段</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -236,13 +250,21 @@ $('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (5)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (7)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">jQuery 之 事件对象</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a>
@@ -254,14 +276,6 @@ $('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性
     
       <li class="post">
         <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
       </li>
     
   </ul>

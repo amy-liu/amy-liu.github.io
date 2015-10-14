@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-gao-ji-jian/</loc>
+    <lastmod>2015-10-14T22:34:16+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/</loc>
+    <lastmod>2015-10-14T21:58:43+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://amy-liu.github.io/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/</loc>
     <lastmod>2015-10-13T21:42:16+08:00</lastmod>
   </url>

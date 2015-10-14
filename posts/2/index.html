@@ -9,7 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="替代float 的 inline-block列表布局 浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。 关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes， &hellip;">
+  <meta name="description" content="大小不固定，图片的垂直居中 ① 透明gif图片+背景定位 这里利用了background-position:center实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,86 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/">Css 之 图片垂直居中</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-04T23:05:07+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:05 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>大小不固定，图片的垂直居中</h3>
+
+<h4>① 透明gif图片+背景定位</h4>
+
+<p>这里利用了<code>background-position:center</code>实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，然后给这个gif图片一个<code>background-position:center center</code>的属性。而background-image建议写在页面上，因为实际项目中，这肯定是个动态的URL地址，css文件似乎不支持动态URL地址。下面就是此方法的实例表现。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/03/css-zhi-line-height/">Css 之 Line-height</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T16:28:19+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>4:28 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>一、字面意思</h3>
+
+<p>“Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。</p>
+
+<p><img src="/images/base_line.jpg" alt="base_line" /></p>
+
+<h3>二、line-height与line boxes高度</h3>
+
+<p>css中起高度作用的应该就是height以及line-height了吧！如果一个标签没有定义height属性(包括百分比高度)，那么其最终表现的高度一定是由line-height起作用，即使是IE6下11像素左右默认高度bug也是如此。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/03/css-zhi-line-height/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -317,13 +397,21 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (5)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (7)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">jQuery 之 事件对象</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a>
@@ -335,14 +423,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
       </li>
     
   </ul>

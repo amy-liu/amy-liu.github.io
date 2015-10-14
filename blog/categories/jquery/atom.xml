@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-13T21:45:44+08:00</updated>
+  <updated>2015-10-14T22:34:40+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,334 @@
 
   
   <entry>
+    <title type="html"><![CDATA[jQuery 之 高级事件]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-gao-ji-jian/"/>
+    <updated>2015-10-14T22:34:16+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-gao-ji-jian</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 事件对象]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/"/>
+    <updated>2015-10-14T21:58:43+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang</id>
+    <content type="html"><![CDATA[<p>事件对象就是 <code>event</code> 对象,通过处理函数默认传递接受。之前处理函数的 <code>e</code> 就是 <code>event</code> 事件对象。</p>
+
+<h3>一、事件对象</h3>
+
+<pre><code>$('input').bind('click', function (e) {       //接受事件对象参数
+    alert(e); 
+});
+</code></pre>
+
+<p><img src="/images/event.png" alt="event" /></p>
+
+<p>通过 event.type 属性获取触发事件名
+<code>
+$('input').click(function (e) {
+    alert(e.type);
+});
+</code>
+通过 event.target 获取绑定的 DOM 元素
+<code>
+$('input').click(function (e) {
+    alert(e.target);
+});
+</code>
+通过 event.data 获取额外数据,可以是数字、字符串、数组、对象
+<code>
+$('input').bind('click', 123, function () {          //传递 data 数据
+    alert(e.data);                                   //获取数字数据
+});&lt;!--more--&gt;
+</code>
+注意 : 如果字符串就传递:<code>'123'</code>、如果是数组就传递: <code>[123,'abc']</code> ,如果是对象就传递: <code>{user : 'Lee', age : 100}</code> 。数组的调用方式是: <code>e.data[1],</code> 对象的调用方式是: <code>e.data.user。</code></p>
+
+<p>event.data 获取额外数据,对于封装的简写事件也可以使用
+<code>
+$('input').click({user : 'Lee', age : 100},function (e) {
+    alert(e.data.user);
+});
+</code>
+注意 : 键值对的键可以加上引号,也可以不加;在调用的时候也可以使用数组的方式: <code>alert(e.data['user']);</code></p>
+
+<p>获取移入到 div 之前的那个 DOM 元素</p>
+
+<pre><code>$('div').mouseover(function (e) {
+    alert(e.relatedTarget); 
+});
+</code></pre>
+
+<p>获取移出 div 之后到达最近的那个 DOM 元素</p>
+
+<pre><code>$('div').mouseout(function (e) {
+    alert(e.relatedTarget);
+ });
+</code></pre>
+
+<p>获取绑定的那个 DOM 元素,相当于 this,区别与 <code>event.target</code></p>
+
+<pre><code>$('div').click(function (e) {
+    alert(e.currentTarget); 
+});
+</code></pre>
+
+<p>注意 : <code>event.target</code> 得到的是触发元素的 DOM,<code>event.currentTarget</code> 得到的是监听元素的 DOM。而 <code>this</code>也是得到监听元素的 DOM。</p>
+
+<p>获取上一次事件的返回值</p>
+
+<pre><code>$('div').click(function (e) {
+    return '123'; 
+});
+$('div').click(function (e) { 
+    alert(e.result);
+});
+</code></pre>
+
+<p>获取当前的时间戳</p>
+
+<pre><code>$('div').click(function (e) {
+    alert(e.timeStamp); 
+});
+</code></pre>
+
+<p>获取触发元素鼠标当前的位置</p>
+
+<pre><code>$(document).click(function (e) {
+    alert(e.screenY+ ',' + e.pageY + ',' + e.clientY); 
+});
+</code></pre>
+
+<h3>二、冒泡和默认行为</h3>
+
+<p>如果在页面中重叠了多个元素,并且重叠的这些元素都绑定了同一个事件,那么就会出 现冒泡问题。</p>
+
+<p>jQuery 提供了一个事件对象的方法: <code>event.stopPropagation();</code> 这个方法设置到需要触发 的事件上时,所有上层的冒泡行为都将被取消。
+<code>
+$('input').click(function (e) {
+    alert('按钮被触发了!');
+    e.stopPropagation();
+});
+</code>
+默认行为</p>
+
+<p>网页中的元素,在操作的时候会有自己的默认行为。比如:右击文本框输入区域,会弹 出系统菜单、点击超链接会跳转到指定页面、点击提交按钮会提交数据。
+<code>
+$('a').click(function (e) {
+    e.preventDefault();
+});
+</code>
+禁止提交表单跳转
+<code>
+$('form').submit(function (e) {
+    e.preventDefault();
+});
+</code>
+注意 : 如果想让上面的超链接同时阻止默认行为且禁止冒泡行为,可以把两个方法同时 写上: <code>event.stopPropagation()</code> 和 <code>event.preventDefault()</code> 。这两个方法如果需要同时启用的时候, 还有一种简写方案代替,就是直接 <code>return false。</code></p>
+
+<pre><code>$('a').click(function (e) { 
+    return false;
+});
+</code></pre>
+
+<h2>冒泡和默认行为的一些方法</h2>
+
+<p>判断是否取消了元素的默认行为
+<code>
+ $('input').keyup(function (e) {
+    e.preventDefault();
+    alert(e.isDefaultPrevented());
+});
+</code></p>
+
+<p>取消冒泡并取消后续事件处理函数
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$(&lsquo;input&rsquo;).click(function (e) {
+</span><span class='line'>    alert(&lsquo;input&rsquo;);
+</span><span class='line'>    e.stopImmediatePropagation();
+</span><span class='line'> });&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(&lsquo;input&rsquo;).click(function () {
+</span><span class='line'>    alert(&lsquo;input2&rsquo;);
+</span><span class='line'>});&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(document).click(function () {
+</span><span class='line'>    alert(&lsquo;document&rsquo;);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure></p>
+
+<p>判断是否调用了 <code>stopPropagation()</code> 方法</p>
+
+<pre><code>$('input').click(function (e) {
+    e.stopPropagation();
+    alert(e.isPropagationStopped()); 
+});
+</code></pre>
+
+<p>判断是否执行了 <code>stopImmediatePropagation()</code> 方法</p>
+
+<pre><code>$('input').click(function (e) {
+    e.stopImmediatePropagation();
+    alert(e.isImmediatePropagationStopped());
+});
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[jQuery 之 基础事件]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/"/>
     <updated>2015-10-13T21:42:16+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:<code>click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、blur、focus、load、resize、scroll、error。</code>那么,还有更多的事件可以参考 手册中的事件部分。</p>
+
+<h3>一、绑定事件</h3>
+
+<p>jQuery 通过 <code>.bind()</code> 方法来为元素绑定这些事件。可以传递三个参数<code>bind(type, [data], fn),</code>  <code>type</code> 表示一个或多个类型的事件名字符串; <code>[data]</code> 是可选的,作为 <code>event.data</code> 属性值传递一个 额外的数据,这个数据是一个字符串、一个数字、一个数组或一个对象;fn 表示绑定到指 定元素的处理函数。</p>
+
+<pre><code>    $('input').bind('click', function () {    //点击按钮后执行匿名函数
+        alert('点击!'); 
+    });
+</code></pre>
+
+<p>普通处理函数</p>
+
+<pre><code>    $('input').bind('click', fn);       //执行普通函数式无须圆括号
+        function fn() {
+        alert('点击!'); 
+    }
+</code></pre>
+
+<p>可以同时绑定多个事件
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$(&lsquo;input&rsquo;).bind(&lsquo;mouseout mouseover&rsquo;, function () {    //移入和移出分别执行一次
+</span><span class='line'>    $(&lsquo;div&rsquo;).html(function (index, value) {
+</span><span class='line'>        return value + &lsquo;1&rsquo;;
+</span><span class='line'>    });
+</span><span class='line'>});&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;!--more--&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;通过对象键值对绑定多个参数
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(&lsquo;input&rsquo;).bind({             传递一个对象
+</span><span class='line'>    &lsquo;mouseout&rsquo; : function () {     //事件名的引号可以省略
+</span><span class='line'>        alert(&lsquo;移出&rsquo;);
+</span><span class='line'>    },
+</span><span class='line'>    &lsquo;mouseover&rsquo; : function () {
+</span><span class='line'>        alert(&lsquo;移入&rsquo;);
+</span><span class='line'>    }
+</span><span class='line'>});&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'>使用 unbind 删除绑定的事件
+</span><span class='line'>
+</span><span class='line'>     $('input').unbind();
+</span><span class='line'>
+</span><span class='line'>使用 unbind 参数删除指定类型事件 
+</span><span class='line'>
+</span><span class='line'>    $('input').unbind('click');
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>`.mouseover()和.mouseout()` 表示鼠标移入和移出的时候触发。`.mouseenter()和.mouseleave()` 这组穿过,子元素不会触发。
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>`.keydown()、.keyup()`返回的是键码,而 `.keypress`  返回的是字符编码。 
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;$('input').keydown(function (e) {
+</span><span class='line'>    alert(e.keyCode);
+</span><span class='line'>});
+</span><span class='line'>$('input').keypress(function (e) { 
+</span><span class='line'>    alert(e.charCode);
+</span><span class='line'>});
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;`.focus()和.blur()` 分别表示光标激活和丢失,事件触发时机是当前元素。而`.focusin() 和.focusout()` 也表示光标激活和丢失,但事件触发时机可以是子元素。
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>## 二、复合事件
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$(&lsquo;div&rsquo;).hover(function () {                    //mouseenter 效果
+</span><span class='line'>        $(this).css(&lsquo;background&rsquo;, &lsquo;black&rsquo;);
+</span><span class='line'>    }, function () {                            //mouseleave 效果  可省略
+</span><span class='line'>        $(this).css(&lsquo;background&rsquo;, &lsquo;red&rsquo;);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure></p>
+
+<p>注意 : <code>.hover()</code> 方法是结合了 <code>.mouseenter()</code> 方法和 <code>.mouseleva()</code> 方法,并非 <code>.mouseover()</code> 和 <code>.mouseout()</code> 方法。</p>
 ]]></content>
   </entry>
   
@@ -267,233 +590,6 @@ $('div').width(function (index, value) {   //index 是索引,value 是原本值
     $('strong').position().left;     //相对于父元素的偏移
     $(window).scrollTop();           //获取当前滚动条的位置
     $(window).scrollTop(300);        //设置当前滚动条的位置
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[jQuery 之 过滤选择器]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/"/>
-    <updated>2015-10-09T21:54:41+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi</id>
-    <content type="html"><![CDATA[<p>过滤选择器简称:过滤器。它其实也是一种选择器,而这种选择器类似与 CSS3里的伪类,可以让不支持 CSS3 的低版本浏览器也能支持。</p>
-
-<h2>一、基本过滤器</h2>
-
-<p>通过特定的过滤规则来筛选所需的 DOM 元素,和CSS中的伪类的语法类似:使用冒号(:)开头。
-```
-    $(&lsquo;li:first&rsquo;).css(&lsquo;background&rsquo;, &lsquo;#ccc&rsquo;);       //第一个元素
-    $(&lsquo;li:last).css('background&rsquo;, &lsquo;#ccc&rsquo;);         //最后一个元素
-    $(&lsquo;li:not(.red)).css('background&rsquo;, &lsquo;#ccc&rsquo;);    //非 class 为 red 的元素</p>
-
-<pre><code>$('li:even').css('background', '#ccc');        //索引为偶数的元素
-$('li:odd).css('background', '#ccc');          //索引为奇数的元素
-$('li:eq(2)).css('background', '#ccc');        //指定索引值的元素 
-
-$('li:gt(2)').css('background', '#ccc');       //大于索引值的元素
-$('li:lt(2)').css('background', '#ccc');       //小于索引值的元素
-
-$(':header').css('background', '#ccc');        //页面所有 h1 ~ h6 元素
-</code></pre>
-
-<p>```</p>
-
-<!--more-->
-
-
-<p>注意:<code>:focus</code>过滤器,必须是网页初始状态的已经被激活焦点的元素才能实现元素获取。 而不是鼠标点击或者 Tab 键盘敲击激活的。</p>
-
-<pre><code>$('input').get(0).focus();                 //先初始化激活一个元素焦点 
-$(':focus').css('background', 'red');      //被焦点的元素
-</code></pre>
-
-<p>jQuery 为最常用的过滤器提供了专用的方法,已达到提到性能和效率的作用:</p>
-
-<pre><code>$('li').eq(2).css('background', '#ccc');         //元素 li 的第三个元素,负数从后开始
-$('li').first().css('background', '#ccc');       //元素 li 的第一个元素
-$('li').last().css('background', '#ccc');        //元素 li 的最后一个元素
-$('li').not('.red').css('background', '#ccc');   //元素 li 不含 class 为 red 的元素
-</code></pre>
-
-<h2>二、内容过滤器</h2>
-
-<p>内容过滤器的过滤规则主要是包含的子元素或文本内容上。</p>
-
-<pre><code>$('div:contains("ycku.com")').css('background', '#ccc');   //选择元素文本节点含有 ycku.com 文本的元素
-$('div:empty').css('background', '#ccc');                  //选择空元素
-$('ul:has(.red)').css('background', '#ccc');               //选择子元素含有 class 是 red 的元素 
-$(':parent').css('background', '#ccc');                    //选择非空元素  选取含有子元素或文本的元素
-</code></pre>
-
-<p>jQuery 提供了一个 has()方法来提高:has 过滤器的性能:</p>
-
-<pre><code>$('ul').has('.red').css('background', '#ccc');         //选择子元素含有 class 是 red 的元素
-</code></pre>
-
-<p>jQuery 提供了一个名称和<code>:parent</code>相似的方法,但这个方法并不是选取含有子元素或文本 的元素,而是获取当前元素的父元素,返回的是元素集合。</p>
-
-<pre><code>$('li').parent().css('background', '#ccc');               //选择当前元素的父元素 
-$('li').parents().css('background', '#ccc');              //选择当前元素的父元素及祖先元素 
-$('li').parentsUntil('div').css('background', '#ccc');    //选择当前元素遇到 div 父元素停止
-</code></pre>
-
-<h2>三、可见性过滤器</h2>
-
-<pre><code>$('p:hidden).size(); //选取所有不可见元素
-$('p:visible').size(); //元素 p 显示的元素
-</code></pre>
-
-<p>注意:<code>:hidden</code>过滤器一般是包含的内容为:CSS 样式为<code>display:none、</code>input 表单类型为 <code>type="hidden"</code>和 <code>visibility:hidden</code>的元素。</p>
-
-<h2>四、子元素过滤器</h2>
-
-<p>子元素过滤器的过滤规则是通过父元素和子元素的关系来获取相应的元素。</p>
-
-<pre><code>$('li:first-child').css('background', '#ccc');       //每个父元素第一个 li 元素 
-$('li:last-child').css('background', '#ccc');        //每个父元素最后一个 li 元素 
-$('li:only-child').css('background', '#ccc');        //每个父元素只有一个 li 元素 
-$('li:nth-child(odd)').css('background', '#ccc');    //每个父元素奇数 li 元素
-$('li:nth-child(even)').css('background', '#ccc');   //每个父元素偶数 li 元素
-$('li:nth-child(2)').css('background', '#ccc');      //每个父元素第三个 li 元素
-</code></pre>
-
-<h2>五、其他方法</h2>
-
-<p>jQuery 在选择器和过滤器上,还提供了一些常用的方法,方便我们开发时灵活使用。</p>
-
-<pre><code>$('.red').is('li');                             //true,选择器,检测 class 为是否为 red
-$('.red').is($('li'));                          //true,jQuery 对象集合,同上
-$('.red').is($('li').eq(2));                    //true,jQuery 对象集合,同上
-$('.red').is($('li').get(2));                   //true,DOM 对象,同上
-$('.red').is(function () {                      //true,方法,同上
-    return $(this).attr('title') == '列表 3';    //可以自定义各种判断
-}));   
-$('li').eq(2).hasClass('red');                   //和 is 一样,只不过只能传递 class
-
-$('li').slice(0,2).css('background', '#ccc');    //前三个变成色
-</code></pre>
-
-<p>注意:这个参数有多种传法和 JavaScript 的 slice 方法是一样的比如:slice(2);slice(2,4),第三和第四被选定;slice(0,-2),从倒数第三个位置,向前选定 所有;slice(2,-2),前两个和末尾两个未选定。</p>
-
-<pre><code>$("div").find("p").end().get(0);        //返回 div 的原生 DOM
-$('div').contents().size();             //返回子节点(包括文本)数量
-
-$('li').filter('.red').css('background','#ccc');         //选择 li 的 class 为 red 的元素
-$('li').filter('.red, :first, :last').css('background','#ccc');    //增加了首尾选择
-</code></pre>
-
-<p>特殊要求函数返回</p>
-
-<pre><code>$('li').filter(function () {
-        return $(this).attr('class') == 'red' &amp;&amp; $(this).attr('title') == '列表 3'; 
-        }).css('background', '#ccc');
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[jQuery 之 常规选择器]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/09/jquery-chang-gui-qi/"/>
-    <updated>2015-10-09T20:49:48+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/09/jquery-chang-gui-qi</id>
-    <content type="html"><![CDATA[<p>jQuery 最核心的组成部分就是：选择器引擎。它继承了 CSS 的语法,不必担心浏览器的兼容性。</p>
-
-<h3>一、简单选择器</h3>
-
-<pre><code>$('div').css('color', 'red');          //元素名选择器,返回多个元素 
-$('#box').css('color', 'red');         //ID 选择器,返回单个元素
-$('.box').css('color', 'red');         //类(class)选择器,返回多个元素
-</code></pre>
-
-<p>可以用 jQuery 核心自带的一个属性 length 或 size()方法来查看返回的元素个数。</p>
-
-<h5>容错功能：</h5>
-
-<pre><code>$('#pox').css('color', 'red');       //不存在 ID 为 pox 的元素,也不报错 
-document.getElementById('pox').style.color = 'red';     //报错了
-</code></pre>
-
-<!--more-->
-
-
-<p>原生方法可以这么判断解决这个问题:</p>
-
-<pre><code>if (document.getElementById('pox')) { //先判断是否存在这个对象 
-    document.getElementById('pox').style.color = 'red';
-}
-</code></pre>
-
-<p>使用 jQuery 调用的话,怎么去判断是否存在呢?因 为本身返回的是 jQuery 对象,可能会导致不存在元素存在与否,都会返回 true。</p>
-
-<pre><code>if ($('#pox').length &gt; 0) { //判断元素包含数量即可 
-    $('#pox').css('color', 'red');
-}
-</code></pre>
-
-<p>可以用转换为 DOM 对象的方式来判断,例如:</p>
-
-<pre><code>if ($('#pox').get(0)) {} 或 if ($('#pox')[0]) {} //通过数组下标也可以获取 DOM 对象
-</code></pre>
-
-<h3>二、进阶选择器</h3>
-
-<pre><code>$('span, em, .box').css('color', 'red');    //群组选择器 
-$('ul li a').css('color', 'red');           //后代选择器
-$('*').css('color', 'red');                 //通配选择器
-</code></pre>
-
-<h3>三、高级选择器</h3>
-
-<h4>1、层次选择器</h4>
-
-<pre><code>$('#box p').css('color', 'red');              //后代选择器
-$('#box').find('p').css('color', 'red');      //和后代选择器等价
-
-$('#box &gt; p').css('color', 'red');            //子选择器,孙子后失明
-$('#box').children('p').css('color', 'red');  //和子选择器等价
-
-$('#box+p').css('color', 'red');              //next 选择器(下一个同级节点)
-$('#box').next('p').css('color', 'red');      //和 next 选择器等价
-
-$('#box ~ p').css('color', 'red');            //nextAll 选择器(后面所有同级节点)
-$('#box').nextAll('p').css('color', 'red');   //和 nextAll 选择器等价
-</code></pre>
-
-<p>在 <code>find()、next()、nextAll()和 children()</code>这四个方法中,如果不传递参数,就相当于传递 了“*”,我们不建议这么做,不但影响性能,而且由于精准度不佳可能产生怪异的结果。</p>
-
-<p>补充：</p>
-
-<pre><code>$('#box').prev('p').css('color', 'red'); //同级上一个元素 
-$('#box').prevAll('p').css('color', 'red'); //同级所有上面的元素
-
-$('#box').prevUntil('p').css('color', 'red'); //同级上非指定元素选定,遇到则停止 
-$('#box').nextUntil('p').css('color', 'red'); //同级下非指定元素选定,遇到则停止
-</code></pre>
-
-<p>siblings()方法正好集成了 prevAll()和 nextAll()两个功能的效果,及上下相邻的所有元素 进行选定:</p>
-
-<pre><code>$('#box').siblings('p').css('color', 'red'); //同级上下所有元素选定
-</code></pre>
-
-<p>选择器快慢分析:</p>
-
-<p>最快的是 find()方法,最慢的是$(&lsquo;#box p&rsquo;)这种高级选择器。如果一开始将 $(&lsquo;#box&rsquo;)进行赋值,那么 jQuery 就对其变量进行缓存,那么速度会进一步提高。</p>
-
-<pre><code>var box = $('#box'); 
-var p = box.find('p');
-</code></pre>
-
-<h4>2、属性选择器</h4>
-
-<pre><code>$('a[title]').css('color', 'red');           //选定这个属性的
-$('a[title=num1]').css('color', 'red');      //选定具有这个属性=这个属性值的
-$('a[title=^num]').css('color', 'red');      //选定具有这个属性且开头属性值匹配的
-$('a[title|="num"]').css('color', 'red');    //选定具有这个属性且等于属性值或开头属性值匹配后面跟一个“-”号
-$('a[title$=num]').css('color','red');       //选定具有这个属性且结尾属性值匹配的
-$('a[title!=num1]').css('color','red');      //选定具有这个属性且属性值不想等的
-$('a[title~=num1]').css('color','red');      //选定具有这个属性且属性值是以一个空格分割的列表,其中包含属性值的
-$('a[title*=num]').css('color','red');       //选定具有这个属性且属性值含有一个指定字串的
-$('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性值匹配成功的
 </code></pre>
 ]]></content>
   </entry>

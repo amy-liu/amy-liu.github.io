@@ -9,8 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,7 +83,114 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:<code>click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、blur、focus、load、resize、scroll、error。</code>那么,还有更多的事件可以参考 手册中的事件部分。</p>
+
+<h3>一、绑定事件</h3>
+
+<p>jQuery 通过 <code>.bind()</code> 方法来为元素绑定这些事件。可以传递三个参数<code>bind(type, [data], fn),</code>  <code>type</code> 表示一个或多个类型的事件名字符串; <code>[data]</code> 是可选的,作为 <code>event.data</code> 属性值传递一个 额外的数据,这个数据是一个字符串、一个数字、一个数组或一个对象;fn 表示绑定到指 定元素的处理函数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', function () {    //点击按钮后执行匿名函数
+</span><span class='line'>  alert('点击!'); 
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>普通处理函数</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', fn);       //执行普通函数式无须圆括号
+</span><span class='line'>  function fn() {
+</span><span class='line'>  alert('点击!'); 
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以同时绑定多个事件</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
+</span><span class='line'>  $('div').html(function (index, value) { 
+</span><span class='line'>      return value + '1';
+</span><span class='line'>  }); 
+</span><span class='line'>});
+</span><span class='line'>&lt;!--more--&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过对象键值对绑定多个参数</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind({             传递一个对象 
+</span><span class='line'>  'mouseout' : function () {     //事件名的引号可以省略
+</span><span class='line'>      alert('移出');
+</span><span class='line'>  },
+</span><span class='line'>  'mouseover' : function () {
+</span><span class='line'>      alert('移入'); 
+</span><span class='line'>  }
+</span><span class='line'>});
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用 unbind 删除绑定的事件</p>
+
+<pre><code> $('input').unbind();
+</code></pre>
+
+<p>使用 unbind 参数删除指定类型事件</p>
+
+<pre><code>$('input').unbind('click');
+</code></pre>
+
+<p><code>.mouseover()和.mouseout()</code> 表示鼠标移入和移出的时候触发。<code>.mouseenter()和.mouseleave()</code> 这组穿过,子元素不会触发。</p>
+
+<p><code>.keydown()、.keyup()</code>返回的是键码,而 <code>.keypress</code>  返回的是字符编码。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').keydown(function (e) {
+</span><span class='line'>  alert(e.keyCode);
+</span><span class='line'>});
+</span><span class='line'>$('input').keypress(function (e) { 
+</span><span class='line'>  alert(e.charCode);
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>.focus()和.blur()</code> 分别表示光标激活和丢失,事件触发时机是当前元素。而<code>.focusin() 和.focusout()</code> 也表示光标激活和丢失,但事件触发时机可以是子元素。</p>
+
+<h2>二、复合事件</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('div').hover(function () {                    //mouseenter 效果
+</span><span class='line'>      $(this).css('background', 'black'); 
+</span><span class='line'>  }, function () {                            //mouseleave 效果  可省略
+</span><span class='line'>      $(this).css('background', 'red');
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意 : <code>.hover()</code> 方法是结合了 <code>.mouseenter()</code> 方法和 <code>.mouseleva()</code> 方法,并非 <code>.mouseover()</code> 和 <code>.mouseout()</code> 方法。</p>
 </div>
 
 
@@ -124,6 +230,8 @@
         <a class="basic-alignment left" href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/" title="Previous Post: jQuery 之 DOM节点操作 ">&laquo; jQuery 之 DOM节点操作 </a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/" title="Next Post: jQuery 之 事件对象">jQuery 之 事件对象 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -137,13 +245,21 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/jquery/'>jquery (5)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (7)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
   </ul>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">jQuery 之 事件对象</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a>
@@ -155,14 +271,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-guo-lu-xuan-ze-qi/">jQuery 之 过滤选择器</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a>
       </li>
     
   </ul>
