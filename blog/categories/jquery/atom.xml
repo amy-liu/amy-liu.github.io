@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-15T08:03:52+08:00</updated>
+  <updated>2015-10-16T00:24:16+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 Ajax]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-ajax/"/>
+    <updated>2015-10-15T21:41:51+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-ajax</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 动画效果]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo/"/>
+    <updated>2015-10-15T21:40:46+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[jQuery 之 高级事件]]></title>
@@ -33,6 +51,9 @@ $('input').click(function () {
 <pre><code>$('input').trigger('click');
 </code></pre>
 
+<!--more-->
+
+
 <p>可以合并两个方法
 <code>
 $('input').click(function () {
@@ -46,10 +67,177 @@ $('input').click(function (e, data1, data2) {
 }).trigger('click', ['abc', '123']);
 </code></p>
 
-<!--more-->
+<p>jQuery 还提供了另外一个模拟用户行为的方法 : <code>.triggerHandler();</code>这个方法的使用 和 <code>.trigger()</code> 方法一样。</p>
 
+<pre><code>$('input').click(function () { 
+    alert('我的第一次点击来自模拟!');
+}).triggerHandler('click');
+</code></pre>
 
-<p>待续&hellip;</p>
+<p>1 <code>.triggerHandler()</code> 方法并不会触发事件的默认行为,而 <code>.trigger()</code> 会。</p>
+
+<pre><code>$('form').trigger('submit');         //模拟用户执行提交,并跳转到执行页面 
+$('form').triggerHandler('submit');  //模拟用户执行提交,并阻止的默认行为
+</code></pre>
+
+<p>如果我们希望使用 <code>.trigger()</code> 来模拟用户提交,并且阻止事件的默认行为,则需要这么写:</p>
+
+<pre><code>$('form').submit(function (e) {
+    e.preventDefault(); //阻止默认行为 
+}).trigger('submit');
+</code></pre>
+
+<p>2 <code>.triggerHandler()</code> 方法只会影响第一个匹配到的元素,而 <code>.trigger()</code> 会影响所有。</p>
+
+<p>3 <code>.triggerHandler()</code> 方法会返回当前事件执行的返回值,如果没有返回值,则返回 <code>undefined;</code> 而 <code>.trigger()</code> 则返回当前包含事件触发元素的 jQuery 对象(方便链式连缀调用)。</p>
+
+<pre><code>alert($('input').click(function () { 
+    return 123;
+}).triggerHandler('click')); //返回 123,没有 return 返回
+</code></pre>
+
+<p>4 <code>.trigger()</code> 在创建事件的时候,会冒泡。但这种冒泡是自定义事件才能体现出来,是 jQuery 扩展于 DOM 的机制,并非 DOM 特性。而 <code>.triggerHandler()</code>不会冒泡。</p>
+
+<pre><code>var index = 1; 
+$('div').bind('myEvent',function(){
+    alert('自定义事件' + index);
+    index++; });
+$('.div3').trigger("myEvent");
+</code></pre>
+
+<h2>二、命名空间</h2>
+
+<p>有时,我们想对事件进行移除。但对于同名同元素绑定的事件移除往往比较麻烦,这个 时候,可以使用事件的命名空间解决。</p>
+
+<pre><code>$('input').bind('click.abc', function () { 
+    alert('abc');
+});
+$('input').bind('click.xyz', function () { 
+    alert('xyz');
+});
+$('input').unbind('click.abc');    //移除 click 实践中命名空间为 abc 的
+</code></pre>
+
+<p>注意 : 也可以直接使用(&lsquo;.abc&rsquo;),这样的话,可以移除相同命名空间的不同事件。对于模拟操作 <code>.trigger()</code> 和 <code>.triggerHandler(),</code>用法也是一样的。</p>
+
+<pre><code>$('input').trigger('click.abc');
+</code></pre>
+
+<h2>三、事件委托</h2>
+
+<p>使用 <code>.bind()</code> 不具备动态绑定功能,只有点击原始按钮才能生成</p>
+
+<pre><code>$('.button').bind('click', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p>使用 <code>.live()</code> 具备动态绑定功能,jQuery1.3 使用,jQuery1.7 之后废弃,jQuery1.9 删除</p>
+
+<pre><code>$('.button').live('click', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p><code>.live()</code> 原理就是把 <code>click</code> 事件绑定到祖先元素 <code>$(document)</code> 上,而只需要给 <code>$(document)</code> 绑 定一次即可。
+然后就可以处理后续动态加载的按钮的单击事件。在接受任何 事件时, <code>$(document)</code> 对象都会检查事件类型 <code>(event.type)</code> 和事件目标 <code>(event.target),</code> 如果 click 事件是 <code>.button,</code> 那么就执行委托给它的处理程序。.live()方法已经被删除,无法使用了。需 要测试使用的话,需要引入向下兼容插件。</p>
+
+<p>当我们需要停止事件委托的时候,可以使用.die()来取消掉。</p>
+
+<pre><code>$('.button').die('click');
+</code></pre>
+
+<p>由于.live()和.die()在 jQuery1.4.3 版本中废弃了,之后推出语义清晰、减少冒泡传播层次、 又支持链接连缀调用方式的方法:<code>.delegate()</code>和.<code>undelegate()。</code>但这个方法在 jQuery1.7 版本中 被 <code>.on()</code> 方法整合替代了。</p>
+
+<pre><code>$('#box').delegate('.button', 'click', function () { 
+    $(this).clone().appendTo('#box');
+});
+
+$('#box').undelegate('.button','click');
+</code></pre>
+
+<p>注意 : .live()和.delegate()和.bind()方法一样都是事件绑定,那么区别也很明显,用途上 遵循两个规则:</p>
+
+<p>1.在 DOM 中很多元素绑定相同事件时;</p>
+
+<p>2.在 DOM 中尚不存在即将生成的 元素绑定事件时;我们推荐使用事件委托的绑定方式,否则推荐使用.bind()的普通绑定。</p>
+
+<h2>四、on、off 和 one</h2>
+
+<p>目前绑定事件和解绑的方法有三组共六个。由于这三组的共存可能会造成一定的混乱,为此 jQuery1.7 以后推出了 <code>.on()</code> 和 <code>.off()</code>方法彻底摒弃前面三组。</p>
+
+<p>替代.bind()方式,并使用额外数据和事件对象</p>
+
+<pre><code>$('.button').on('click', {user : 'Lee'}, function (e) {
+    alert('替代.bind()' + e.data.user); 
+});
+</code></pre>
+
+<p>替代.bind()方式,并绑定多个事件</p>
+
+<pre><code>$('.button').on('mouseover mouseout', function () {
+    alert('替代.bind()移入移出!'); 
+});
+</code></pre>
+
+<p>代.bind()方式,以对象模式绑定多个事件</p>
+
+<pre><code>$('.button').on({
+    mouseover : function () { 
+        alert('替代.bind()移入!');
+        },
+    mouseout : function () {
+        alert('替代.bind()移出!'); 
+        }
+    });
+</code></pre>
+
+<p>替代.bind()方式,阻止默认行为并取消冒泡</p>
+
+<pre><code>$('form').on('submit', function () {
+    return false; 
+});
+</code></pre>
+
+<p>或</p>
+
+<pre><code>$('form').on('submit', false);
+</code></pre>
+
+<p>替代.unbind()方式,移除事件</p>
+
+<pre><code>$('.button').off('click'); 
+$('.button').off('click', fn); 
+$('.button').off('click.abc');
+</code></pre>
+
+<p>替代.live()和.delegate(),事件委托</p>
+
+<pre><code>$('#box').on('click', '.button', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p>替代.die()和.undelegate(),取消事件委托</p>
+
+<pre><code>$('#box').off('click', '.button');
+</code></pre>
+
+<p>不管是.bind()还是.on(),绑定事件后都不是自动移除事件的,需要通过.unbind()和.off() 来手工移除。jQuery 提供了 <code>.one()</code> 方法,绑定元素执行完毕后自动移除事件,可以方法仅触 发一次的事件。</p>
+
+<p>类似于.bind()只触发一次</p>
+
+<pre><code>$('.button').one('click', function () {
+    alert('one 仅触发一次!'); 
+});
+</code></pre>
+
+<p>类似于.delegate()只触发一次</p>
+
+<pre><code>$('#box).one('click', 'click', function () {
+    alert('one 仅触发一次!'); 
+});
+</code></pre>
 ]]></content>
   </entry>
   
@@ -313,255 +501,6 @@ $('input').bind('mouseout mouseover', function () {    //移入和移出分别�
 </code></pre>
 
 <p>注意 : <code>.hover()</code> 方法是结合了 <code>.mouseenter()</code> 方法和 <code>.mouseleva()</code> 方法,并非 <code>.mouseover()</code> 和 <code>.mouseout()</code> 方法。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[jQuery 之 DOM节点操作]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo/"/>
-    <updated>2015-10-13T00:33:04+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/13/jquery-domjie-dian-cao-zuo</id>
-    <content type="html"><![CDATA[<p>DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。</p>
-
-<h3>一、创建节点</h3>
-
-<p>为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。
-<code>
-    var box = $('&lt;div id="box"&gt;节点&lt;/div&gt;');         //创建一个节点
-    $('body').append(box);                           //将节点插入到&lt;body&gt;元素内部
-</code></p>
-
-<!--more-->
-
-
-<h2>二、插入节点</h2>
-
-<h4>> 内部插入节点方法:</h4>
-
-<pre><code>    $('div').append('&lt;strong&gt;节点&lt;/strong&gt;');    //向 div 内部插入 strong 节点 
-    $('div').append(function (index, html) {    //使用匿名函数插入节点,html 是原节点
-        return '&lt;strong&gt;节点&lt;/strong&gt;';
-    ￼￼});
-
-    $('span').appendTo('div');                 //讲 span 节点移入 div 节点内
-    $('span').appendTo($('div'));              //同上
-
-    $('div').prepend('&lt;span&gt;节点&lt;/span&gt;');     //将 span 插入到 div 内部的前面 
-    $('div').append(function (index, html) {  //使用匿名函数,同上
-        return '&lt;span&gt;节点&lt;/span&gt;'; 
-        });
-
-    $('span').prependTo('div');               //将 span 移入 div 内部的前面
-    $('span').prependTo($('div'));            //同上
-</code></pre>
-
-<h4>> 外部插入节点方法:</h4>
-
-<pre><code>    $('div').after('&lt;span&gt;节点&lt;/span&gt;');           //向 div 的同级节点后面插入 span
-    $('div').after(function (index, html) {       //使用匿名函数,同上
-        return '&lt;span&gt;节点&lt;/span&gt;';
-        });
-    $('div').before('&lt;span&gt;节点&lt;/span&gt;');         //向 div 的同级节点前面插入 span
-    $('div').before(function (index, html) { 
-        return '&lt;span&gt;节点&lt;/span&gt;';
-        }); 
-    $('span').insertAfter('div');                //将 span 元素移到 div 元素外部的后面
-    $('span').insertBefore('div');               //将 span 元素移到 div 元素外部的前面
-</code></pre>
-
-<h4>> 包裹节点</h4>
-
-<pre><code>$('div').wrap('&lt;strong&gt;&lt;/strong&gt;');                   //在 div 外层包裹一层 strong
-$('div').wrap('&lt;strong&gt;123&lt;/strong&gt;');                //包裹的元素可以带内容
-$('div').wrap('&lt;strong&gt;&lt;em&gt;&lt;/em&gt;&lt;/strong&gt;');          //包裹多个元素
-$('div').wrap($('strong').get(0));                    //也可以包裹一个原生 DOM 
-$('div').wrap(document.createElement('strong'));      //临时的原生DOM
-$('div').wrap(function (index) {
-    return '&lt;strong&gt;&lt;/strong&gt;'; 
-    });
-$('div').unwrap();                                    //移除一层包裹内容,多个需移除多次
-$('div').wrapAll('&lt;strong&gt;&lt;/strong&gt;');                //所有 div 外面只包一层 strong
-$('div').wrapAll($('strong').get(0)); 
-$('div').wrapInner('&lt;strong&gt;&lt;/strong&gt;');              //向指定元素的子内容包裹一层 html 
-$('div').wrapInner($('strong').get(0));               //DOM 节点
-$('div').wrapInner(function () {
-    return '&lt;strong&gt;&lt;/strong&gt;'; 
-    });
-</code></pre>
-
-<h2>三、节点操作</h2>
-
-<pre><code>$('body').append($('div').clone(true));     //复制一个节点添加到 HTML 中
-</code></pre>
-
-<p>注意 : <code>clone(true)</code> 参数可以为空,表示只复制元素和内容,不复制事件行为。而加上 <code>true</code> 参数的话,这个元素附带的事件处理行为也复制出来。</p>
-
-<pre><code>$('div').remove(); //直接删除 div 元素
-</code></pre>
-
-<p>注意 : <code>.remove()</code> 不带参数时,删除前面对象选择器指定的元素。而<code>.remove()</code> 也可以 带选择符参数的,比如 :<code>$('div').remove('#box');</code> 只删除 <code>id=box</code>  的<code>div。</code></p>
-
-<pre><code>$('div').detach(); //保留事件行为的删除
-</code></pre>
-
-<p>注意 : <code>.remove()</code> 和 <code>.detach()</code> 都是删除节点,而删除后本身方法可以返回当前被删除的节 点对象,但区别在于前者在恢复时不保留事件行为,后者则保留。</p>
-
-<pre><code>$('div').empty();   //删除掉节点里的内容
-</code></pre>
-
-<pre><code>    $('div').replaceWith('&lt;span&gt;节点&lt;/span&gt;');      //将 div 替换成 span 元素
-    $('&lt;span&gt;节点&lt;/span&gt;').replaceAll('div');        //同上
-</code></pre>
-
-<p>注意 : 节点被替换后,所包含的事件行为就全部消失了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[jQuery 之 基础DOM操作]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/"/>
-    <updated>2015-10-10T21:00:03+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo</id>
-    <content type="html"><![CDATA[<h3>一、设置元素及内容</h3>
-
-<p>在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。
-<code>
-    $('#box').html();                       //获取 html 内容
-    $('#box').text();                       //获取文本内容,会自动清理 html 标签
-    $('#box').html('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置 html 内容
-    $('#box').text('&lt;em&gt;www.li.cc&lt;/em&gt;');   //设置文本内容,会自动转义 html 标签
-</code>
-使用 html()或 text()设置元素里的内容时,会清空原来的数据。而我们期 望能够追加数据的话,需要先获取原本的数据。</p>
-
-<pre><code>$('#box').html($('#box').html() + '&lt;em&gt;www.li.cc&lt;/em&gt;'); //追加数据
-</code></pre>
-
-<p>如果元素是表单的话,jQuery 提供了 <code>val()</code>方法进行获取或设置内部的文本数据。</p>
-
-<pre><code>$('input').val(); //获取表单内容 
-$('input').val('www.li.cc'); //设置表单内容
-</code></pre>
-
-<p>如果想设置多个选项的选定状态,比如下拉列表、单选复选框等等,可以通过数组传递 操作。</p>
-
-<pre><code>$("input").val(["check1","check2", "radio1" ]); //value 值是这些的将被选定
-</code></pre>
-
-<!--more-->
-
-
-<h2>二、元素属性操作</h2>
-
-<p>除了对元素内容进行设置和获取,通过 jQuery 也可以对元素本身的属性进行操作,包 括获取属性的属性值、设置属性的属性值,并且可以删除掉属性。</p>
-
-<pre><code>$('div').attr('title');                            //获取属性的属性值
-$('div').attr('title', '我是域名');                 //设置属性及属性值 
-$('div').attr('title', function () {               //通过匿名函数返回属性值
-    return '我是域名';});
-$('div').attr('title', function (index, value) {  
-    return value + (index+1) + ',我是域名';          //可以接受两个参数
-});
-</code></pre>
-
-<p>注意: <code>attr()</code>方法里的 <code>function() {},</code>可以不传参数。可以只传一个参数 index,表示当前 元素的索引(从 0 开始)。也可以传递两个参数 index、value,第二个参数表示属性原本的值。</p>
-
-<p>注意: jQuery 中很多方法都可以使用 <code>function() {}</code>来返回出字符串,比如<code>html()、text()、 val()</code>和上一章刚学过的 <code>is()、filter()</code>方法。而如果又涉及到多个元素集合的话,还可以传递 <code>index</code> 参数来获取索引值,并且可以使用第二个参数 <code>value</code>(并不是所有方法都适合,有兴趣 可以自己逐个尝试)。</p>
-
-<pre><code>$('div').html(function (index) { //通过匿名函数赋值,并传递 index 
-    return '我是' + (index+1) + '号 div';
-});
-$('div').html(function (index, value) { //还可以实现追加内容
-     return '我是' + (index+1) + '号 div:'+value ;
-});
-$('div').removeAttr('title'); //这个方法就不可以使用匿名函数,传递 index 和 value 均无效。
-</code></pre>
-
-<h2>三、元素样式操作</h2>
-
-<p>元素样式操作包括了直接设置 CSS 样式、增加 CSS 类别、类别切换、删除类别这几种操作方法。</p>
-
-<pre><code>    $('div').css('color');                   //获取元素行内 CSS 样式的颜色 
-    $('div').css('color', 'red');           //设置元素行内 CSS 样式颜色为红色
-</code></pre>
-
-<p>也可以获取多个 CSS 样式,而获取到的是一个对象数组,如果用 传统方式进行解析需要使用 for in 遍历。</p>
-
-<pre><code>var box = $('div').css(['color', 'height', 'width']);              //得到多个 CSS 样式的数组对象 
-    for (var i in box) {                                           //逐个遍历出来
-    alert(i + ':' + box[i]); }
-</code></pre>
-
-<p>jQuery 提供了一个遍历工具专门来处理这种对象数组,<code>$.each()</code>方法,这个方法可以轻 松的遍历对象数组。</p>
-
-<pre><code>$.each(box, function (attr, value) { //遍历 JavaScript 原生态的对象数组 
-    alert(attr + ':' + value);
-});
-</code></pre>
-
-<p>使用<code>$.each()</code>可以遍历原生的 JavaScript 对象数组,如果是 jQuery 对象的数组怎么使 用<code>.each()</code>方法呢?</p>
-
-<pre><code>$('div').each(function (index, element) { //index 为索引,element 为元素 DOM 
-    alert(index + ':' + element);
-});
-</code></pre>
-
-<p>在需要设置多个样式的时候,我们可以传递多个 CSS 样式的键值对即可。
-<code>
-     $('div').css({
-            'background-color' : '#ccc',
-            'color' : 'red',
-            font-size' : '20px'
-        });
-</code>
- CSS 类的样式切换功能。</p>
-
-<pre><code>$('div').click(function () { //当点击后触发
-    $(this).toggleClass('red size'); //单个样式多个样式均可 
-    });
-</code></pre>
-
-<pre><code>    $('div').click(function () { 
-        $(this).toggleClass(function () {
-            if ($(this).hasClass('red')) { 
-                $(this).removeClass('red'); 
-                return 'green';
-            } else { 
-                $(this).removeClass('green');
-                return 'red';
-            } 
-        });
-    });
-</code></pre>
-
-<h2>四、CSS 方法</h2>
-
-<p>jQuery 不但提供了 CSS 的核心操作方法,比如.css()、.addClass()等。还封装了一些特殊功能的 CSS 操作方法,我们分别来了解一下。</p>
-
-<pre><code>$('div').width();                          //获取元素的长度,返回的类型为number 
-$('div').width(500);                       //设置元素长度,直接传数值,默认加 px  
-$('div').width('500pt');                   //同上,设置了 pt 单位
-$('div').width(function (index, value) {   //index 是索引,value 是原本值 
-    return value - 500;                    //无须调整类型,直接计算
-});
-</code></pre>
-
-<p><code>height()</code>方法同上。</p>
-
-<h4>内外边距和边框尺寸方法</h4>
-
-<pre><code>    alert($('div').width());           //获取元素宽度 不包含
-    alert($('div').innerWidth());      //包含内边距 padding
-    alert($('div').outerWidth());      //包含内边距 padding+边框 border
-    alert($('div').outerWidth(true));  //包含内边距 padding+边框 border+外边距 margin
-</code></pre>
-
-<h4>元素偏移方法</h4>
-
-<pre><code>    $('strong').offset().left;       //获取某个元素相对于视口的偏移位置
-    $('strong').position().left;     //相对于父元素的偏移
-    $(window).scrollTop();           //获取当前滚动条的位置
-    $(window).scrollTop(300);        //设置当前滚动条的位置
-</code></pre>
 ]]></content>
   </entry>
   

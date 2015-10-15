@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-15T08:03:52+08:00</updated>
+  <updated>2015-10-16T00:24:16+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 Ajax]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-ajax/"/>
+    <updated>2015-10-15T21:41:51+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-ajax</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 动画效果]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo/"/>
+    <updated>2015-10-15T21:40:46+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript 之 语法及变量]]></title>
@@ -46,6 +64,9 @@
 <pre><code>$('input').trigger('click');
 </code></pre>
 
+<!--more-->
+
+
 <p>可以合并两个方法</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -66,10 +87,177 @@
 </span><span class='line'>}).trigger('click', ['abc', '123']);</span></code></pre></td></tr></table></div></figure>
 
 
-<!--more-->
+<p>jQuery 还提供了另外一个模拟用户行为的方法 : <code>.triggerHandler();</code>这个方法的使用 和 <code>.trigger()</code> 方法一样。</p>
 
+<pre><code>$('input').click(function () { 
+    alert('我的第一次点击来自模拟!');
+}).triggerHandler('click');
+</code></pre>
 
-<p>待续&hellip;</p>
+<p>1 <code>.triggerHandler()</code> 方法并不会触发事件的默认行为,而 <code>.trigger()</code> 会。</p>
+
+<pre><code>$('form').trigger('submit');         //模拟用户执行提交,并跳转到执行页面 
+$('form').triggerHandler('submit');  //模拟用户执行提交,并阻止的默认行为
+</code></pre>
+
+<p>如果我们希望使用 <code>.trigger()</code> 来模拟用户提交,并且阻止事件的默认行为,则需要这么写:</p>
+
+<pre><code>$('form').submit(function (e) {
+    e.preventDefault(); //阻止默认行为 
+}).trigger('submit');
+</code></pre>
+
+<p>2 <code>.triggerHandler()</code> 方法只会影响第一个匹配到的元素,而 <code>.trigger()</code> 会影响所有。</p>
+
+<p>3 <code>.triggerHandler()</code> 方法会返回当前事件执行的返回值,如果没有返回值,则返回 <code>undefined;</code> 而 <code>.trigger()</code> 则返回当前包含事件触发元素的 jQuery 对象(方便链式连缀调用)。</p>
+
+<pre><code>alert($('input').click(function () { 
+    return 123;
+}).triggerHandler('click')); //返回 123,没有 return 返回
+</code></pre>
+
+<p>4 <code>.trigger()</code> 在创建事件的时候,会冒泡。但这种冒泡是自定义事件才能体现出来,是 jQuery 扩展于 DOM 的机制,并非 DOM 特性。而 <code>.triggerHandler()</code>不会冒泡。</p>
+
+<pre><code>var index = 1; 
+$('div').bind('myEvent',function(){
+    alert('自定义事件' + index);
+    index++; });
+$('.div3').trigger("myEvent");
+</code></pre>
+
+<h2>二、命名空间</h2>
+
+<p>有时,我们想对事件进行移除。但对于同名同元素绑定的事件移除往往比较麻烦,这个 时候,可以使用事件的命名空间解决。</p>
+
+<pre><code>$('input').bind('click.abc', function () { 
+    alert('abc');
+});
+$('input').bind('click.xyz', function () { 
+    alert('xyz');
+});
+$('input').unbind('click.abc');    //移除 click 实践中命名空间为 abc 的
+</code></pre>
+
+<p>注意 : 也可以直接使用(&lsquo;.abc&rsquo;),这样的话,可以移除相同命名空间的不同事件。对于模拟操作 <code>.trigger()</code> 和 <code>.triggerHandler(),</code>用法也是一样的。</p>
+
+<pre><code>$('input').trigger('click.abc');
+</code></pre>
+
+<h2>三、事件委托</h2>
+
+<p>使用 <code>.bind()</code> 不具备动态绑定功能,只有点击原始按钮才能生成</p>
+
+<pre><code>$('.button').bind('click', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p>使用 <code>.live()</code> 具备动态绑定功能,jQuery1.3 使用,jQuery1.7 之后废弃,jQuery1.9 删除</p>
+
+<pre><code>$('.button').live('click', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p><code>.live()</code> 原理就是把 <code>click</code> 事件绑定到祖先元素 <code>$(document)</code> 上,而只需要给 <code>$(document)</code> 绑 定一次即可。
+然后就可以处理后续动态加载的按钮的单击事件。在接受任何 事件时, <code>$(document)</code> 对象都会检查事件类型 <code>(event.type)</code> 和事件目标 <code>(event.target),</code> 如果 click 事件是 <code>.button,</code> 那么就执行委托给它的处理程序。.live()方法已经被删除,无法使用了。需 要测试使用的话,需要引入向下兼容插件。</p>
+
+<p>当我们需要停止事件委托的时候,可以使用.die()来取消掉。</p>
+
+<pre><code>$('.button').die('click');
+</code></pre>
+
+<p>由于.live()和.die()在 jQuery1.4.3 版本中废弃了,之后推出语义清晰、减少冒泡传播层次、 又支持链接连缀调用方式的方法:<code>.delegate()</code>和.<code>undelegate()。</code>但这个方法在 jQuery1.7 版本中 被 <code>.on()</code> 方法整合替代了。</p>
+
+<pre><code>$('#box').delegate('.button', 'click', function () { 
+    $(this).clone().appendTo('#box');
+});
+
+$('#box').undelegate('.button','click');
+</code></pre>
+
+<p>注意 : .live()和.delegate()和.bind()方法一样都是事件绑定,那么区别也很明显,用途上 遵循两个规则:</p>
+
+<p>1.在 DOM 中很多元素绑定相同事件时;</p>
+
+<p>2.在 DOM 中尚不存在即将生成的 元素绑定事件时;我们推荐使用事件委托的绑定方式,否则推荐使用.bind()的普通绑定。</p>
+
+<h2>四、on、off 和 one</h2>
+
+<p>目前绑定事件和解绑的方法有三组共六个。由于这三组的共存可能会造成一定的混乱,为此 jQuery1.7 以后推出了 <code>.on()</code> 和 <code>.off()</code>方法彻底摒弃前面三组。</p>
+
+<p>替代.bind()方式,并使用额外数据和事件对象</p>
+
+<pre><code>$('.button').on('click', {user : 'Lee'}, function (e) {
+    alert('替代.bind()' + e.data.user); 
+});
+</code></pre>
+
+<p>替代.bind()方式,并绑定多个事件</p>
+
+<pre><code>$('.button').on('mouseover mouseout', function () {
+    alert('替代.bind()移入移出!'); 
+});
+</code></pre>
+
+<p>代.bind()方式,以对象模式绑定多个事件</p>
+
+<pre><code>$('.button').on({
+    mouseover : function () { 
+        alert('替代.bind()移入!');
+        },
+    mouseout : function () {
+        alert('替代.bind()移出!'); 
+        }
+    });
+</code></pre>
+
+<p>替代.bind()方式,阻止默认行为并取消冒泡</p>
+
+<pre><code>$('form').on('submit', function () {
+    return false; 
+});
+</code></pre>
+
+<p>或</p>
+
+<pre><code>$('form').on('submit', false);
+</code></pre>
+
+<p>替代.unbind()方式,移除事件</p>
+
+<pre><code>$('.button').off('click'); 
+$('.button').off('click', fn); 
+$('.button').off('click.abc');
+</code></pre>
+
+<p>替代.live()和.delegate(),事件委托</p>
+
+<pre><code>$('#box').on('click', '.button', function () {
+    $(this).clone().appendTo('#box'); 
+});
+</code></pre>
+
+<p>替代.die()和.undelegate(),取消事件委托</p>
+
+<pre><code>$('#box').off('click', '.button');
+</code></pre>
+
+<p>不管是.bind()还是.on(),绑定事件后都不是自动移除事件的,需要通过.unbind()和.off() 来手工移除。jQuery 提供了 <code>.one()</code> 方法,绑定元素执行完毕后自动移除事件,可以方法仅触 发一次的事件。</p>
+
+<p>类似于.bind()只触发一次</p>
+
+<pre><code>$('.button').one('click', function () {
+    alert('one 仅触发一次!'); 
+});
+</code></pre>
+
+<p>类似于.delegate()只触发一次</p>
+
+<pre><code>$('#box).one('click', 'click', function () {
+    alert('one 仅触发一次!'); 
+});
+</code></pre>
 ]]></content>
   </entry>
   
