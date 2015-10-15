@@ -71,6 +71,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/">JavaScript 之 语法及变量</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-14T23:34:35+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:34 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a></h1>
     
     
@@ -87,9 +116,51 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><h3>一、模拟操作</h3>
+
+<p>在事件触发的时候,有时我们需要一些模拟用户行为的操作。例如:当网页加载完毕后 自行点击一个按钮触发一个事件,而不是用户去点击。</p>
+
+<p>点击按钮事件</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function () {
+</span><span class='line'>  alert('我的第一次点击来自模拟!'); 
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>模拟用户点击行为</p>
+
+<pre><code>$('input').trigger('click');
+</code></pre>
+
+<p>可以合并两个方法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function () {
+</span><span class='line'>  alert('我的第一次点击来自模拟!'); 
+</span><span class='line'>}).trigger('click');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有时在模拟用户行为的时候,我们需要给事件执行传递参数,这个参数类似与 <code>event.data</code> 的额外数据,可以可以是数字、字符串、数组、对象。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e, data1, data2) { 
+</span><span class='line'>  alert(data1 + ',' + data2);
+</span><span class='line'>}).trigger('click', ['abc', '123']);</span></code></pre></td></tr></table></div></figure>
+
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -519,42 +590,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/05/css-zhi-margin/">Css 之 Margin</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-05T10:53:49+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:53 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>你真的了解margin吗？你知道margin有什么特性吗？你知道什么是垂直外边距合并？&hellip; 我真的有点晕！！</p>
-
-<h4>一、Margin是什么</h4>
-
-<p>边界，元素周围生成额外的空白区。“空白区”通常是指其他元素不能出现且父元素背景可见的区域。——CSS权威指南</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/05/css-zhi-margin/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -570,6 +605,7 @@ document.getElementById('pox').style.color = 'red';     //报错了
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (1)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (7)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -577,6 +613,10 @@ document.getElementById('pox').style.color = 'red';     //报错了
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/">JavaScript 之 语法及变量</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
@@ -592,10 +632,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
       </li>
     
   </ul>

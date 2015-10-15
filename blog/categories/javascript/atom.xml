@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | 云端笔记]]></title>
+  <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://amy-liu.github.io/"/>
+  <updated>2015-10-15T08:03:52+08:00</updated>
+  <id>http://amy-liu.github.io/</id>
+  <author>
+    <name><![CDATA[amy-liu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 语法及变量]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/"/>
+    <updated>2015-10-14T23:34:35+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>

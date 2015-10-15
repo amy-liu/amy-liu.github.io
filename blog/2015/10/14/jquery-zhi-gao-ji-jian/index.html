@@ -9,8 +9,10 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="一、模拟操作 在事件触发的时候,有时我们需要一些模拟用户行为的操作。例如:当网页加载完毕后 自行点击一个按钮触发一个事件,而不是用户去点击。 点击按钮事件 1
+2
+3
+$('input').click(function () { alert('我的第一次点击来自模拟!'); }); &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,7 +86,49 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><h3>一、模拟操作</h3>
+
+<p>在事件触发的时候,有时我们需要一些模拟用户行为的操作。例如:当网页加载完毕后 自行点击一个按钮触发一个事件,而不是用户去点击。</p>
+
+<p>点击按钮事件</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function () {
+</span><span class='line'>  alert('我的第一次点击来自模拟!'); 
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>模拟用户点击行为</p>
+
+<pre><code>$('input').trigger('click');
+</code></pre>
+
+<p>可以合并两个方法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function () {
+</span><span class='line'>  alert('我的第一次点击来自模拟!'); 
+</span><span class='line'>}).trigger('click');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有时在模拟用户行为的时候,我们需要给事件执行传递参数,这个参数类似与 <code>event.data</code> 的额外数据,可以可以是数字、字符串、数组、对象。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e, data1, data2) { 
+</span><span class='line'>  alert(data1 + ',' + data2);
+</span><span class='line'>}).trigger('click', ['abc', '123']);</span></code></pre></td></tr></table></div></figure>
+
+
+<!--more-->
+
+
+<p>待续&hellip;</p>
 </div>
 
 
@@ -124,6 +168,8 @@
         <a class="basic-alignment left" href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/" title="Previous Post: jQuery 之 事件对象">&laquo; jQuery 之 事件对象</a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/" title="Next Post: JavaScript 之 语法及变量">JavaScript 之 语法及变量 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -137,6 +183,7 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (1)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (7)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -144,6 +191,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/">JavaScript 之 语法及变量</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
@@ -159,10 +210,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/10/jquery-zhi-ji-chu-domhe-csscao-zuo/">jQuery 之 基础DOM操作</a>
       </li>
     
   </ul>

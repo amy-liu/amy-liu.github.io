@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Jquery | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/jquery/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-14T22:44:28+08:00</updated>
+  <updated>2015-10-15T08:03:52+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -18,7 +18,38 @@
     <link href="http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-gao-ji-jian/"/>
     <updated>2015-10-14T22:34:16+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/14/jquery-zhi-gao-ji-jian</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h3>一、模拟操作</h3>
+
+<p>在事件触发的时候,有时我们需要一些模拟用户行为的操作。例如:当网页加载完毕后 自行点击一个按钮触发一个事件,而不是用户去点击。</p>
+
+<p>点击按钮事件
+<code>
+$('input').click(function () {
+    alert('我的第一次点击来自模拟!');
+});
+</code>
+模拟用户点击行为</p>
+
+<pre><code>$('input').trigger('click');
+</code></pre>
+
+<p>可以合并两个方法
+<code>
+$('input').click(function () {
+    alert('我的第一次点击来自模拟!');
+}).trigger('click');
+</code>
+有时在模拟用户行为的时候,我们需要给事件执行传递参数,这个参数类似与 <code>event.data</code> 的额外数据,可以可以是数字、字符串、数组、对象。
+<code>
+$('input').click(function (e, data1, data2) {
+    alert(data1 + ',' + data2);
+}).trigger('click', ['abc', '123']);
+</code></p>
+
+<!--more-->
+
+
+<p>待续&hellip;</p>
 ]]></content>
   </entry>
   
