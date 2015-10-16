@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-16T00:24:16+08:00</updated>
+  <updated>2015-10-16T07:56:50+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -32,7 +32,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[JavaScript 之 语法及变量]]></title>
+    <title type="html"><![CDATA[JavaScript 之 数据类型]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/"/>
     <updated>2015-10-14T23:34:35+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang</id>
