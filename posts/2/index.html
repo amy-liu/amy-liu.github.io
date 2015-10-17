@@ -9,7 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="CSS3中新的盒子模型——弹性盒子模型(Flexible Box Model)。”flex”一词中文有“收缩”之意。 一、box-flex属性（和谐版） 不过，从此属性实际上产生的效果来看，无论怎样用“收缩”一词解释都显得很牵强。所以，这里，直接抛开字面意思，我们可以将”box-flex”理解为” &hellip;">
+  <meta name="description" content="jQuery 最核心的组成部分就是：选择器引擎。它继承了 CSS 的语法,不必担心浏览器的兼容性。 一、简单选择器 $('div').css('color', 'red'); //元素名选择器,返回多个元素 $('#box').css('color', 'red'); //ID 选择器, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/09/jquery-chang-gui-qi/">jQuery 之 常规选择器</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-09T20:49:48+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:49 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>jQuery 最核心的组成部分就是：选择器引擎。它继承了 CSS 的语法,不必担心浏览器的兼容性。</p>
+
+<h3>一、简单选择器</h3>
+
+<pre><code>$('div').css('color', 'red');          //元素名选择器,返回多个元素 
+$('#box').css('color', 'red');         //ID 选择器,返回单个元素
+$('.box').css('color', 'red');         //类(class)选择器,返回多个元素
+</code></pre>
+
+<p>可以用 jQuery 核心自带的一个属性 length 或 size()方法来查看返回的元素个数。</p>
+
+<h5>容错功能：</h5>
+
+<pre><code>$('#pox').css('color', 'red');       //不存在 ID 为 pox 的元素,也不报错 
+document.getElementById('pox').style.color = 'red';     //报错了
+</code></pre>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/09/jquery-chang-gui-qi/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -425,67 +474,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/01/test/">用 Octopress 搭建个人博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-01T15:28:28+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>3:28 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Octopress的安装配置</h3>
-
-<h3>1.克隆Octopress安装文件至本地</h3>
-
-<pre><code>1. git clone git@github.com:imathis/octopress.git
-2. cd octopress
-</code></pre>
-
-
-<h3>2.安装依赖项</h3>
-
-<p> 加入了淘宝的软件源。删除官方的自带软件源</p>
-
-<pre><code>1.  gem sources --remove https://rubygems.org/
-2.  gem sources -a http://ruby.taobao.org/
-</code></pre>
-
-
-<p> 输入查看软件源命令，查看当前软件源是否正确</p>
-
-<pre><code>gem sources -l</code></pre>
-
-
-<p> 修改完Gemfile文件后，我们就可以开始“bundler”的安装了</p>
-
-<pre><code>bundle install</code></pre>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/01/test/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/3">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -510,6 +501,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
       </li>
     
@@ -523,10 +518,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">jQuery 之 事件对象</a>
       </li>
     
   </ul>

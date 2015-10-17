@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-17T23:25:29+08:00</updated>
+  <updated>2015-10-17T23:31:09+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 运算符]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-yun-suan-fu/"/>
+    <updated>2015-10-17T23:31:08+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-yun-suan-fu</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript 之 数据类型]]></title>
@@ -1909,70 +1918,6 @@ float:left;min-width:220px;_width:220px;white-space:nowrap
 <p>FF不能识别*，但能识别!important</p>
 
 <p>另外再补充一个，下划线" _ ” ，IE6支持下划线，IE7和firefox均不支持下划线。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[用 Octopress 搭建个人博客]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/01/test/"/>
-    <updated>2015-10-01T15:28:28+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/01/test</id>
-    <content type="html"><![CDATA[<h3>Octopress的安装配置</h3>
-
-<h3>1.克隆Octopress安装文件至本地</h3>
-
-<pre><code>1. git clone git@github.com:imathis/octopress.git
-2. cd octopress
-</code></pre>
-
-
-<h3>2.安装依赖项</h3>
-
-<p> 加入了淘宝的软件源。删除官方的自带软件源</p>
-
-<pre><code>1.  gem sources --remove https://rubygems.org/
-2.  gem sources -a http://ruby.taobao.org/
-</code></pre>
-
-
-<p> 输入查看软件源命令，查看当前软件源是否正确</p>
-
-<pre><code>gem sources -l</code></pre>
-
-
-<p> 修改完Gemfile文件后，我们就可以开始“bundler”的安装了</p>
-
-<pre><code>bundle install</code></pre>
-
-
-<!--more-->
-
-
-<h3>3.安装Octopress并设定默认主题</h3>
-
-<p> <pre><code>rake install</code></pre></p>
-
-<p>  生成和本地预览命令</p>
-
-<p>  <pre><code>rake generate
-rake preview</code></pre></p>
-
-<h3>4.Octopress网页加载速度慢的解决方法</h3>
-
-<p> <pre><code>//libs.baidu.com/jquery/1.9.1/jquery.min.js</code></pre></p>
-
-<h3>5. 部署到 GitHub 上</h3>
-
-<p> <pre><code>rake setup_github_pages</code></pre></p>
-
-<pre><code> rake new_post
-</code></pre>
-
-<p>你发布的文章被放在 <code>source/_posts</code>目录下,</p>
-
-<p> 最后执行
- <pre><code>rake generate
-rake deploy</code></pre></p>
 ]]></content>
   </entry>
   
