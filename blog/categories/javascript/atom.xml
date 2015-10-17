@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-17T23:18:19+08:00</updated>
+  <updated>2015-10-17T23:25:29+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[JavaScript 之 数据类型]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/"/>
-    <updated>2015-10-14T23:34:35+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang</id>
+    <link href="http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/"/>
+    <updated>2015-10-17T23:23:46+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing</id>
     <content type="html"><![CDATA[<p>ECMAScript 中有 5 种简单数据类型:<code>Undefined、Null、Boolean、Number 和 String。</code> 还有一种复杂数据类型——<code>Object</code>。ECMAScript 不支持任何创建自定义类型的机制,所有 值都成为以上 6 中数据类型之一。</p>
 
 <h3>一、typeof 操作符</h3>

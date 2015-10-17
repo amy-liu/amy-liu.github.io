@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-17T23:18:19+08:00</updated>
+  <updated>2015-10-17T23:25:29+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,28 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[jQuery 之 Ajax]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-ajax/"/>
-    <updated>2015-10-15T21:41:51+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-ajax</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[jQuery 之 动画效果]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo/"/>
-    <updated>2015-10-15T21:40:46+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[JavaScript 之 数据类型]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang/"/>
-    <updated>2015-10-14T23:34:35+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/14/javascript-zhi-yu-fa-guan-jian-bao-liu-zi-ji-bian-liang</id>
+    <link href="http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/"/>
+    <updated>2015-10-17T23:23:46+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing</id>
     <content type="html"><![CDATA[<p>ECMAScript 中有 5 种简单数据类型:<code>Undefined、Null、Boolean、Number 和 String。</code> 还有一种复杂数据类型——<code>Object</code>。ECMAScript 不支持任何创建自定义类型的机制,所有 值都成为以上 6 中数据类型之一。</p>
 
 <h3>一、typeof 操作符</h3>
@@ -235,6 +217,24 @@ alert(typeof box); //Object 类型
 </code></pre>
 
 <p>PS:面向对象是 JavaScript 课程的重点,这里我们只是简单做个介绍 。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 Ajax]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-ajax/"/>
+    <updated>2015-10-15T21:41:51+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-ajax</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 之 动画效果]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo/"/>
+    <updated>2015-10-15T21:40:46+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo</id>
+    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
