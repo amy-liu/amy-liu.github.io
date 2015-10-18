@@ -9,8 +9,11 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="一、什么是表达式 表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如: 5.96 //数值字面量
+'Lee' //字符串字面量
+true //布尔值字面量 null //空值字面量
+/Java/ //正则表达式字面量
+{x: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,7 +87,252 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><h3>一、什么是表达式</h3>
+
+<p>表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如:</p>
+
+<pre><code>5.96                           //数值字面量
+'Lee'                          //字符串字面量
+true                           //布尔值字面量 
+null                           //空值字面量
+/Java/                         //正则表达式字面量
+{x:1, y:2}                     //对象字面量、对象表达式
+[1,2,3]                        //数组字面量、数组表达式
+function(n) {return x+y;}      //函数字面量、函数表达式
+box                            //变量
+</code></pre>
+
+<p>当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
+
+<pre><code>box + 5.96      //加法运算的表达式
+typeof(box)     //查看数据类型的表达式
+box &gt; 8         //逻辑运算表达式
+</code></pre>
+
+<p>通过上面的叙述,我们得知,单一的字面量和组合字面量的运算符都可称为表达式。</p>
+
+<h2>二、一元运算符</h2>
+
+<p>只能操作一个值的运算符叫做一元运算符。</p>
+
+<p>1.递增++和递减- -</p>
+
+<pre><code>var box = 100;
+++box; //把 box 累加一个 1,相当于 box = box+1 
+--box; //把 box 累减一个 1,相当于 box = box-1
+box++; //同上
+box--; //同上
+</code></pre>
+
+<!--more-->
+
+
+<p>2.前置和后置的区别</p>
+
+<p>在没有赋值操作 ,前置和后置是一样的 。但在赋值操作时 ,如果递增或递减运算符前置 , 那么前置的运算符会先累加或累减再赋值,如果是后置运算符则先赋值再累加或累减。</p>
+
+<pre><code>var box = 100;
+var age = ++box;     //age 值为 101 
+var height = box++;  //height 值为 100
+</code></pre>
+
+<p>3.其他类型应用一元运算符的规则</p>
+
+<pre><code>var box = '89'; box++;                 //90,数值字符串自动转换成数值              
+var box = 'ab'; box++;                 //NaN,字符串包含非数值转成 NaN
+var box = false; box++;                //1,false 转成数值是 0,累加就是 1
+var box = 2.3; box++;                  //3.3,直接加 1
+var box = {                            //1,不设置 toString 或 valueOf 即为 NaN
+    toString : function() { 
+    return 1;
+}
+box++;
+}
+</code></pre>
+
+<p>4.加和减运算符</p>
+
+<p>加运算规则如下:(其实就是取正)</p>
+
+<pre><code>var box = 100; +box;              //100,对于数值,不会产生任何影响 
+var box = '89'; +box;             //89,数值字符串转换成数值
+var box = 'ab'; +box;             //NaN,字符串包含非数值转成 NaN 
+var box = false; +box;            //0,布尔值转换成相应数值 
+var box = 2.3; +box;              //2.3,没有变化
+var box = {                       //1,不设置 toString 或 valueOf 即为 NaN
+    toString : function() { 
+    return 1;
+};
+};
++box;
+</code></pre>
+
+<p>减运算规则如下:(其实就是取负)</p>
+
+<pre><code>var box = 100; －box;              //－100,对于数值,不会产生任何影响 
+var box = '89'; －box;             //－89,数值字符串转换成数值
+var box = 'ab'; －box;             //NaN,字符串包含非数值转成 NaN 
+var box = false; －box;            //0,布尔值转换成相应数值 
+var box = 2.3; －box;              //－2.3,没有变化
+var box = {                       //－1,不设置 toString 或 valueOf 即为 NaN
+    toString : function() { 
+    return 1;
+};
+};
+－box;
+</code></pre>
+
+<p>加法和减法运算符一般用于算术运算,也可向上面进行类型转换。</p>
+
+<h2>三、算术运算符</h2>
+
+<p>ECMAScript 定义了 5 个算术运算符,加减乘除求模 (取余)。如果在算术运算的值不是 数值,那么后台会先使用 Number()转型函数将其转换为数值(隐式转换)。</p>
+
+<pre><code>var box = 1 + 2;                              //等于 3
+var box = 1 + NaN;                            //NaN,只要有一个 NaN 就为 NaN
+var box = Infinity + -Infinity;               //NaN,正无穷和负无穷相加等 NaN
+var box = 100 + '100';                        //100100,字符串连接符,有字符串就不是加法
+var box = '您的年龄是:' + 10 + 20;             //您的年龄是:1020,被转换成字符串
+var box = 10 + 20 + '是您的年龄';              //30 是您的年龄,没有被转成字符串
+var box = '您的年龄是:' + (10 + 20);           //您的年龄是:30,没有被转成字符串
+varbox=10+ 对象                //10[object Object],如果有 toString()或 valueOf() 则返回 10+返回数的值
+
+var box = 100 - true;             //99,true 转成数值为 1 
+var box = 100 - '';               //100,''转成了 0
+var box = 100 - null;             //100,null 转成了 0
+var box = 100 - 'Lee';            //NaN,Lee 转成了 NaN
+varbox=100- 对象                   //NaN,如果有 toString()或 valueOf()则返回 10-返回数的值
+
+...
+</code></pre>
+
+<h2>四、关系运算符</h2>
+
+<p>用于进行比较的运算符称作为关系运算符:小于 (&lt;)、大于(>)、小于等于(&lt;=)、大于等于(>=)、相等(==)、不等(!=)、全等(恒等)(===)、不全等(不恒等)(!==)</p>
+
+<p>和其他运算符一样,当关系运算符操作非数值时要遵循一下规则:</p>
+
+<p>1.两个操作数都是数值,则数值比较;<br/>
+2.两个操作数都是字符串,则比较两个字符串对应的字符编码值; <br/>
+3.两个操作数有一个是数值,则将另一个转换为数值,再进行数值比较; <br/>
+4.两个操作数有一个是对象,则先调用 valueOf()方法或 toString()方法,再用结果比较;</p>
+
+<pre><code>var box = 3 &gt; 2;          //true
+var box = 3 &gt; 22;         //false
+var box = '3' &gt; 22;       //false
+var box = '3' &gt; '22';     //true
+var box = 'a' &gt; 'b';      //false
+var box = 'a' &gt; 'B';      //true B=66
+var box = 1 &gt; 对象;        //false,如果有 toString()或 valueOf()则返回 1 &gt; 返回数的值
+</code></pre>
+
+<p>在相等和不等的比较上,如果操作数是非数值,则遵循一下规则:</p>
+
+<p>1.一个操作数是布尔值,则比较之前将其转换为数值, <code>false</code> 转成 <code>0</code> , <code>true</code> 转成 <code>1</code> ; <br/>
+2.一个操作数是字符串,则比较之前将其转成为数值再比较; <br/>
+3.一个操作数是对象,则先调用 <code>valueOf()</code> 或 <code>toString()</code> 方法后再和返回值比较; <br/>
+4.不需要任何转换的情况下, <code>null</code> 和 <code>undefined</code> 是相等的;<br/>
+5.一个操作数是 NaN,则==返回 false,!=返回 true;并且 NaN 和自身不等;<br/>
+6.两个操作数都是对象 ,则比较他们是否是同一个对象 ,如果都指向同一个对象 ,则返 回 <code>true</code> ,否则返回 <code>false</code> 。<br/>
+7.在全等和全不等的判断上,比如值和类型都相等,才返回 <code>true</code> ,否则返回 <code>false</code>。</p>
+
+<h2>五、逻辑运算符</h2>
+
+<p>逻辑运算符通常用于布尔值的操作,一般和关系运算符配合使用,有三个逻辑运算符 :
+逻辑与 &amp;&amp; (AND)、逻辑或 || (OR)、逻辑非 ! (NOT)。</p>
+
+<p>1.逻辑与(AND) :&amp;&amp;</p>
+
+<pre><code>var box = (5 &gt; 4) &amp;&amp; (4 &gt; 3) //true,两边都为 true,返回 
+</code></pre>
+
+<p>如果两边的操作数有一个操作数不是布尔值的情况下,与运算就不一定返回布尔值 ,此 时,遵循已下规则:</p>
+
+<p>1.第一个操作数是对象,则返回第二个操作数; <br/>
+2.第二个操作数是对象,则第一个操作数返回 true,才返回第二个操作数,否则返回 false; <br/>
+3.有一个操作数是 null,则返回 null;<br/>
+4.有一个操作数是 undefined,则返回 undefined。</p>
+
+<pre><code>var box = 对象 &amp;&amp; (5 &gt; 4);      //true,返回第二个操作数
+var box = (5 &gt; 4) &amp;&amp; 对象;      //[object Object]
+var box = (3 &gt; 4) &amp;&amp; 对象;      //false
+var box = (5 &gt; 4) &amp;&amp; null;     //null
+</code></pre>
+
+<p>逻辑与运算符属于短路操作,顾名思义,如果第一个操作数返回是 false,第二个数不 管是 true 还是 false 都返回的 false。</p>
+
+<pre><code>var box = true &amp;&amp; age;            //出错,age 未定义 
+var box = false &amp;&amp; age;           //false,不执行 age 了
+</code></pre>
+
+<p>2.逻辑或(OR):||</p>
+
+<p>如果两边的操作数有一个操作数不是布尔值的情况下,逻辑与运算就不一定返回布尔 值,此时,遵循已下规则:</p>
+
+<p>1.第一个操作数是对象,则返回第一个操作数;<br/>
+2.第一个操作数的求值结果为 false,则返回第二个操作数;<br/>
+3.两个操作数都是对象,则返回第一个操作数; <br/>
+4.两个操作数都是 null,则返回 null;<br/>
+5.两个操作数都是 NaN,则返回 NaN; <br/>
+6.两个操作数都是 undefined,则返回 undefined;</p>
+
+<pre><code>var box = 对象 || (5 &gt; 3);          //[object Object]
+varbox=(5&gt;3)|| 对象;                //true
+var box = 对象 1 || 对象 2;          //[object Object]1
+var box = null || null;             //null
+var box = NaN || NaN;               //NaN
+var box = undefined || undefined;   //undefined
+</code></pre>
+
+<p>3.逻辑非(NOT):!</p>
+
+<p>逻辑非运算符可以用于任何值 。无论这个值是什么数据类型 ,这个运算符都会返回一个 布尔值。它的流程是:先将这个值转换成布尔值,然后取反,规则如下:</p>
+
+<p>1.操作数是一个对象,返回 false;  <br/>
+2.操作数是一个空字符串,返回 true; <br/>
+3.操作数是一个非空字符串,返回 false; <br/>
+4.操作数是数值 0,返回 true; <br/>
+5.操作数是任意非 0 数值(包括 Infinity),false; <br/>
+6.操作数是 null,返回 true;
+7.操作数是 NaN,返回 true; <br/>
+8.操作数是 <code>undefined</code>,返回 <code>true</code>;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = !(5 &gt; 4);       //false
+</span><span class='line'>var box = !{};            //false
+</span><span class='line'>var box = !'';            //true
+</span><span class='line'>var box = !'Lee';         //false
+</span><span class='line'>var box = !0;             //true
+</span><span class='line'>var box = !8;             //false
+</span><span class='line'>var box = !null;          //true      
+</span><span class='line'>var box = !NaN;           //true
+</span><span class='line'>var box = !undefined;     //true</span></code></pre></td></tr></table></div></figure>
+
+
+<p>三元条件运算符</p>
+
+<p>三元条件运算符其实就是后面将要学到的 if 语句的简写形式。</p>
+
+<pre><code>var box = 5 &gt; 4 ? '对' : '错';       //对,5&gt;4 返回 true 则把'对'赋值给 box,反之。
+</code></pre>
+
+<p>相当于:</p>
+
+<pre><code>var box = ''; 
+if (5 &gt; 4) {
+    box = '对'; 
+} else {
+    box = '错';
+} 
+</code></pre>
 </div>
 
 
@@ -124,6 +372,8 @@
         <a class="basic-alignment left" href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/" title="Previous Post: JavaScript 之 数据类型">&laquo; JavaScript 之 数据类型</a>
       
       
+        <a class="basic-alignment right" href="/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/" title="Next Post: JavaScript 之 流程控制语句">JavaScript 之 流程控制语句 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -137,7 +387,7 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (4)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -145,6 +395,14 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/">JavaScript 之 流程控制语句</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
@@ -156,14 +414,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/15/jquery-ajax/">jQuery 之 Ajax</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/15/jquery-zhi-dong-hua-xiao-guo/">jQuery 之 动画效果</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/14/jquery-zhi-gao-ji-jian/">jQuery 之 高级事件</a>
       </li>
     
   </ul>

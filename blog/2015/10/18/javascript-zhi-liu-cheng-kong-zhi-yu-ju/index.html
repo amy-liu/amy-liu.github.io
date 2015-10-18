@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript 之 流程控制语句 - 云端笔记</title>
+  <meta name="author" content="amy-liu">
+
+  
+  <meta name="description" content="一、语句的定义 语句的种类 声明语句 变量声明语句 var box = 100; 标签声明语句 label : box; 达式语句 变量赋值语句 box = 100; 函数调用语句 box(); 属性赋值语句 box.property = 100; 方法调用语句 box.method(); &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="云端笔记" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts 
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">云端笔记</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="amy-liu.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <!--<li><a href="/about">关于我</a></li>-->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">JavaScript 之 流程控制语句</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-18T20:41:18+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:41 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>一、语句的定义</h3>
+
+<p>语句的种类</p>
+
+<pre><code>声明语句   变量声明语句   var box = 100;
+          标签声明语句   label : box;
+
+达式语句   变量赋值语句    box = 100;
+          函数调用语句    box();
+          属性赋值语句    box.property = 100;
+          方法调用语句    box.method();
+
+分支语句   条件分支语句    if () {} else {}
+          多重分支语句    switch () { case n : ...};
+</code></pre>
+
+<p>语句的种类 (续)</p>
+
+<!--more-->
+
+
+<pre><code>循环语句       for            for (;;;) {}
+              for ... in     for ( x in x) {}
+              while          while () {};
+              do ... while   do {} while ();
+
+控制结构       继续执行子句     continue ;
+              终断执行子句     break ;
+              函数返回子句     return ;
+              异常触发子句     throw ;
+              异常捕获与处理    try {} catch () {} finally {}
+
+其他           空语句          ;
+               with 语句      with () {}
+</code></pre>
+
+<h3>二、if 语句</h3>
+
+<p>略</p>
+
+<h2>三、switch 语句</h2>
+
+<p>switch 语句是多重条件判断,用于多个值相等的比较。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = 1;
+</span><span class='line'>switch (box) {                        //用于判断 box 相等的多个值
+</span><span class='line'>  case 1 : 
+</span><span class='line'>      alert('one');
+</span><span class='line'>      break;                        //break;用于防止语句的穿透
+</span><span class='line'>  case 2 :
+</span><span class='line'>      alert('two');
+</span><span class='line'>      break; 
+</span><span class='line'>  case 3 :
+</span><span class='line'>      alert('three'); 
+</span><span class='line'>      break;
+</span><span class='line'>      default :                    //相当于 if 语句里的 else,否则的意思 
+</span><span class='line'>      alert('error');
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>四、do&hellip;while 语句</h2>
+
+<p>do&hellip;while 语句是一种先运行,后判断的循环语句。也就是说,不管条件是否满足,至少先运行一次循环体。</p>
+
+<pre><code>var box = 1;       //如果是 1,执行五次,如果是 10,执行 1 次     
+do {
+    alert(box);
+    box++;
+} while (box &lt;= 5);   //先运行一次,再判断
+</code></pre>
+
+<h2>五、while 语句</h2>
+
+<p>while 语句是一种先判断,后运行的循环语句。也就是说,必须满足条件了之后,方可运行循环体。</p>
+
+<pre><code>var box = 1;        //如果是 1,执行五次,如果是 10,不执行 
+while (box &lt;= 5) {  //先判断,再执行
+    alert(box);
+    box++; 
+}
+</code></pre>
+
+<h2>六、for 语句</h2>
+
+<p>for 语句也是一种先判断,后运行的循环语句。但它具有在执行循环之前初始变量和定义循环后要执行代码的能力。</p>
+
+<pre><code>for (var box = 1; box &lt;= 5 ; box++) {     //第一步,声明变量 var box = 1;
+    alert(box);                           //第二步,判断 box &lt;=5
+}                                         //第三步,alert(box)
+                                          //第四步,box++ //第五步,从第二步再来,直到判断为 false
+</code></pre>
+
+<h2>七、 for&hellip;in 语句</h2>
+
+<p>for&hellip;in 语句是一种精准的迭代语句,可以用来枚举对象的属性。</p>
+
+<pre><code>var box = {                         //创建一个对象 
+    'name' : '李炎恢',               //键值对,左边是属性名,右边是值
+    'age' : 28,
+    'height' : 178 };
+for (var p in box) {                //列举出对象的所有属性
+    alert(p);
+</code></pre>
+
+<h2>八、break 和 continue 语句</h2>
+
+<p>break 和 continue 语句用于在循环中精确地控制代码的执行 。其中,break 语句会立即退出循环,强制继续执行循环体后面的语句 。而 continue 语句退出当前循环,继续后面的循环。</p>
+
+<pre><code>for (var box = 1; box &lt;= 10; box++) {
+    if (box == 5) break;                //如果 box 是 5,就退出循环
+    document.write(box); 
+    document.write('&lt;br /&gt;');
+}
+</code></pre>
+
+<p>continue</p>
+
+<pre><code>for (var box = 1; box &lt;= 10; box++) { 
+    if (box == 5) continue;      //如果 box 是 5,就退出当前循环
+    document.write(box); 
+    document.write('&lt;br /&gt;');
+}
+</code></pre>
+
+<h2>九、with 语句</h2>
+
+<p>with 语句的作用是将代码的作用域设置到一个特定的对象中。</p>
+
+<pre><code>var box = {                  //创建一个对象 
+    'name' : '李炎恢',        //键值对
+    'age' : 28,
+    'height' : 178 
+};
+var n = box.name;            //从对象里取值赋给变量
+var a = box.age; 
+var h = box.height;
+</code></pre>
+
+<p>可以将上面的三段赋值操作改写成:</p>
+
+<pre><code>with (box) {                 //省略了 box 对象名   
+    var n = name;           
+    var a = age;            
+    var h = height;         
+}
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">amy-liu</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-18T20:41:18+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:41 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/" title="Previous Post: JavaScript 之 运算符">&laquo; JavaScript 之 运算符</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/10/18/javascrhan-shu/" title="Next Post: JavaScript 之 函数">JavaScript 之 函数 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>文章分类</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
+<li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (4)</a></li>
+<li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+
+  </ul>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/">JavaScript 之 流程控制语句</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/15/jquery-ajax/">jQuery 之 Ajax</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - amy-liu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
