@@ -120,17 +120,27 @@
 
 <p>语句的种类</p>
 
-<pre><code>声明语句   变量声明语句   var box = 100;
-          标签声明语句   label : box;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>声明语句   变量声明语句   var box = 100;
+</span><span class='line'>          标签声明语句   label : box;
+</span><span class='line'>
+</span><span class='line'>达式语句   变量赋值语句    box = 100;
+</span><span class='line'>          函数调用语句    box();
+</span><span class='line'>          属性赋值语句    box.property = 100;
+</span><span class='line'>          方法调用语句    box.method();
+</span><span class='line'>
+</span><span class='line'>分支语句   条件分支语句    if () {} else {}
+</span><span class='line'>          多重分支语句    switch () { case n : ...};</span></code></pre></td></tr></table></div></figure>
 
-达式语句   变量赋值语句    box = 100;
-          函数调用语句    box();
-          属性赋值语句    box.property = 100;
-          方法调用语句    box.method();
-
-分支语句   条件分支语句    if () {} else {}
-          多重分支语句    switch () { case n : ...};
-</code></pre>
 
 <p>语句的种类 (续)</p>
 
@@ -170,18 +180,28 @@
 
 <p>表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如:</p>
 
-<pre><code>5.96                           //数值字面量
-'Lee'                          //字符串字面量
-true                           //布尔值字面量 
-null                           //空值字面量
-/Java/                         //正则表达式字面量
-{x:1, y:2}                     //对象字面量、对象表达式
-[1,2,3]                        //数组字面量、数组表达式
-function(n) {return x+y;}      //函数字面量、函数表达式
-box                            //变量
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>5.96                           //数值字面量
+</span><span class='line'>'Lee'                          //字符串字面量
+</span><span class='line'>true                           //布尔值字面量 
+</span><span class='line'>null                           //空值字面量
+</span><span class='line'>/Java/                         //正则表达式字面量
+</span><span class='line'>{x:1, y:2}                     //对象字面量、对象表达式
+</span><span class='line'>[1,2,3]                        //数组字面量、数组表达式
+</span><span class='line'>function(n) {return x+y;}      //函数字面量、函数表达式
+</span><span class='line'>box                            //变量</span></code></pre></td></tr></table></div></figure>
 
-<p>当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
+
+<p>    <br/>
+当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
 
 <pre><code>box + 5.96      //加法运算的表达式
 typeof(box)     //查看数据类型的表达式

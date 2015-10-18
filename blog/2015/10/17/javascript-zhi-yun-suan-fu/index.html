@@ -9,11 +9,19 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="一、什么是表达式 表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如: 5.96 //数值字面量
+  <meta name="description" content="一、什么是表达式 表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如: 1
+2
+3
+4
+5
+6
+7
+8
+9
+5.96 //数值字面量
 'Lee' //字符串字面量
 true //布尔值字面量 null //空值字面量
-/Java/ //正则表达式字面量
-{x: &hellip;">
+/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,18 +99,28 @@ true //布尔值字面量 null //空值字面量
 
 <p>表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如:</p>
 
-<pre><code>5.96                           //数值字面量
-'Lee'                          //字符串字面量
-true                           //布尔值字面量 
-null                           //空值字面量
-/Java/                         //正则表达式字面量
-{x:1, y:2}                     //对象字面量、对象表达式
-[1,2,3]                        //数组字面量、数组表达式
-function(n) {return x+y;}      //函数字面量、函数表达式
-box                            //变量
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>5.96                           //数值字面量
+</span><span class='line'>'Lee'                          //字符串字面量
+</span><span class='line'>true                           //布尔值字面量 
+</span><span class='line'>null                           //空值字面量
+</span><span class='line'>/Java/                         //正则表达式字面量
+</span><span class='line'>{x:1, y:2}                     //对象字面量、对象表达式
+</span><span class='line'>[1,2,3]                        //数组字面量、数组表达式
+</span><span class='line'>function(n) {return x+y;}      //函数字面量、函数表达式
+</span><span class='line'>box                            //变量</span></code></pre></td></tr></table></div></figure>
 
-<p>当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
+
+<p>    <br/>
+当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
 
 <pre><code>box + 5.96      //加法运算的表达式
 typeof(box)     //查看数据类型的表达式

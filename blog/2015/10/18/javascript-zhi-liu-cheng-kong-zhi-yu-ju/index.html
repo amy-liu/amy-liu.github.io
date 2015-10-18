@@ -9,7 +9,17 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="一、语句的定义 语句的种类 声明语句 变量声明语句 var box = 100; 标签声明语句 label : box; 达式语句 变量赋值语句 box = 100; 函数调用语句 box(); 属性赋值语句 box.property = 100; 方法调用语句 box.method(); &hellip;">
+  <meta name="description" content="一、语句的定义 语句的种类 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+声明语句 变量声明语句 var box = 100; 标签声明语句 label : box; 达式语句 变量赋值语句 box = 100; 函数调用语句 box(); 属性赋值语句 box.property = 100; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,37 +97,60 @@
 
 <p>语句的种类</p>
 
-<pre><code>声明语句   变量声明语句   var box = 100;
-          标签声明语句   label : box;
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>声明语句   变量声明语句   var box = 100;
+</span><span class='line'>          标签声明语句   label : box;
+</span><span class='line'>
+</span><span class='line'>达式语句   变量赋值语句    box = 100;
+</span><span class='line'>          函数调用语句    box();
+</span><span class='line'>          属性赋值语句    box.property = 100;
+</span><span class='line'>          方法调用语句    box.method();
+</span><span class='line'>
+</span><span class='line'>分支语句   条件分支语句    if () {} else {}
+</span><span class='line'>          多重分支语句    switch () { case n : ...};</span></code></pre></td></tr></table></div></figure>
 
-达式语句   变量赋值语句    box = 100;
-          函数调用语句    box();
-          属性赋值语句    box.property = 100;
-          方法调用语句    box.method();
-
-分支语句   条件分支语句    if () {} else {}
-          多重分支语句    switch () { case n : ...};
-</code></pre>
 
 <p>语句的种类 (续)</p>
 
 <!--more-->
 
 
-<pre><code>循环语句       for            for (;;;) {}
-              for ... in     for ( x in x) {}
-              while          while () {};
-              do ... while   do {} while ();
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>循环语句       for            for (;;;) {}
+</span><span class='line'>              for ... in     for ( x in x) {}
+</span><span class='line'>              while          while () {};
+</span><span class='line'>              do ... while   do {} while ();
+</span><span class='line'>
+</span><span class='line'>控制结构       继续执行子句     continue ;
+</span><span class='line'>              终断执行子句     break ;
+</span><span class='line'>              函数返回子句     return ;
+</span><span class='line'>              异常触发子句     throw ;
+</span><span class='line'>              异常捕获与处理    try {} catch () {} finally {}
+</span><span class='line'>
+</span><span class='line'>其他           空语句          ;
+</span><span class='line'>               with 语句      with () {}</span></code></pre></td></tr></table></div></figure>
 
-控制结构       继续执行子句     continue ;
-              终断执行子句     break ;
-              函数返回子句     return ;
-              异常触发子句     throw ;
-              异常捕获与处理    try {} catch () {} finally {}
-
-其他           空语句          ;
-               with 语句      with () {}
-</code></pre>
 
 <h3>二、if 语句</h3>
 
