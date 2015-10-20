@@ -71,6 +71,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-20T22:19:20+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:19 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a></h1>
     
     
@@ -87,7 +116,95 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><h3>一、函数声明</h3>
+
+<p>函数对任何语言来说都是一个核心的概念 。通过函数可以封装任意多条语句 ,而且可以 在任何地方、任何时候调用执行。 ECMAScript 中的函数使用 function 关键字来声明,后跟 一组参数以及函数体。</p>
+
+<pre><code>function box() {                              //没有参数的函数 
+    alert('只有函数被调用,我才会被之执行 ');
+} box();                                      //直接调用函数
+
+function box(name, age) {                     //带参数的函数
+    alert('你的姓名:'+name+',年龄:'+age);
+}
+box('李',28);                                 //调用函数,并传参
+</code></pre>
+
+<h2>二、return 返回值</h2>
+
+<p>带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。</p>
+
+<pre><code>function box() {                     //没有参数的函数
+    return '我被返回了!';             //通过 return 把函数的最终值返回
+} 
+alert(box());                       //调用函数会得到返回值 ,然后外面输出
+
+
+function box(name, age) {                      //有参数的函数
+    return '你的姓名:'+name+',年龄:'+age;        //通过 return 把函数的最终值返回
+}
+alert(box('李炎恢', 28));                       /调用函数得到返回值,然后外面输出
+</code></pre>
+
+<p>我们还可以把函数的返回值赋给一个变量,然后通过变量进行操作。</p>
+
+<pre><code>function box(num1, num2) { 
+    return num1 * num2;
+}
+var num = box(10, 5); //函数得到的返回值赋给变量 
+alert(num);
+</code></pre>
+
+<p><code>return</code> 语句还有一个功能就是退出当前函数 ,注意和 <code>break</code> 的区别。PS: <code>break</code> 用在循环 和 <code>switch</code> 分支语句里。</p>
+
+<pre><code>function box(num) {
+    if (num &lt; 5) return num;            //满足条件,就返回 num
+    return 100;                         //返回之后,就不执行下面的语句了
+} alert(box(10));
+</code></pre>
+
+<h2>三、arguments 对象</h2>
+
+<p>ECMAScript 函数不介意传递进来多少参数,也不会因为参数不统一而错误。实际上, 函数体内可以通过 arguments 对象来接收传递进来的参数。</p>
+
+<pre><code>function box() {
+    return arguments[0]+' | '+arguments[1];           //得到每次参数的值
+}
+alert(box(1,2,3,4,5,6));                              //传递参数
+</code></pre>
+
+<p>arguments 对象的 length 属性可以得到参数的数量。</p>
+
+<pre><code>function box() {
+    return arguments.length;            //得到 6
+    }
+alert(box(1,2,3,4,5,6));
+</code></pre>
+
+<p>我们可以利用 <code>length</code> 这个属性,来智能的判断有多少参数 ,然后把参数进行合理的应用 。 比如,要实现一个加法运算,将所有传进来的数字累加,而数字的个数又不确定。</p>
+
+<pre><code>function box() { 
+var sum = 0;
+    if (arguments.length == 0) return sum;                //如果没有参数,退出
+    for(var i = 0;i &lt; arguments.length; i++) {            //如果有,就累加
+    sum = sum + arguments[i]; 
+    }
+return sum;                                               //返回累加结果
+}
+alert(box(5,9,12));
+</code></pre>
+
+<p>ECMAScript 中的函数,没有像其他高级语言那种函数重载功能。</p>
+
+<pre><code>function box(num) {
+    return num + 100; 
+}
+
+function box (num) {              //会执行这个函数
+    return num + 200;             //返回结果
+} 
+alert(box(50));
+</code></pre>
 </div>
   
   
@@ -536,50 +653,6 @@ box--; //同上
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-13T00:33:04+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。</p>
-
-<h3>一、创建节点</h3>
-
-<p>为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var box = $('&lt;div id="box"&gt;节点&lt;/div&gt;');         //创建一个节点 
-</span><span class='line'>$('body').append(box);                           //将节点插入到&lt;body&gt;元素内部</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -595,7 +668,7 @@ box--; //同上
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (4)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (5)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -603,6 +676,10 @@ box--; //同上
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a>
@@ -618,10 +695,6 @@ box--; //同上
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/15/jquery-ajax/">jQuery 之 Ajax</a>
       </li>
     
   </ul>

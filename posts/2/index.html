@@ -9,12 +9,9 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="一、设置元素及内容 在常规的 DOM 元素中,使用 html()和 text()方法获取内部的数据。 1
+  <meta name="description" content="DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。 一、创建节点 为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。 1
 2
-3
-4
-$('#box').html(); //获取 html 内容 $('#box').text(); //获取文本内容,会自动清理 html 标签
-$('#box').html('& &hellip;">
+var box = $('&lt;div id="box"&gt;节点&lt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +66,50 @@ $('#box').html('& &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">jQuery 之 DOM节点操作</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-13T00:33:04+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。</p>
+
+<h3>一、创建节点</h3>
+
+<p>为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = $('&lt;div id="box"&gt;节点&lt;/div&gt;');         //创建一个节点 
+</span><span class='line'>$('body').append(box);                           //将节点插入到&lt;body&gt;元素内部</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/13/jquery-domjie-dian-cao-zuo/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -468,63 +509,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/03/css-zhi-float/">Css 之 Float</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-03T11:07:53+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:07 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>重识float浮动</h3>
-
-<h6>- 目前大多数浮动应用都不是浮动应该做的</h6>
-
-<h6>- 浮动的本质是“包裹及破坏”</h6>
-
-<h6>- 浮动的意义仅仅是文字环绕显示而已</h6>
-
-<h3>一、浮动的原始意义是什么？</h3>
-
-<p>浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”，我是想不出来能有什么方法可以让文字环绕图片显示。好，这个替代不了的作用才是float真正的意义所在。所以请记住，浮动出现的意义其实只是用来让文字环绕图片而已，仅此而已。而我们目前用浮动实现页面布局本不是浮动该干的事情。</p>
-
-<h3>二、浮动的本质是什么？</h3>
-
-<p>我们可以将浮动的本质定义为“包裹与破坏”</p>
-
-<p>浮动的“包裹性”：撇开浮动的“破坏性”，浮动就是个带有方位的<code>display:inline-block</code>属性。<code>display:inline-block</code>某种意义上的作用就是包裹<code>(wrap)</code></p>
-
-<p>浮动的“破坏性”：文字之所以会环绕含有float属性的图片时因为浮动破坏了正常的line boxes。</p>
-
-<p>inline boxes不会让内容成块显示，而是排成一行，如果外部含inline属性的标签(span,a,cite等)，则属于inline boxes，如果是个光秃秃的文字，则属于匿名inline boxes。</p>
-
-<p>浮动破坏了inline boxes也就没有高度可言了 产生了两个结果：脱离了其原来所在的line box链无法与文字同行显示；二是没有了高度（无inline box -> 无line box -> 无高度）。真是由于浮动元素没有了inline boxes，没有了inline boxes高度，才能让其他inline boxes元素重新整合，环绕浮动元素排列。
-而这些结果恰恰是文字环绕图片显示所必须的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/03/css-zhi-float/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -542,7 +526,7 @@ document.getElementById('pox').style.color = 'red';     //报错了
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (4)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (5)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -550,6 +534,10 @@ document.getElementById('pox').style.color = 'red';     //报错了
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a>
@@ -565,10 +553,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/15/jquery-ajax/">jQuery 之 Ajax</a>
       </li>
     
   </ul>

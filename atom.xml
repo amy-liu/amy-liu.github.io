@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-18T21:27:11+08:00</updated>
+  <updated>2015-10-20T22:21:01+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,108 @@
 
   
   <entry>
+    <title type="html"><![CDATA[JavaScript 之 对象和数组]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/>
+    <updated>2015-10-20T22:19:20+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[JavaScript 之 函数]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu/"/>
     <updated>2015-10-18T21:15:57+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h3>一、函数声明</h3>
+
+<p>函数对任何语言来说都是一个核心的概念 。通过函数可以封装任意多条语句 ,而且可以 在任何地方、任何时候调用执行。 ECMAScript 中的函数使用 function 关键字来声明,后跟 一组参数以及函数体。</p>
+
+<pre><code>function box() {                              //没有参数的函数 
+    alert('只有函数被调用,我才会被之执行 ');
+} box();                                      //直接调用函数
+
+function box(name, age) {                     //带参数的函数
+    alert('你的姓名:'+name+',年龄:'+age);
+}
+box('李',28);                                 //调用函数,并传参
+</code></pre>
+
+<h2>二、return 返回值</h2>
+
+<p>带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。</p>
+
+<pre><code>function box() {                     //没有参数的函数
+    return '我被返回了!';             //通过 return 把函数的最终值返回
+} 
+alert(box());                       //调用函数会得到返回值 ,然后外面输出
+
+
+function box(name, age) {                      //有参数的函数
+    return '你的姓名:'+name+',年龄:'+age;        //通过 return 把函数的最终值返回
+}
+alert(box('李炎恢', 28));                       /调用函数得到返回值,然后外面输出
+</code></pre>
+
+<p>我们还可以把函数的返回值赋给一个变量,然后通过变量进行操作。</p>
+
+<pre><code>function box(num1, num2) { 
+    return num1 * num2;
+}
+var num = box(10, 5); //函数得到的返回值赋给变量 
+alert(num);
+</code></pre>
+
+<p><code>return</code> 语句还有一个功能就是退出当前函数 ,注意和 <code>break</code> 的区别。PS: <code>break</code> 用在循环 和 <code>switch</code> 分支语句里。</p>
+
+<pre><code>function box(num) {
+    if (num &lt; 5) return num;            //满足条件,就返回 num
+    return 100;                         //返回之后,就不执行下面的语句了
+} alert(box(10));
+</code></pre>
+
+<h2>三、arguments 对象</h2>
+
+<p>ECMAScript 函数不介意传递进来多少参数,也不会因为参数不统一而错误。实际上, 函数体内可以通过 arguments 对象来接收传递进来的参数。</p>
+
+<pre><code>function box() {
+    return arguments[0]+' | '+arguments[1];           //得到每次参数的值
+}
+alert(box(1,2,3,4,5,6));                              //传递参数
+</code></pre>
+
+<p>arguments 对象的 length 属性可以得到参数的数量。</p>
+
+<pre><code>function box() {
+    return arguments.length;            //得到 6
+    }
+alert(box(1,2,3,4,5,6));
+</code></pre>
+
+<p>我们可以利用 <code>length</code> 这个属性,来智能的判断有多少参数 ,然后把参数进行合理的应用 。 比如,要实现一个加法运算,将所有传进来的数字累加,而数字的个数又不确定。</p>
+
+<pre><code>function box() { 
+var sum = 0;
+    if (arguments.length == 0) return sum;                //如果没有参数,退出
+    for(var i = 0;i &lt; arguments.length; i++) {            //如果有,就累加
+    sum = sum + arguments[i]; 
+    }
+return sum;                                               //返回累加结果
+}
+alert(box(5,9,12));
+</code></pre>
+
+<p>ECMAScript 中的函数,没有像其他高级语言那种函数重载功能。</p>
+
+<pre><code>function box(num) {
+    return num + 100; 
+}
+
+function box (num) {              //会执行这个函数
+    return num + 200;             //返回结果
+} 
+alert(box(50));
+</code></pre>
 ]]></content>
   </entry>
   
@@ -2240,49 +2337,6 @@ $('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性
 <pre><code>.box{width:50%; padding:20px; margin:20px auto; background-color:#f0f3f9; text-align:justify;}
 .list{width:120px; display:inline-block; padding-bottom:20px; text-align:center; vertical-align:top;}
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Css 之 Float]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-float/"/>
-    <updated>2015-10-03T11:07:53+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/03/css-zhi-float</id>
-    <content type="html"><![CDATA[<h3>重识float浮动</h3>
-
-<h6>- 目前大多数浮动应用都不是浮动应该做的</h6>
-
-<h6>- 浮动的本质是“包裹及破坏”</h6>
-
-<h6>- 浮动的意义仅仅是文字环绕显示而已</h6>
-
-<h3>一、浮动的原始意义是什么？</h3>
-
-<p>浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”，我是想不出来能有什么方法可以让文字环绕图片显示。好，这个替代不了的作用才是float真正的意义所在。所以请记住，浮动出现的意义其实只是用来让文字环绕图片而已，仅此而已。而我们目前用浮动实现页面布局本不是浮动该干的事情。</p>
-
-<h3>二、浮动的本质是什么？</h3>
-
-<p>我们可以将浮动的本质定义为“包裹与破坏”</p>
-
-<p>浮动的“包裹性”：撇开浮动的“破坏性”，浮动就是个带有方位的<code>display:inline-block</code>属性。<code>display:inline-block</code>某种意义上的作用就是包裹<code>(wrap)</code></p>
-
-<p>浮动的“破坏性”：文字之所以会环绕含有float属性的图片时因为浮动破坏了正常的line boxes。</p>
-
-<p>inline boxes不会让内容成块显示，而是排成一行，如果外部含inline属性的标签(span,a,cite等)，则属于inline boxes，如果是个光秃秃的文字，则属于匿名inline boxes。</p>
-
-<p>浮动破坏了inline boxes也就没有高度可言了 产生了两个结果：脱离了其原来所在的line box链无法与文字同行显示；二是没有了高度（无inline box -> 无line box -> 无高度）。真是由于浮动元素没有了inline boxes，没有了inline boxes高度，才能让其他inline boxes元素重新整合，环绕浮动元素排列。
-而这些结果恰恰是文字环绕图片显示所必须的。</p>
-
-<!--more-->
-
-
-<h3>三、列表浮动布局的局限</h3>
-
-<p>对于浮动局部的局限性，就是每个列表元素的高度必须要一致，否则就会像是俄罗斯方块一样，“锯齿相错”，例如一个左浮动列表布局，如果第一行有个列表高度高于其他列表，那就在第二行，第一个元素会沿着最高元素的右侧对齐，此原因是属于恶魔系的float属性破坏了inline box 。</p>
-
-<h3>四、那么浮动布局更好的替代方案是什么</h3>
-
-<p><code>inline-block</code>属性的元素适用于inline box模型，当其中的列表元素高度不一时，也不会有错位。下一章我们详细介绍下这个属性。</p>
 ]]></content>
   </entry>
   
