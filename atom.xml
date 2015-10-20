@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-20T22:46:54+08:00</updated>
+  <updated>2015-10-20T22:53:45+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -18,7 +18,7 @@
     <link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/>
     <updated>2015-10-20T22:19:20+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>test</p>
 ]]></content>
   </entry>
   
@@ -44,6 +44,9 @@ box('李',28);                                 //调用函数,并传参
 <h2>二、return 返回值</h2>
 
 <p>带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。</p>
+
+<!--more-->
+
 
 <pre><code>function box() {                     //没有参数的函数
     return '我被返回了!';             //通过 return 把函数的最终值返回
