@@ -71,6 +71,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-22T00:29:29+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:29 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a></h1>
     
     
@@ -87,9 +116,37 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>什么是对象,其实就是一种类型,即引用类型。而对象的值就是引用类型的实例。 在 ECMAScript 中引用类型是一种数据结构,用于将数据和功能组织在一起。它也常被称做为 类,但 ECMAScript 中却没有这种东西。虽然 ECMAScript 是一门面向对象的语言,却不具 备传统面向对象语言所支持的类和接口等基本结构。</p>
+
+<h3>一、Object 类型</h3>
+
+<p>到目前为止,我们使用的引用类型最多的可能就是 Object 类型了。虽然 Object 的实例
+不具备多少功能,但对于在应用程序中的存储和传输数据而言,它确实是非常理想的选择 。 创建 Object 类型有两种。一种是使用 new 运算符,一种是字面量表示法。</p>
+
+<p>1.使用 new 运算符创建 Object</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = new Object();     //new 方式    new 关键字可以省略
+</span><span class='line'>box.name = 'amy';           //创建属性字段 
+</span><span class='line'>box.age = 28;               //创建属性字段</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2.使用字面量方式创建 Object</p>
+
+<pre><code>var box = {              //字面量方式
+    name : '李',         //创建属性字段
+    age : 28 
+};
+</code></pre>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -514,78 +571,6 @@ box--; //同上
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-13T21:42:16+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:42 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:<code>click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、blur、focus、load、resize、scroll、error。</code>那么,还有更多的事件可以参考 手册中的事件部分。</p>
-
-<h3>一、绑定事件</h3>
-
-<p>jQuery 通过 <code>.bind()</code> 方法来为元素绑定这些事件。可以传递三个参数<code>bind(type, [data], fn),</code>  <code>type</code> 表示一个或多个类型的事件名字符串; <code>[data]</code> 是可选的,作为 <code>event.data</code> 属性值传递一个 额外的数据,这个数据是一个字符串、一个数字、一个数组或一个对象;fn 表示绑定到指 定元素的处理函数。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', function () {    //点击按钮后执行匿名函数
-</span><span class='line'>  alert('点击!'); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>普通处理函数</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', fn);       //执行普通函数式无须圆括号
-</span><span class='line'>  function fn() {
-</span><span class='line'>  alert('点击!'); 
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以同时绑定多个事件</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
-</span><span class='line'>  $('div').html(function (index, value) { 
-</span><span class='line'>      return value + '1';
-</span><span class='line'>  }); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -601,7 +586,7 @@ box--; //同上
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (5)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (6)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -609,6 +594,10 @@ box--; //同上
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
@@ -624,10 +613,6 @@ box--; //同上
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
       </li>
     
   </ul>

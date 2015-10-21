@@ -9,9 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="DOM 中有一个非常重要的功能,就是节点模型,也就是 DOM 中的“M”。 一、创建节点 为了使页面更加智能化,有时我们想动态的在 html 结构页面添加一个元素标签,那么在插入之前首先要做的动作就是:创建节点。 1
-2
-var box = $('&lt;div id="box"&gt;节点&lt &hellip;">
+  <meta name="description" content="在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +64,78 @@ var box = $('&lt;div id="box"&gt;节点&lt &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">jQuery 之 基础事件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-13T21:42:16+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:42 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在 JavaScript 课程的学习中,我们掌握了很多使用的事件,常用的事件有:<code>click、dblclick、mousedown、mouseup、mousemove、mouseover、mouseout、change、select、submit、keydown、 keypress、keyup、blur、focus、load、resize、scroll、error。</code>那么,还有更多的事件可以参考 手册中的事件部分。</p>
+
+<h3>一、绑定事件</h3>
+
+<p>jQuery 通过 <code>.bind()</code> 方法来为元素绑定这些事件。可以传递三个参数<code>bind(type, [data], fn),</code>  <code>type</code> 表示一个或多个类型的事件名字符串; <code>[data]</code> 是可选的,作为 <code>event.data</code> 属性值传递一个 额外的数据,这个数据是一个字符串、一个数字、一个数组或一个对象;fn 表示绑定到指 定元素的处理函数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', function () {    //点击按钮后执行匿名函数
+</span><span class='line'>  alert('点击!'); 
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>普通处理函数</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', fn);       //执行普通函数式无须圆括号
+</span><span class='line'>  function fn() {
+</span><span class='line'>  alert('点击!'); 
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以同时绑定多个事件</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('mouseout mouseover', function () {    //移入和移出分别执行一次
+</span><span class='line'>  $('div').html(function (index, value) { 
+</span><span class='line'>      return value + '1';
+</span><span class='line'>  }); 
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/13/jquery-zhi-ji-chu-shi-jian/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -471,44 +541,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/03/css-zhi-inline-block/">Css 之 Inline-block</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-03T15:10:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>替代float 的 inline-block列表布局</h3>
-
-<p>浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。</p>
-
-<p>关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes，这个line box的高度由里面最高的元素决定。<code>inline-block</code>属性属于line box模型，其布局的列表元素高度异常时，撑开的是整个line boxes的高度，因而，不会与下一行的列表元素发生错位。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/03/css-zhi-inline-block/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -526,7 +558,7 @@ document.getElementById('pox').style.color = 'red';     //报错了
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (5)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (6)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -534,6 +566,10 @@ document.getElementById('pox').style.color = 'red';     //报错了
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
@@ -549,10 +585,6 @@ document.getElementById('pox').style.color = 'red';     //报错了
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
       </li>
     
   </ul>

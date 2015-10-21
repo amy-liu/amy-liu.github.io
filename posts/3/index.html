@@ -9,7 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="重识float浮动 - 目前大多数浮动应用都不是浮动应该做的 - 浮动的本质是“包裹及破坏” - 浮动的意义仅仅是文字环绕显示而已 一、浮动的原始意义是什么？ 浮动真正的意义在哪里呢？假设现在CSS中没有浮动(float)属性，那么唯一一个实现不了的就是“文字环绕图片”， &hellip;">
+  <meta name="description" content="替代float 的 inline-block列表布局 浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。 关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/03/css-zhi-inline-block/">Css 之 Inline-block</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-03T15:10:13+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>替代float 的 inline-block列表布局</h3>
+
+<p>浮动本身就是个魔鬼，所以，使用浮动布局还需要修复其带来的副作用——高度塌陷的问题，也就是常提到的“清除浮动”。</p>
+
+<p>关于line box模型，就是每一行所有的inline元素和inline-block元素会共同形成一个line boxes，这个line box的高度由里面最高的元素决定。<code>inline-block</code>属性属于line box模型，其布局的列表元素高度异常时，撑开的是整个line boxes的高度，因而，不会与下一行的列表元素发生错位。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/03/css-zhi-inline-block/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -279,7 +317,7 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (5)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (6)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -287,6 +325,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
@@ -302,10 +344,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a>
       </li>
     
   </ul>
