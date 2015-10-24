@@ -71,6 +71,35 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/">JavaScript 之 变量、作用域及内存</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-25T00:40:04+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:40 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a></h1>
     
     
@@ -87,9 +116,53 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>在 ECMAScript 中,Function(函数)类型实际上是对象。每个函数都是Function类型的实例,而且都与其他引用类型一样具有属性和方法 。由于函数是对象,因此函数名实际上也 是一个指向函数对象的指针。</p>
+
+<h3>一、函数的声明方式</h3>
+
+<ul>
+<li>普通的函数声明</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function box(num1, num2) { 
+</span><span class='line'>  return num1+ num2;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用变量初始化函数</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box= function(num1, num2) {
+</span><span class='line'>  return num1 + num2; 
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用 Function 构造函数</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box= new Function('num1', 'num2' ,'return num1 + num2');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码(第一次解析常 规 ECMAScript 代码,第二次是解析传入构造函数中的字符串 ),从而影响性能。但我们可以通 过这种语法来理解 &ldquo;函数是对象,函数名是指针 "的概念。</p>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -507,70 +580,6 @@ box--; //同上
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">jQuery 之 事件对象</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-14T21:58:43+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:58 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>事件对象就是 <code>event</code> 对象,通过处理函数默认传递接受。之前处理函数的 <code>e</code> 就是 <code>event</code> 事件对象。</p>
-
-<h3>一、事件对象</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').bind('click', function (e) {       //接受事件对象参数
-</span><span class='line'>  alert(e); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>通过 event.type 属性获取触发事件名</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e) {
-</span><span class='line'>  alert(e.type); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-<p>通过 event.target 获取绑定的 DOM 元素</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$('input').click(function (e) {
-</span><span class='line'>  alert(e.target); 
-</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/14/jquery-zhi-shi-jian-dui-xiang/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -586,7 +595,7 @@ box--; //同上
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (6)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (7)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -594,6 +603,10 @@ box--; //同上
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/">JavaScript 之 变量、作用域及内存</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a>
@@ -609,10 +622,6 @@ box--; //同上
     
       <li class="post">
         <a href="/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/">JavaScript 之 流程控制语句</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a>
       </li>
     
   </ul>

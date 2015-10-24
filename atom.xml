@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-22T00:43:02+08:00</updated>
+  <updated>2015-10-25T00:41:10+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,159 @@
 
   
   <entry>
+    <title type="html"><![CDATA[JavaScript 之 变量、作用域及内存]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/"/>
+    <updated>2015-10-25T00:40:04+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[JavaScript 之 Function类型]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing/"/>
     <updated>2015-10-22T00:29:29+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>在 ECMAScript 中,Function(函数)类型实际上是对象。每个函数都是Function类型的实例,而且都与其他引用类型一样具有属性和方法 。由于函数是对象,因此函数名实际上也 是一个指向函数对象的指针。</p>
+
+<h3>一、函数的声明方式</h3>
+
+<ul>
+<li>普通的函数声明</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function box(num1, num2) { 
+</span><span class='line'>  return num1+ num2;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用变量初始化函数</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box= function(num1, num2) {
+</span><span class='line'>  return num1 + num2; 
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用 Function 构造函数</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box= new Function('num1', 'num2' ,'return num1 + num2');</span></code></pre></td></tr></table></div></figure>
+
+
+<p>PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码(第一次解析常 规 ECMAScript 代码,第二次是解析传入构造函数中的字符串 ),从而影响性能。但我们可以通 过这种语法来理解 &ldquo;函数是对象,函数名是指针 "的概念。</p>
+
+<!--more-->
+
+
+<h2>二、作为值的函数</h2>
+
+<p>ECMAScript 中的函数名本身就是变量,所以函数也可以作为值来使用。也就是说,不 仅可以像传递参数一样把一个函数传递给另一个函数 ,而且可以将一个函数作为另一个函数 的结果返回。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function box(sumFunction, num) { 
+</span><span class='line'>  return sumFunction(num);              //Function
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>function sum(num) { 
+</span><span class='line'>  return num + 10;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>var result = box(sum, 10);            //传递函数到另一个函数里</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>三、函数内部属性</h2>
+
+<p>在函数内部,有两个特殊的对象: <code>arguments</code> 和 <code>this</code>. <code>arguments</code> 是一个类数组对象,包
+含着传入函数中的所有参数 ,主要用途是保存函数参数 。但这个对象还有一个名叫 <code>callee</code> 的 属性,该属性是一个指针,指向拥有这个 <code>arguments</code> 对象的函数。</p>
+
+<pre><code>function box(num) { 
+    if (num &lt;= 1) {
+        return 1; 
+        } else {
+            return num * box(num-1);          //一个简单的的递归
+        } 
+}
+</code></pre>
+
+<p>对于阶乘函数一般要用到递归算法 ,所以函数内部一定会调用自身 ;如果函数名不改变 是没有问题的,但一旦改变函数名,内部的自身调用需要逐一修改。为了解决这个问题 ,我 们可以使用 arguments.callee 来代替。</p>
+
+<pre><code>function box(num) { 
+    if (num &lt;= 1) {
+        return 1; 
+        } else {
+            return num * arguments.callee(num-1);         //使用 callee 来执行自身 
+        }
+}
+</code></pre>
+
+<p>函数内部另一个特殊对象是 <code>this</code>, 其行为与 Java 和 C#中的 this 大致相似。换句话说, this 引用的是函数据以执行操作的对象 ,或者说函数调用语句所处的那个作用域 。PS:当在 全局作用域中调用函数时, <code>this</code> 对象引用的就是 <code>window。</code></p>
+
+<p>//便于理解的改写例子</p>
+
+<pre><code>window.color = '红色的';            //全局的,或者 var color = '红色的';也行 
+    alert(this.color);             //打印全局的 color
+var box = {
+    color : '蓝色的',               //局部的 color
+    sayColor : function () { 
+    alert(this.color);             //此时的 this 只能 box 里的 color
+    } 
+};
+box.sayColor();                    //打印局部的 color
+alert(this.color);                  //还是全局的
+</code></pre>
+
+<h2>四、函数属性和方法</h2>
+
+<p>ECMAScript 中的函数是对象,因此函数也有属性和方法。每个函数都包含两个属性 : <code>length</code> 和 <code>prototype</code>。其中,<code>length</code>属性表示函数希望接收的命名参数的个数。</p>
+
+<pre><code>function box(name, age) { 
+    alert(name + age);
+}
+alert(box.length);     //2
+</code></pre>
+
+<p>PS:对于 <code>prototype</code> 属性,它是保存所有实例方法的真正所在 ,也就是原型。这个属性, 我们将在面向对象一章详细介绍 。而 <code>prototype</code> 下有两个方法:<code>apply()</code>和 <code>call()</code>,每个函数都 包含这两个非继承而来的方法 。这两个方法的用途都在特定的作用域中调用函数 ,实际上等 于设置函数体内 <code>this</code> 对象的值。</p>
+
+<pre><code>function box(num1, num2) {           //原函数
+    return num1 + num2;
+}
+
+function sayBox(num1, num2) {
+    return box.apply(this, [num1, num2]);          //this 表示作用域,这里是 window ,[]表示 box 所需要的参数
+}
+
+function sayBox2(num1, num2) { 
+    return box.apply(this, arguments);             //arguments 对象表示 box 所需要的参数
+}
+
+alert(sayBox(10,10));                             //20
+alert(sayBox2(10,10));                            //20
+</code></pre>
+
+<p><code>call()</code> 方法于 <code>apply()</code> 方法相同,他们的区别仅仅在于接收参数的方式不同 。对于 <code>call()</code> 方 法而言,第一个参数是作用域,没有变化,变化只是其余的参数都是直接传递给函数的。</p>
+
+<p>待续</p>
 ]]></content>
   </entry>
   
@@ -2488,69 +2636,6 @@ $('a[bbb][title=num1]').css('color','red');  //选定具有多个属性且属性
 <p>其核心原理其实与第二种利用font-size大小实现IE下图片垂直居中是一致的。将font-size设置得很大，目的是撑开IE下默认文字空间的高度，其性质类似于空格，然后通过<code>vertical-align:middle</code>属性让图片与这个高高的空白空格空间垂直居中对齐；</p>
 
 <p>而这里将这个看不见的文字空间实例成一张透明的gif图片，高度可以轻松设置为外部标签的高度，然后通过<code>vertical-align:middle</code>对齐，就实现效果了，在各个浏览器下都是一样的表现，不需要担心什么兼容性的问题。而且代码很简单，很易懂，想出错都难！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Css 之 Line-height]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/03/css-zhi-line-height/"/>
-    <updated>2015-10-03T16:28:19+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/03/css-zhi-line-height</id>
-    <content type="html"><![CDATA[<h3>一、字面意思</h3>
-
-<p>“Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。</p>
-
-<p><img src="http://amy-liu.github.io/images/base_line.jpg" alt="base_line" /></p>
-
-<h3>二、line-height与line boxes高度</h3>
-
-<p>css中起高度作用的应该就是height以及line-height了吧！如果一个标签没有定义height属性(包括百分比高度)，那么其最终表现的高度一定是由line-height起作用，即使是IE6下11像素左右默认高度bug也是如此。</p>
-
-<!--more-->
-
-
-<p>一个空的div，如果没有设置至少大于1像素高度height值时，该div的高度就是个0。如果该div里面打入了一个空格或是文字，则此div就会有一个高度。
-深入理解inline模型后，会发现，不是文字撑开了div的高度，而是line-height！测试：</p>
-
-<pre><code>.test1{font-size:20px; line-height:0; border:1px solid #cccccc; background:#eeeeee;}
-.test2{font-size:0; line-height:20px; border:1px solid #cccccc; background:#eeeeee;}
-</code></pre>
-
-<p>在inline box模型中，有个line boxes，它是看不见的，它的工作就是包裹每行文字。一行文字一个line boxes。如果它们在一行显示，只有一个line boxe，但要是竖着写，一行一个，一个字罩着一个line boxes。line boxes什么特性也没有，就高度。所以一个没有设置height属性的div的高度就是由一个一个line boxes的高度堆积而成的。</p>
-
-<p>line boxes的高度是由inline boxes决定的，inline boxes就是文字，图片啊，span之类的inline属性的标签。这些标签谁的实际line-height值最高，谁最高，line boxes就取谁的值，形成高度。</p>
-
-<p>1、单行文字的垂直居中对齐</p>
-
-<p>把<code>line-height</code>设置为需要的box的大小可以实现单行文字的垂直居中”。</p>
-
-<p>2、多行文字的垂直居中</p>
-
-<pre><code>.mulit_line{line-height:150px; border:1px dashed #cccccc; padding-left:5px;}
-.mulit_line span{display:inline-block; line-height:1.4em; vertical-align:middle;}
-</code></pre>
-
-<p>html代码：</p>
-
-<pre><code>&lt;p class="mulit_line"&gt;
-&lt;span style="font-size:12px;"&gt;这里是高度为150像素的标签内的多行文字，文字大小为12像素。&lt;br /&gt;这里是第二行，用来测试多行的显示效果。&lt;/span&gt;&lt;/p&gt;
-</code></pre>
-
-<p>兼容性还未测 待后续补充</p>
-
-<h3>三、行高在文章显示中的应用</h3>
-
-<p>文章里面的文字是有大有小的，使用px定值，由于继承性，无法实现根据文字大小自动调整间距，会出现大号文字重叠的现象。一般文章显示最好是650像素的宽度，1.5倍的行距较好。</p>
-
-<p>有个很搓的办法可以实现文字间距自动适应于文字的大小，那就是使用“*”通配符，例如：<code>.article_box *{line-height:150%;}</code>使用“*”通配符大大增加了css的渲染，效率低。</p>
-
-<p>更好的方法，就是使用数值。150%和1.5在值上是一样的，但是它们也是有差别的，差别在于继承性，使用百分比会计算<code>line-height</code>的值，然后以px像素为单位继承下去，而1.5则是先继承1.5这个值，遍历到了该标签再计算<code>line-height</code>的像素值。所以同样的效果只需要.<code>article_box{line-height:1.5;}</code>就可以实现了。</p>
-
-<h3>四、使用行高代替高度避免haslayout</h3>
-
-<p>某些情形下，line-height可以和height互换，因为实现的效果一样。都能撑开一个高度，然而这两个css属性有一个较隐蔽的差异，就是使用height会使标签haslayout，而使用line-height则不会。以前只有IE6的时候曾流行使用height清除浮动，就是利用了IE下height使haslayout的属性。但有时候，haslayout并不需要，反而要避免。</p>
-
-<p>有关自适应按钮使用了line-height代替了height，其原因在于：IE6，IE7下，类似inline-block属性的元素里如果有block属性的元素，如果该block haslayout，则该标签会冲破外部inline-block的显示而宽度100%显示，从使按钮自适应文字大小的效果失效，解决方法就是使用line-height代替height。</p>
 ]]></content>
   </entry>
   

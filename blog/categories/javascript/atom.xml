@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-22T00:43:02+08:00</updated>
+  <updated>2015-10-25T00:41:10+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,81 +14,50 @@
 
   
   <entry>
-    <title type="html"><![CDATA[JavaScript 之 Function类型]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing/"/>
-    <updated>2015-10-22T00:29:29+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing</id>
+    <title type="html"><![CDATA[JavaScript 之 变量、作用域及内存]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/"/>
+    <updated>2015-10-25T00:40:04+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[JavaScript 之 对象和数组]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/>
-    <updated>2015-10-20T22:19:20+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu</id>
-    <content type="html"><![CDATA[<p>什么是对象,其实就是一种类型,即引用类型。而对象的值就是引用类型的实例。 在 ECMAScript 中引用类型是一种数据结构,用于将数据和功能组织在一起。它也常被称做为 类,但 ECMAScript 中却没有这种东西。虽然 ECMAScript 是一门面向对象的语言,却不具 备传统面向对象语言所支持的类和接口等基本结构。</p>
+    <title type="html"><![CDATA[JavaScript 之 Function类型]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing/"/>
+    <updated>2015-10-22T00:29:29+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing</id>
+    <content type="html"><![CDATA[<p>在 ECMAScript 中,Function(函数)类型实际上是对象。每个函数都是Function类型的实例,而且都与其他引用类型一样具有属性和方法 。由于函数是对象,因此函数名实际上也 是一个指向函数对象的指针。</p>
 
-<h3>一、Object 类型</h3>
+<h3>一、函数的声明方式</h3>
 
-<p>到目前为止,我们使用的引用类型最多的可能就是 Object 类型了。虽然 Object 的实例
-不具备多少功能,但对于在应用程序中的存储和传输数据而言,它确实是非常理想的选择 。 创建 Object 类型有两种。一种是使用 new 运算符,一种是字面量表示法。</p>
-
-<p>1.使用 new 运算符创建 Object
+<ul>
+<li>普通的函数声明
 <code>
-    var box = new Object();     //new 方式    new 关键字可以省略
-    box.name = 'amy';           //创建属性字段
-    box.age = 28;               //创建属性字段
-</code></p>
+  function box(num1, num2) {
+      return num1+ num2;
+  }
+</code></li>
+<li>使用变量初始化函数
+<code>
+  var box= function(num1, num2) {
+      return num1 + num2;
+  };
+</code></li>
+<li>使用 Function 构造函数
+<code>
+  var box= new Function('num1', 'num2' ,'return num1 + num2');
+</code>
+PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码(第一次解析常 规 ECMAScript 代码,第二次是解析传入构造函数中的字符串 ),从而影响性能。但我们可以通 过这种语法来理解 &ldquo;函数是对象,函数名是指针 "的概念。</li>
+</ul>
 
-<p>2.使用字面量方式创建 Object</p>
-
-<pre><code>var box = {              //字面量方式
-    name : '李',         //创建属性字段
-    age : 28 
-};
-</code></pre>
 
 <!--more-->
 
 
-<p>3.属性字段也可以使用字符串形式</p>
+<h2>二、作为值的函数</h2>
 
-<pre><code>var box = {
-    'name' : '李炎恢',             //也可以用字符串形式
-    'age' : 28 
-};
-</code></pre>
-
-<p>4.使用字面量及传统附值方式</p>
-
-<pre><code>var box = {};                     //字面量方式声明空的对象
-box.name = '李炎恢';               //点符号给属性付值
-box.age = 28;
-</code></pre>
-
-<p>5.两种属性输出方式</p>
-
-<pre><code>alert(box.age);                   //点 表示法输出
-alert(box['age']);                //中括号表示法输出,注意引号不能省
-</code></pre>
-
-<p>6.给对象创建方法</p>
-
-<pre><code>var box = {
-    run : function () {           //对象中的方法
-    return '运行';
-    } 
-}
-alert(box.run());                 //调用对象中的方法
-</code></pre>
-
-<p>7.使用 delete 删除对象属性</p>
-
-<pre><code>delete box.name;                 //删除属性
-</code></pre>
-
-<p>在实际开发过程中,一般我们更加喜欢字面量的声明方式。因为它清晰,语法代码少 , 而且还给人一种封装的感觉。字面量也是向函数传递大量可选参数的首选方式。
+<p>ECMAScript 中的函数名本身就是变量,所以函数也可以作为值来使用。也就是说,不 仅可以像传递参数一样把一个函数传递给另一个函数 ,而且可以将一个函数作为另一个函数 的结果返回。
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -244,461 +213,467 @@ alert(box.run());                 //调用对象中的方法
 <span class='line-number'>153</span>
 <span class='line-number'>154</span>
 <span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-<span class='line-number'>184</span>
-<span class='line-number'>185</span>
-<span class='line-number'>186</span>
-<span class='line-number'>187</span>
-<span class='line-number'>188</span>
-<span class='line-number'>189</span>
-<span class='line-number'>190</span>
-<span class='line-number'>191</span>
-<span class='line-number'>192</span>
-<span class='line-number'>193</span>
-<span class='line-number'>194</span>
-<span class='line-number'>195</span>
-<span class='line-number'>196</span>
-<span class='line-number'>197</span>
-<span class='line-number'>198</span>
-<span class='line-number'>199</span>
-<span class='line-number'>200</span>
-<span class='line-number'>201</span>
-<span class='line-number'>202</span>
-<span class='line-number'>203</span>
-<span class='line-number'>204</span>
-<span class='line-number'>205</span>
-<span class='line-number'>206</span>
-<span class='line-number'>207</span>
-<span class='line-number'>208</span>
-<span class='line-number'>209</span>
-<span class='line-number'>210</span>
-<span class='line-number'>211</span>
-<span class='line-number'>212</span>
-<span class='line-number'>213</span>
-<span class='line-number'>214</span>
-<span class='line-number'>215</span>
-<span class='line-number'>216</span>
-<span class='line-number'>217</span>
-<span class='line-number'>218</span>
-<span class='line-number'>219</span>
-<span class='line-number'>220</span>
-<span class='line-number'>221</span>
-<span class='line-number'>222</span>
-<span class='line-number'>223</span>
-<span class='line-number'>224</span>
-<span class='line-number'>225</span>
-<span class='line-number'>226</span>
-<span class='line-number'>227</span>
-<span class='line-number'>228</span>
-<span class='line-number'>229</span>
-<span class='line-number'>230</span>
-<span class='line-number'>231</span>
-<span class='line-number'>232</span>
-<span class='line-number'>233</span>
-<span class='line-number'>234</span>
-<span class='line-number'>235</span>
-<span class='line-number'>236</span>
-<span class='line-number'>237</span>
-<span class='line-number'>238</span>
-<span class='line-number'>239</span>
-<span class='line-number'>240</span>
-<span class='line-number'>241</span>
-<span class='line-number'>242</span>
-<span class='line-number'>243</span>
-<span class='line-number'>244</span>
-<span class='line-number'>245</span>
-<span class='line-number'>246</span>
-<span class='line-number'>247</span>
-<span class='line-number'>248</span>
-<span class='line-number'>249</span>
-<span class='line-number'>250</span>
-<span class='line-number'>251</span>
-<span class='line-number'>252</span>
-<span class='line-number'>253</span>
-<span class='line-number'>254</span>
-<span class='line-number'>255</span>
-<span class='line-number'>256</span>
-<span class='line-number'>257</span>
-<span class='line-number'>258</span>
-<span class='line-number'>259</span>
-<span class='line-number'>260</span>
-<span class='line-number'>261</span>
-<span class='line-number'>262</span>
-<span class='line-number'>263</span>
-<span class='line-number'>264</span>
-<span class='line-number'>265</span>
-<span class='line-number'>266</span>
-<span class='line-number'>267</span>
-<span class='line-number'>268</span>
-<span class='line-number'>269</span>
-<span class='line-number'>270</span>
-<span class='line-number'>271</span>
-<span class='line-number'>272</span>
-<span class='line-number'>273</span>
-<span class='line-number'>274</span>
-<span class='line-number'>275</span>
-<span class='line-number'>276</span>
-<span class='line-number'>277</span>
-<span class='line-number'>278</span>
-<span class='line-number'>279</span>
-<span class='line-number'>280</span>
-<span class='line-number'>281</span>
-<span class='line-number'>282</span>
-<span class='line-number'>283</span>
-<span class='line-number'>284</span>
-<span class='line-number'>285</span>
-<span class='line-number'>286</span>
-<span class='line-number'>287</span>
-<span class='line-number'>288</span>
-<span class='line-number'>289</span>
-<span class='line-number'>290</span>
-<span class='line-number'>291</span>
-<span class='line-number'>292</span>
-<span class='line-number'>293</span>
-<span class='line-number'>294</span>
-<span class='line-number'>295</span>
-<span class='line-number'>296</span>
-<span class='line-number'>297</span>
-<span class='line-number'>298</span>
-<span class='line-number'>299</span>
-<span class='line-number'>300</span>
-<span class='line-number'>301</span>
-<span class='line-number'>302</span>
-<span class='line-number'>303</span>
-<span class='line-number'>304</span>
-<span class='line-number'>305</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>function box(obj) {                                 //参数是一个对象
-</span><span class='line'>    if (obj.name != undefined) alert(obj.name);     //判断属性是否存在
-</span><span class='line'>    if (obj.age != undefined) alert(obj.age);
+</pre></td><td class='code'><pre><code class=''><span class='line'>function box(sumFunction, num) {
+</span><span class='line'>    return sumFunction(num);              //Function
 </span><span class='line'>}&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;box({                                    //调用函数传递一个对象
-</span><span class='line'>name : '李炎恢',
-</span><span class='line'>age : 28 
-</span><span class='line'>});
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function sum(num) { 
+</span><span class='line'>return num + 10;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>var result = box(sum, 10);            //传递函数到另一个函数里
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code class=""&gt;
-</span><span class='line'>## 二、Array 类型
+</span><span class='line'>&lt;p&gt;```&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>除了 Object 类型之外,Array 类型是 ECMAScript 最常用的类型。而且 ECMAScript 中
-</span><span class='line'>的 Array 类型和其他语言中的数组有着很大的区别 。虽然数组都是有序排列 ,但 ECMAScript 中的数组每个元素可以保存任何类型。 ECMAScript 中数组的大小也是可以调整的。
+</span><span class='line'>&lt;h2&gt;三、函数内部属性&lt;/h2&gt;
 </span><span class='line'>
-</span><span class='line'>创建 Array 类型有两种方式:第一种是 new 运算符,第二种是字面量。
+</span><span class='line'>&lt;p&gt;在函数内部,有两个特殊的对象: &lt;code&gt;arguments&lt;/code&gt; 和 &lt;code&gt;this&lt;/code&gt;. &lt;code&gt;arguments&lt;/code&gt; 是一个类数组对象,包
+</span><span class='line'>含着传入函数中的所有参数 ,主要用途是保存函数参数 。但这个对象还有一个名叫 &lt;code&gt;callee&lt;/code&gt; 的 属性,该属性是一个指针,指向拥有这个 &lt;code&gt;arguments&lt;/code&gt; 对象的函数。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>1.使用 new 关键字创建数组
-</span><span class='line'>
-</span><span class='line'>var box = new Array();                              //创建了一个数组           
-</span><span class='line'>var box = new Array(10);                            //创建一个包含 10 个元素的数组
-</span><span class='line'>var box = new Array('李',28,'教师','盐城');          //创建一个数组并分配好了元素   都可以省略 new 关键字
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>2.使用字面量方式创建数组
-</span><span class='line'>
-</span><span class='line'>var box = [];                           //创建一个空的数组
-</span><span class='line'>var box = ['李',28,'教师','盐城'];       //创建包含元素的数组
-</span><span class='line'>var box = [1,2,];                      //禁止这么做,IE 会识别 3 个元素   最后的逗号要删掉
-</span><span class='line'>var box = [,,,,,];                     //同样,IE 的会有识别问题
-</span><span class='line'>
-</span><span class='line'>3.使用索引下标来读取数组的值 
-</span><span class='line'>
-</span><span class='line'>alert(box[2]);              //获取第三个元素
-</span><span class='line'>box[2] = '学生';             //修改第三个元素 
-</span><span class='line'>box[4] = '计算机编程';        //增加第五个元素
-</span><span class='line'>
-</span><span class='line'>4.使用 `length` 属性获取数组元素量 
-</span><span class='line'>
-</span><span class='line'>alert(box.length)               //获取元素个数
-</span><span class='line'>box.length = 10;                //强制给元素个数
-</span><span class='line'>box[box.length] = 'JS 技术';     //通过 length 给数组最后面增加一个元素
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>5.创建一个稍微复杂一点的数组 
-</span><span class='line'>
-</span><span class='line'>var box = [             
-</span><span class='line'>
-</span><span class='line'>            {                                     //第一个元素是一个对象
-</span><span class='line'>            name : '李炎恢', age : 28,
-</span><span class='line'>            run : function () {
-</span><span class='line'>            return 'run 了'; 
-</span><span class='line'>                }
-</span><span class='line'>            },
-</span><span class='line'>            ['马云','李彦宏',new Object()],        //第二个元素是数组
-</span><span class='line'>            '江苏',                               //第三个元素是字符串 
-</span><span class='line'>            25+25,                               //第四个元素是数值
-</span><span class='line'>            new Array(1,2,3)                     //第五个元素是数组
-</span><span class='line'>
-</span><span class='line'>        ]; 
-</span><span class='line'>
-</span><span class='line'>    alert(box);
-</span><span class='line'>
-</span><span class='line'>PS:数组最多可包含 4294967295 个元素,超出即会发生异常。
-</span><span class='line'>
-</span><span class='line'>## 三、对象中的方法
-</span><span class='line'>
-</span><span class='line'>转换方法
-</span><span class='line'>
-</span><span class='line'>对象或数组都具有 `toLocaleString()` `toString()`和 `valueOf()` 方法。其中 `toString()` 和 `valueOf()` 重写了谁,都会返回相同的值。数组会将每个值进行字符串形式的拼接以逗号隔开 。
-</span><span class='line'>
-</span><span class='line'>var box = ['李',28,'计算机编程'];             //字面量数组 
-</span><span class='line'>alert(box);                                    //隐式调用了 toString() 
-</span><span class='line'>alert(box.toString());                         //和 valueOf()返回一致
-</span><span class='line'>alert(box.toLocaleString());                   //返回值和上面两种一致
-</span><span class='line'>
-</span><span class='line'>默认情况下,数组字符串都会以逗号隔开。如果使用 `join()` 方法,则可以使用不同的分 隔符来构建这个字符串。
-</span><span class='line'>
-</span><span class='line'>var box = ['李', 28, '计算机编程'];
-</span><span class='line'>alert(box.join('|'));                       //李炎恢|28|计算机编程
-</span><span class='line'>
-</span><span class='line'>栈方法
-</span><span class='line'>
-</span><span class='line'>ECMAScript 数组提供了一种让数组的行为类似于其他数据结构的方法。也就是说,可以让数组像栈一样,可以限制插入和删除项的数据结构。栈是一种数据结构 (后进先出),也 就是说最新添加的元素最早被移除。而栈中元素的插入 (或叫推入)和移除(或叫弹出),只发 生在一个位置——栈的顶部。ECMAScript 为数组专门提供了 `push()`和 `pop()` 方法。
-</span><span class='line'>
-</span><span class='line'>`push()` 方法可以接收任意数量的参数 ,把它们逐个添加到数组的末尾 ,并返回修改后数 组的长度。而 `pop()` 方法则从数组末尾移除最后一个元素,减少数组的 `length` 值,然后返回 移除的元素。
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) { 
+</span><span class='line'>if (num &lt;= 1) {
+</span><span class='line'>    return 1; 
+</span><span class='line'>    } else {
+</span><span class='line'>        return num * box(num-1);          //一个简单的的递归
+</span><span class='line'>    } 
+</span><span class='line'>}
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '计算机编程'];               //字面量声明
-</span><span class='line'>alert(box.push(' 盐城'));                           //数组末尾添加一个元素 ,并且返回长度 
-</span><span class='line'>alert(box);                                        //查看数组
-</span><span class='line'>box.pop();                                         //移除数组末尾元素 ,并返回移除的元素 
-</span><span class='line'>alert(box);                                        //查看元素
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>&lt;p&gt;对于阶乘函数一般要用到递归算法 ,所以函数内部一定会调用自身 ;如果函数名不改变 是没有问题的,但一旦改变函数名,内部的自身调用需要逐一修改。为了解决这个问题 ,我 们可以使用 arguments.callee 来代替。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'>队列方法
-</span><span class='line'>
-</span><span class='line'>栈方法是后进先出 ,而列队方法就是先进先出 。列队在数组的末端添加元素 ,从数组的 前端移除元素。通过 `push()`向数组末端添加一个元素,然后通过 `shift()` 方法从数组前端移除 一个元素。
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '计算机编程'];                    //字面量声明
-</span><span class='line'>alert(box.push(' 盐城'));                             //数组末尾添加一个元素 ,并且返回长度
-</span><span class='line'>alert(box);
-</span><span class='line'>alert(box.shift());                                  //移除数组开头元素 ,并返回移除的元素 
-</span><span class='line'>alert(box);
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;
-</span><span class='line'>ECMAScript 还为数组提供了一个 `unshift()` 方法,它和 `shift()` 方法的功能完全相反。 `unshift()`方法为数组的前端添加一个元素。
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李炎恢', 28, '计算机编程'];            //字面量声明
-</span><span class='line'>alert(box.unshift('盐城','江苏'));                //数组开头添加两个元素
-</span><span class='line'>alert(box);
-</span><span class='line'>alert(box.pop());                                //移除数组末尾元素 ,并返回移除的元素 /
-</span><span class='line'>alert(box);
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;```
-</span><span class='line'>PS:IE 浏览器对 unshift()方法总是返回 undefined 而不是数组的新长度。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;重排序方法&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;数组中已经存在两个可以直接用来排序的方法: &lt;code&gt;reverse()&lt;/code&gt; 和 &lt;code&gt;sort()&lt;/code&gt; 。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;&lt;code&gt;reverse()&lt;/code&gt; 逆向排序&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = [1,2,3,4,5];              //数组 
-</span><span class='line'>alert(box.reverse());               //逆向排序方法,返回排序后的数组 
-</span><span class='line'>alert(box);                         //源数组也被逆向排序了,说明是引用
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;sort() 从小到大排序&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = [4,1,7,3,9,2];               //数组
-</span><span class='line'>alert(box.sort());                     //从小到大排序,返回排序后的数组 
-</span><span class='line'>alert(box);                             //源数组也被从小到大排序了
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;sort 方法的默认排序在数字排序上有些问题 ,因为数字排序和数字字符串排序的算法是 一样的。我们必须修改这一特征,修改的方式,就是给 sort(参数)方法传递一个函数参数。 这点可以参考手册说明。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function compare(value1, value2) {            //数字排序的函数参数 
-</span><span class='line'>if (value1 &lt; value2) {                    //小于,返回负数
-</span><span class='line'>        return -1;
-</span><span class='line'>    } else if (value1 &gt; value2) {         //大于,返回正数
-</span><span class='line'>    return 1; } else {
-</span><span class='line'>        return 0;                         //其他,返回 0
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) { 
+</span><span class='line'>if (num &lt;= 1) {
+</span><span class='line'>    return 1; 
+</span><span class='line'>    } else {
+</span><span class='line'>        return num * arguments.callee(num-1);         //使用 callee 来执行自身 
 </span><span class='line'>    }
-</span><span class='line'>    }
-</span><span class='line'>var box = [0,1,5,10,15];                      //验证数字字符串,和数字的区别
-</span><span class='line'>alert(box.sort(compare));                     //传参
+</span><span class='line'>}
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;操作方法&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;函数内部另一个特殊对象是 &lt;code&gt;this&lt;/code&gt;, 其行为与 Java 和 C#中的 this 大致相似。换句话说, this 引用的是函数据以执行操作的对象 ,或者说函数调用语句所处的那个作用域 。PS:当在 全局作用域中调用函数时, &lt;code&gt;this&lt;/code&gt; 对象引用的就是 &lt;code&gt;window。&lt;/code&gt;&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;ECMAScript 为操作已经包含在数组中的元素提供了很多方法 。&lt;code&gt;concat()&lt;/code&gt;方法可以基于当 前数组创建一个新数组。&lt;code&gt;slice()&lt;/code&gt;方法可以基于当前数组获取指定区域元素并创建一个新数组 。 &lt;code&gt;splice()&lt;/code&gt;主要用途是向数组的中部插入元素。&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;//便于理解的改写例子&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '盐城'];                       //当前数组 
-</span><span class='line'>var box2 = box.concat('计算机编程');                //创建新数组,并添加新元素 
-</span><span class='line'>alert(box2);                                      //输出新数组 
-</span><span class='line'>alert(box);                                       //当前数组没有任何变化
-</span><span class='line'>
-</span><span class='line'>var box = ['李', 28, '盐城'];                      //当前数组
-</span><span class='line'>var box2 = box.slice(1);                          //box.slice(1,3) ,2-4 之间的元素
-</span><span class='line'>alert(box2);                                      //28,盐城
-</span><span class='line'>alert(box);                                       //当前数组
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;window.color = '红色的';            //全局的,或者 var color = '红色的';也行 
+</span><span class='line'>alert(this.color);             //打印全局的 color
+</span><span class='line'>var box = {
+</span><span class='line'>color : '蓝色的',               //局部的 color
+</span><span class='line'>sayColor : function () { 
+</span><span class='line'>alert(this.color);             //此时的 this 只能 box 里的 color
+</span><span class='line'>} 
+</span><span class='line'>};
+</span><span class='line'>box.sayColor();                    //打印局部的 color
+</span><span class='line'>alert(this.color);                  //还是全局的
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt; splice 中的删除功能:&lt;/p&gt;
+</span><span class='line'>&lt;h2&gt;四、函数属性和方法&lt;/h2&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '盐城'];                  //当前数组
-</span><span class='line'>var box2 = box.splice(0,2);                      //截取前两个元素 
-</span><span class='line'>alert(box2);                                     //返回截取的元素 
-</span><span class='line'>alert(box);                                      //当前数组被截取的元素被删除
+</span><span class='line'>&lt;p&gt;ECMAScript 中的函数是对象,因此函数也有属性和方法。每个函数都包含两个属性 : &lt;code&gt;length&lt;/code&gt; 和 &lt;code&gt;prototype&lt;/code&gt;。其中,&lt;code&gt;length&lt;/code&gt;属性表示函数希望接收的命名参数的个数。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(name, age) { 
+</span><span class='line'>alert(name + age);
+</span><span class='line'>}
+</span><span class='line'>alert(box.length);     //2
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;splice 中的插入功能:&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;PS:对于 &lt;code&gt;prototype&lt;/code&gt; 属性,它是保存所有实例方法的真正所在 ,也就是原型。这个属性, 我们将在面向对象一章详细介绍 。而 &lt;code&gt;prototype&lt;/code&gt; 下有两个方法:&lt;code&gt;apply()&lt;/code&gt;和 &lt;code&gt;call()&lt;/code&gt;,每个函数都 包含这两个非继承而来的方法 。这两个方法的用途都在特定的作用域中调用函数 ,实际上等 于设置函数体内 &lt;code&gt;this&lt;/code&gt; 对象的值。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '盐城'];
-</span><span class='line'>var box2 = box.splice(1,0,'计算机编程','江苏');         //没有截取,但插入了两条    
-</span><span class='line'>alert(box2);                                          //在第 2 个位置插入两条
-</span><span class='line'>alert(box);
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num1, num2) {           //原函数
+</span><span class='line'>return num1 + num2;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>function sayBox(num1, num2) {
+</span><span class='line'>return box.apply(this, [num1, num2]);          //this 表示作用域,这里是 window ,[]表示 box 所需要的参数
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>function sayBox2(num1, num2) { 
+</span><span class='line'>return box.apply(this, arguments);             //arguments 对象表示 box 所需要的参数
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>alert(sayBox(10,10));                             //20
+</span><span class='line'>alert(sayBox2(10,10));                            //20
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;splice 中的替换功能:&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;&lt;code&gt;call()&lt;/code&gt; 方法于 &lt;code&gt;apply()&lt;/code&gt; 方法相同,他们的区别仅仅在于接收参数的方式不同 。对于 &lt;code&gt;call()&lt;/code&gt; 方 法而言,第一个参数是作用域,没有变化,变化只是其余的参数都是直接传递给函数的。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = ['李', 28, '盐城']; 
-</span><span class='line'>var box2 = box.splice(1,1,100);                  //截取了第 2 条,替换成 100
-</span><span class='line'>alert(box2);                                     //输出截取的 28
-</span><span class='line'>alert(box);
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>&lt;p&gt;待续&lt;/p&gt;
 </span><span class='line'>]]&gt;&lt;/content&gt;
 </span><span class='line'>  &lt;/entry&gt;
 </span><span class='line'>  
 </span><span class='line'>  &lt;entry&gt;
-</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 函数]]&gt;&lt;/title&gt;
-</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu/"/&gt;
-</span><span class='line'>&lt;updated&gt;2015-10-18T21:15:57+08:00&lt;/updated&gt;
-</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu&lt;/id&gt;
-</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;h3&gt;一、函数声明&lt;/h3&gt;
+</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 对象和数组]]&gt;&lt;/title&gt;
+</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/&gt;
+</span><span class='line'>&lt;updated&gt;2015-10-20T22:19:20+08:00&lt;/updated&gt;
+</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu&lt;/id&gt;
+</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;p&gt;什么是对象,其实就是一种类型,即引用类型。而对象的值就是引用类型的实例。 在 ECMAScript 中引用类型是一种数据结构,用于将数据和功能组织在一起。它也常被称做为 类,但 ECMAScript 中却没有这种东西。虽然 ECMAScript 是一门面向对象的语言,却不具 备传统面向对象语言所支持的类和接口等基本结构。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;函数对任何语言来说都是一个核心的概念 。通过函数可以封装任意多条语句 ,而且可以 在任何地方、任何时候调用执行。 ECMAScript 中的函数使用 function 关键字来声明,后跟 一组参数以及函数体。&lt;/p&gt;
+</span><span class='line'>&lt;h3&gt;一、Object 类型&lt;/h3&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box() {                              //没有参数的函数 
-</span><span class='line'>alert('只有函数被调用,我才会被之执行 ');
-</span><span class='line'>} box();                                      //直接调用函数
+</span><span class='line'>&lt;p&gt;到目前为止,我们使用的引用类型最多的可能就是 Object 类型了。虽然 Object 的实例
+</span><span class='line'>不具备多少功能,但对于在应用程序中的存储和传输数据而言,它确实是非常理想的选择 。 创建 Object 类型有两种。一种是使用 new 运算符,一种是字面量表示法。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>function box(name, age) {                     //带参数的函数
-</span><span class='line'>alert('你的姓名:'+name+',年龄:'+age);
-</span><span class='line'>}
-</span><span class='line'>box('李',28);                                 //调用函数,并传参
+</span><span class='line'>&lt;p&gt;1.使用 new 运算符创建 Object
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>var box = new Object();     //new 方式    new 关键字可以省略
+</span><span class='line'>box.name = 'amy';           //创建属性字段
+</span><span class='line'>box.age = 28;               //创建属性字段
+</span><span class='line'>&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;2.使用字面量方式创建 Object&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {              //字面量方式
+</span><span class='line'>name : '李',         //创建属性字段
+</span><span class='line'>age : 28 
+</span><span class='line'>};
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;h2&gt;二、return 返回值&lt;/h2&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;!--more--&gt;
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box() {                     //没有参数的函数
-</span><span class='line'>return '我被返回了!';             //通过 return 把函数的最终值返回
+</span><span class='line'>&lt;p&gt;3.属性字段也可以使用字符串形式&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {
+</span><span class='line'>'name' : '李炎恢',             //也可以用字符串形式
+</span><span class='line'>'age' : 28 
+</span><span class='line'>};
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;4.使用字面量及传统附值方式&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {};                     //字面量方式声明空的对象
+</span><span class='line'>box.name = '李炎恢';               //点符号给属性付值
+</span><span class='line'>box.age = 28;
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;5.两种属性输出方式&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;alert(box.age);                   //点 表示法输出
+</span><span class='line'>alert(box['age']);                //中括号表示法输出,注意引号不能省
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;6.给对象创建方法&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {
+</span><span class='line'>run : function () {           //对象中的方法
+</span><span class='line'>return '运行';
 </span><span class='line'>} 
-</span><span class='line'>alert(box());                       //调用函数会得到返回值 ,然后外面输出
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>function box(name, age) {                      //有参数的函数
-</span><span class='line'>return '你的姓名:'+name+',年龄:'+age;        //通过 return 把函数的最终值返回
 </span><span class='line'>}
-</span><span class='line'>alert(box('李炎恢', 28));                       /调用函数得到返回值,然后外面输出
+</span><span class='line'>alert(box.run());                 //调用对象中的方法
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;我们还可以把函数的返回值赋给一个变量,然后通过变量进行操作。&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;7.使用 delete 删除对象属性&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num1, num2) { 
-</span><span class='line'>return num1 * num2;
-</span><span class='line'>}
-</span><span class='line'>var num = box(10, 5); //函数得到的返回值赋给变量 
-</span><span class='line'>alert(num);
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;delete box.name;                 //删除属性
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;&lt;code&gt;return&lt;/code&gt; 语句还有一个功能就是退出当前函数 ,注意和 &lt;code&gt;break&lt;/code&gt; 的区别。PS: &lt;code&gt;break&lt;/code&gt; 用在循环 和 &lt;code&gt;switch&lt;/code&gt; 分支语句里。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) {
-</span><span class='line'>if (num &lt; 5) return num;            //满足条件,就返回 num
-</span><span class='line'>return 100;                         //返回之后,就不执行下面的语句了
-</span><span class='line'>} alert(box(10));
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;h2&gt;三、arguments 对象&lt;/h2&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;ECMAScript 函数不介意传递进来多少参数,也不会因为参数不统一而错误。实际上, 函数体内可以通过 arguments 对象来接收传递进来的参数。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box() {
-</span><span class='line'>return arguments[0]+' | '+arguments[1];           //得到每次参数的值
-</span><span class='line'>}
-</span><span class='line'>alert(box(1,2,3,4,5,6));                              //传递参数
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;arguments 对象的 length 属性可以得到参数的数量。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box() {
-</span><span class='line'>return arguments.length;            //得到 6
-</span><span class='line'>}
-</span><span class='line'>alert(box(1,2,3,4,5,6));
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;我们可以利用 &lt;code&gt;length&lt;/code&gt; 这个属性,来智能的判断有多少参数 ,然后把参数进行合理的应用 。 比如,要实现一个加法运算,将所有传进来的数字累加,而数字的个数又不确定。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box() { 
-</span><span class='line'>var sum = 0;
-</span><span class='line'>if (arguments.length == 0) return sum;                //如果没有参数,退出
-</span><span class='line'>for(var i = 0;i &lt; arguments.length; i++) {            //如果有,就累加
-</span><span class='line'>sum = sum + arguments[i]; 
-</span><span class='line'>}
-</span><span class='line'>return sum;                                               //返回累加结果
-</span><span class='line'>}
-</span><span class='line'>alert(box(5,9,12));
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;ECMAScript 中的函数,没有像其他高级语言那种函数重载功能。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) {
-</span><span class='line'>return num + 100; 
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>function box (num) {              //会执行这个函数
-</span><span class='line'>return num + 200;             //返回结果
-</span><span class='line'>} 
-</span><span class='line'>alert(box(50));
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>]]&gt;&lt;/content&gt;
-</span><span class='line'>  &lt;/entry&gt;
-</span><span class='line'>  
-</span><span class='line'>  &lt;entry&gt;
-</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 流程控制语句]]&gt;&lt;/title&gt;
-</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/"/&gt;
-</span><span class='line'>&lt;updated&gt;2015-10-18T20:41:18+08:00&lt;/updated&gt;
-</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju&lt;/id&gt;
-</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;h3&gt;一、语句的定义&lt;/h3&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;语句的种类</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>&lt;p&gt;在实际开发过程中,一般我们更加喜欢字面量的声明方式。因为它清晰,语法代码少 , 而且还给人一种封装的感觉。字面量也是向函数传递大量可选参数的首选方式。</span></code></pre></td></tr></table></div></figure>
+    function box(obj) {                                 //参数是一个对象
+        if (obj.name != undefined) alert(obj.name);     //判断属性是否存在
+        if (obj.age != undefined) alert(obj.age);
+    }</p>
+
+<pre><code>box({                                    //调用函数传递一个对象
+    name : '李炎恢',
+    age : 28 
+});
+</code></pre>
+
+<pre><code class="">
+## 二、Array 类型
+
+除了 Object 类型之外,Array 类型是 ECMAScript 最常用的类型。而且 ECMAScript 中
+的 Array 类型和其他语言中的数组有着很大的区别 。虽然数组都是有序排列 ,但 ECMAScript 中的数组每个元素可以保存任何类型。 ECMAScript 中数组的大小也是可以调整的。
+
+创建 Array 类型有两种方式:第一种是 new 运算符,第二种是字面量。
+
+1.使用 new 关键字创建数组
+
+    var box = new Array();                              //创建了一个数组           
+    var box = new Array(10);                            //创建一个包含 10 个元素的数组
+    var box = new Array('李',28,'教师','盐城');          //创建一个数组并分配好了元素   都可以省略 new 关键字
+
+
+2.使用字面量方式创建数组
+
+    var box = [];                           //创建一个空的数组
+    var box = ['李',28,'教师','盐城'];       //创建包含元素的数组
+    var box = [1,2,];                      //禁止这么做,IE 会识别 3 个元素   最后的逗号要删掉
+    var box = [,,,,,];                     //同样,IE 的会有识别问题
+
+3.使用索引下标来读取数组的值 
+
+    alert(box[2]);              //获取第三个元素
+    box[2] = '学生';             //修改第三个元素 
+    box[4] = '计算机编程';        //增加第五个元素
+
+4.使用 `length` 属性获取数组元素量 
+
+    alert(box.length)               //获取元素个数
+    box.length = 10;                //强制给元素个数
+    box[box.length] = 'JS 技术';     //通过 length 给数组最后面增加一个元素
+
+
+5.创建一个稍微复杂一点的数组 
+
+    var box = [             
+
+                {                                     //第一个元素是一个对象
+                name : '李炎恢', age : 28,
+                run : function () {
+                return 'run 了'; 
+                    }
+                },
+                ['马云','李彦宏',new Object()],        //第二个元素是数组
+                '江苏',                               //第三个元素是字符串 
+                25+25,                               //第四个元素是数值
+                new Array(1,2,3)                     //第五个元素是数组
+
+            ]; 
+
+        alert(box);
+
+PS:数组最多可包含 4294967295 个元素,超出即会发生异常。
+
+## 三、对象中的方法
+
+转换方法
+
+对象或数组都具有 `toLocaleString()` `toString()`和 `valueOf()` 方法。其中 `toString()` 和 `valueOf()` 重写了谁,都会返回相同的值。数组会将每个值进行字符串形式的拼接以逗号隔开 。
+
+    var box = ['李',28,'计算机编程'];             //字面量数组 
+    alert(box);                                    //隐式调用了 toString() 
+    alert(box.toString());                         //和 valueOf()返回一致
+    alert(box.toLocaleString());                   //返回值和上面两种一致
+
+默认情况下,数组字符串都会以逗号隔开。如果使用 `join()` 方法,则可以使用不同的分 隔符来构建这个字符串。
+
+    var box = ['李', 28, '计算机编程'];
+    alert(box.join('|'));                       //李炎恢|28|计算机编程
+
+栈方法
+
+ECMAScript 数组提供了一种让数组的行为类似于其他数据结构的方法。也就是说,可以让数组像栈一样,可以限制插入和删除项的数据结构。栈是一种数据结构 (后进先出),也 就是说最新添加的元素最早被移除。而栈中元素的插入 (或叫推入)和移除(或叫弹出),只发 生在一个位置——栈的顶部。ECMAScript 为数组专门提供了 `push()`和 `pop()` 方法。
+
+`push()` 方法可以接收任意数量的参数 ,把它们逐个添加到数组的末尾 ,并返回修改后数 组的长度。而 `pop()` 方法则从数组末尾移除最后一个元素,减少数组的 `length` 值,然后返回 移除的元素。
+</code></pre>
+
+<pre><code>var box = ['李', 28, '计算机编程'];               //字面量声明
+alert(box.push(' 盐城'));                           //数组末尾添加一个元素 ,并且返回长度 
+alert(box);                                        //查看数组
+box.pop();                                         //移除数组末尾元素 ,并返回移除的元素 
+alert(box);                                        //查看元素
+</code></pre>
+
+<pre><code>
+队列方法
+
+栈方法是后进先出 ,而列队方法就是先进先出 。列队在数组的末端添加元素 ,从数组的 前端移除元素。通过 `push()`向数组末端添加一个元素,然后通过 `shift()` 方法从数组前端移除 一个元素。
+</code></pre>
+
+<pre><code>var box = ['李', 28, '计算机编程'];                    //字面量声明
+alert(box.push(' 盐城'));                             //数组末尾添加一个元素 ,并且返回长度
+alert(box);
+alert(box.shift());                                  //移除数组开头元素 ,并返回移除的元素 
+alert(box);
+</code></pre>
+
+<pre><code>
+ECMAScript 还为数组提供了一个 `unshift()` 方法,它和 `shift()` 方法的功能完全相反。 `unshift()`方法为数组的前端添加一个元素。
+</code></pre>
+
+<pre><code>var box = ['李炎恢', 28, '计算机编程'];            //字面量声明
+alert(box.unshift('盐城','江苏'));                //数组开头添加两个元素
+alert(box);
+alert(box.pop());                                //移除数组末尾元素 ,并返回移除的元素 /
+alert(box);
+</code></pre>
+
+<p>```
+PS:IE 浏览器对 unshift()方法总是返回 undefined 而不是数组的新长度。</p>
+
+<p>重排序方法</p>
+
+<p>数组中已经存在两个可以直接用来排序的方法: <code>reverse()</code> 和 <code>sort()</code> 。</p>
+
+<p><code>reverse()</code> 逆向排序</p>
+
+<pre><code>var box = [1,2,3,4,5];              //数组 
+alert(box.reverse());               //逆向排序方法,返回排序后的数组 
+alert(box);                         //源数组也被逆向排序了,说明是引用
+</code></pre>
+
+<p>sort() 从小到大排序</p>
+
+<pre><code>var box = [4,1,7,3,9,2];               //数组
+alert(box.sort());                     //从小到大排序,返回排序后的数组 
+alert(box);                             //源数组也被从小到大排序了
+</code></pre>
+
+<p>sort 方法的默认排序在数字排序上有些问题 ,因为数字排序和数字字符串排序的算法是 一样的。我们必须修改这一特征,修改的方式,就是给 sort(参数)方法传递一个函数参数。 这点可以参考手册说明。</p>
+
+<pre><code>function compare(value1, value2) {            //数字排序的函数参数 
+    if (value1 &lt; value2) {                    //小于,返回负数
+            return -1;
+        } else if (value1 &gt; value2) {         //大于,返回正数
+        return 1; } else {
+            return 0;                         //其他,返回 0
+        }
+        }
+var box = [0,1,5,10,15];                      //验证数字字符串,和数字的区别
+alert(box.sort(compare));                     //传参
+</code></pre>
+
+<p>操作方法</p>
+
+<p>ECMAScript 为操作已经包含在数组中的元素提供了很多方法 。<code>concat()</code>方法可以基于当 前数组创建一个新数组。<code>slice()</code>方法可以基于当前数组获取指定区域元素并创建一个新数组 。 <code>splice()</code>主要用途是向数组的中部插入元素。</p>
+
+<pre><code>var box = ['李', 28, '盐城'];                       //当前数组 
+var box2 = box.concat('计算机编程');                //创建新数组,并添加新元素 
+alert(box2);                                      //输出新数组 
+alert(box);                                       //当前数组没有任何变化
+
+var box = ['李', 28, '盐城'];                      //当前数组
+var box2 = box.slice(1);                          //box.slice(1,3) ,2-4 之间的元素
+alert(box2);                                      //28,盐城
+alert(box);                                       //当前数组
+</code></pre>
+
+<p> splice 中的删除功能:</p>
+
+<pre><code>var box = ['李', 28, '盐城'];                  //当前数组
+var box2 = box.splice(0,2);                      //截取前两个元素 
+alert(box2);                                     //返回截取的元素 
+alert(box);                                      //当前数组被截取的元素被删除
+</code></pre>
+
+<p>splice 中的插入功能:</p>
+
+<pre><code>var box = ['李', 28, '盐城'];
+var box2 = box.splice(1,0,'计算机编程','江苏');         //没有截取,但插入了两条    
+alert(box2);                                          //在第 2 个位置插入两条
+alert(box);
+</code></pre>
+
+<p>splice 中的替换功能:</p>
+
+<pre><code>var box = ['李', 28, '盐城']; 
+var box2 = box.splice(1,1,100);                  //截取了第 2 条,替换成 100
+alert(box2);                                     //输出截取的 28
+alert(box);
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 函数]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu/"/>
+    <updated>2015-10-18T21:15:57+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu</id>
+    <content type="html"><![CDATA[<h3>一、函数声明</h3>
+
+<p>函数对任何语言来说都是一个核心的概念 。通过函数可以封装任意多条语句 ,而且可以 在任何地方、任何时候调用执行。 ECMAScript 中的函数使用 function 关键字来声明,后跟 一组参数以及函数体。</p>
+
+<pre><code>function box() {                              //没有参数的函数 
+    alert('只有函数被调用,我才会被之执行 ');
+} box();                                      //直接调用函数
+
+function box(name, age) {                     //带参数的函数
+    alert('你的姓名:'+name+',年龄:'+age);
+}
+box('李',28);                                 //调用函数,并传参
+</code></pre>
+
+<h2>二、return 返回值</h2>
+
+<p>带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。</p>
+
+<!--more-->
+
+
+<pre><code>function box() {                     //没有参数的函数
+    return '我被返回了!';             //通过 return 把函数的最终值返回
+} 
+alert(box());                       //调用函数会得到返回值 ,然后外面输出
+
+
+function box(name, age) {                      //有参数的函数
+    return '你的姓名:'+name+',年龄:'+age;        //通过 return 把函数的最终值返回
+}
+alert(box('李炎恢', 28));                       /调用函数得到返回值,然后外面输出
+</code></pre>
+
+<p>我们还可以把函数的返回值赋给一个变量,然后通过变量进行操作。</p>
+
+<pre><code>function box(num1, num2) { 
+    return num1 * num2;
+}
+var num = box(10, 5); //函数得到的返回值赋给变量 
+alert(num);
+</code></pre>
+
+<p><code>return</code> 语句还有一个功能就是退出当前函数 ,注意和 <code>break</code> 的区别。PS: <code>break</code> 用在循环 和 <code>switch</code> 分支语句里。</p>
+
+<pre><code>function box(num) {
+    if (num &lt; 5) return num;            //满足条件,就返回 num
+    return 100;                         //返回之后,就不执行下面的语句了
+} alert(box(10));
+</code></pre>
+
+<h2>三、arguments 对象</h2>
+
+<p>ECMAScript 函数不介意传递进来多少参数,也不会因为参数不统一而错误。实际上, 函数体内可以通过 arguments 对象来接收传递进来的参数。</p>
+
+<pre><code>function box() {
+    return arguments[0]+' | '+arguments[1];           //得到每次参数的值
+}
+alert(box(1,2,3,4,5,6));                              //传递参数
+</code></pre>
+
+<p>arguments 对象的 length 属性可以得到参数的数量。</p>
+
+<pre><code>function box() {
+    return arguments.length;            //得到 6
+    }
+alert(box(1,2,3,4,5,6));
+</code></pre>
+
+<p>我们可以利用 <code>length</code> 这个属性,来智能的判断有多少参数 ,然后把参数进行合理的应用 。 比如,要实现一个加法运算,将所有传进来的数字累加,而数字的个数又不确定。</p>
+
+<pre><code>function box() { 
+var sum = 0;
+    if (arguments.length == 0) return sum;                //如果没有参数,退出
+    for(var i = 0;i &lt; arguments.length; i++) {            //如果有,就累加
+    sum = sum + arguments[i]; 
+    }
+return sum;                                               //返回累加结果
+}
+alert(box(5,9,12));
+</code></pre>
+
+<p>ECMAScript 中的函数,没有像其他高级语言那种函数重载功能。</p>
+
+<pre><code>function box(num) {
+    return num + 100; 
+}
+
+function box (num) {              //会执行这个函数
+    return num + 200;             //返回结果
+} 
+alert(box(50));
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 流程控制语句]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/"/>
+    <updated>2015-10-18T20:41:18+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju</id>
+    <content type="html"><![CDATA[<h3>一、语句的定义</h3>
+
+<p>语句的种类
+```
     声明语句   变量声明语句   var box = 100;
               标签声明语句   label : box;</p>
 
@@ -841,250 +816,6 @@ var h = box.height;
     var a = age;            
     var h = height;         
 }
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 运算符]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-yun-suan-fu/"/>
-    <updated>2015-10-17T23:31:08+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/17/javascript-zhi-yun-suan-fu</id>
-    <content type="html"><![CDATA[<h3>一、什么是表达式</h3>
-
-<p>表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如:
-<code>
-    5.96                           //数值字面量
-    'Lee'                          //字符串字面量
-    true                           //布尔值字面量
-    null                           //空值字面量
-    /Java/                         //正则表达式字面量
-    {x:1, y:2}                     //对象字面量、对象表达式
-    [1,2,3]                        //数组字面量、数组表达式
-    function(n) {return x+y;}      //函数字面量、函数表达式
-    box                            //变量
-</code>    <br/>
-当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
-
-<pre><code>box + 5.96      //加法运算的表达式
-typeof(box)     //查看数据类型的表达式
-box &gt; 8         //逻辑运算表达式
-</code></pre>
-
-<p>通过上面的叙述,我们得知,单一的字面量和组合字面量的运算符都可称为表达式。</p>
-
-<h2>二、一元运算符</h2>
-
-<p>只能操作一个值的运算符叫做一元运算符。</p>
-
-<p>1.递增++和递减- -</p>
-
-<pre><code>var box = 100;
-++box; //把 box 累加一个 1,相当于 box = box+1 
---box; //把 box 累减一个 1,相当于 box = box-1
-box++; //同上
-box--; //同上
-</code></pre>
-
-<!--more-->
-
-
-<p>2.前置和后置的区别</p>
-
-<p>在没有赋值操作 ,前置和后置是一样的 。但在赋值操作时 ,如果递增或递减运算符前置 , 那么前置的运算符会先累加或累减再赋值,如果是后置运算符则先赋值再累加或累减。</p>
-
-<pre><code>var box = 100;
-var age = ++box;     //age 值为 101 
-var height = box++;  //height 值为 100
-</code></pre>
-
-<p>3.其他类型应用一元运算符的规则</p>
-
-<pre><code>var box = '89'; box++;                 //90,数值字符串自动转换成数值              
-var box = 'ab'; box++;                 //NaN,字符串包含非数值转成 NaN
-var box = false; box++;                //1,false 转成数值是 0,累加就是 1
-var box = 2.3; box++;                  //3.3,直接加 1
-var box = {                            //1,不设置 toString 或 valueOf 即为 NaN
-    toString : function() { 
-    return 1;
-}
-box++;
-}
-</code></pre>
-
-<p>4.加和减运算符</p>
-
-<p>加运算规则如下:(其实就是取正)</p>
-
-<pre><code>var box = 100; +box;              //100,对于数值,不会产生任何影响 
-var box = '89'; +box;             //89,数值字符串转换成数值
-var box = 'ab'; +box;             //NaN,字符串包含非数值转成 NaN 
-var box = false; +box;            //0,布尔值转换成相应数值 
-var box = 2.3; +box;              //2.3,没有变化
-var box = {                       //1,不设置 toString 或 valueOf 即为 NaN
-    toString : function() { 
-    return 1;
-};
-};
-+box;
-</code></pre>
-
-<p>减运算规则如下:(其实就是取负)</p>
-
-<pre><code>var box = 100; －box;              //－100,对于数值,不会产生任何影响 
-var box = '89'; －box;             //－89,数值字符串转换成数值
-var box = 'ab'; －box;             //NaN,字符串包含非数值转成 NaN 
-var box = false; －box;            //0,布尔值转换成相应数值 
-var box = 2.3; －box;              //－2.3,没有变化
-var box = {                       //－1,不设置 toString 或 valueOf 即为 NaN
-    toString : function() { 
-    return 1;
-};
-};
-－box;
-</code></pre>
-
-<p>加法和减法运算符一般用于算术运算,也可向上面进行类型转换。</p>
-
-<h2>三、算术运算符</h2>
-
-<p>ECMAScript 定义了 5 个算术运算符,加减乘除求模 (取余)。如果在算术运算的值不是 数值,那么后台会先使用 Number()转型函数将其转换为数值(隐式转换)。</p>
-
-<pre><code>var box = 1 + 2;                              //等于 3
-var box = 1 + NaN;                            //NaN,只要有一个 NaN 就为 NaN
-var box = Infinity + -Infinity;               //NaN,正无穷和负无穷相加等 NaN
-var box = 100 + '100';                        //100100,字符串连接符,有字符串就不是加法
-var box = '您的年龄是:' + 10 + 20;             //您的年龄是:1020,被转换成字符串
-var box = 10 + 20 + '是您的年龄';              //30 是您的年龄,没有被转成字符串
-var box = '您的年龄是:' + (10 + 20);           //您的年龄是:30,没有被转成字符串
-varbox=10+ 对象                //10[object Object],如果有 toString()或 valueOf() 则返回 10+返回数的值
-
-var box = 100 - true;             //99,true 转成数值为 1 
-var box = 100 - '';               //100,''转成了 0
-var box = 100 - null;             //100,null 转成了 0
-var box = 100 - 'Lee';            //NaN,Lee 转成了 NaN
-varbox=100- 对象                   //NaN,如果有 toString()或 valueOf()则返回 10-返回数的值
-
-...
-</code></pre>
-
-<h2>四、关系运算符</h2>
-
-<p>用于进行比较的运算符称作为关系运算符:小于 (&lt;)、大于(>)、小于等于(&lt;=)、大于等于(>=)、相等(==)、不等(!=)、全等(恒等)(===)、不全等(不恒等)(!==)</p>
-
-<p>和其他运算符一样,当关系运算符操作非数值时要遵循一下规则:</p>
-
-<p>1.两个操作数都是数值,则数值比较;<br/>
-2.两个操作数都是字符串,则比较两个字符串对应的字符编码值; <br/>
-3.两个操作数有一个是数值,则将另一个转换为数值,再进行数值比较; <br/>
-4.两个操作数有一个是对象,则先调用 valueOf()方法或 toString()方法,再用结果比较;</p>
-
-<pre><code>var box = 3 &gt; 2;          //true
-var box = 3 &gt; 22;         //false
-var box = '3' &gt; 22;       //false
-var box = '3' &gt; '22';     //true
-var box = 'a' &gt; 'b';      //false
-var box = 'a' &gt; 'B';      //true B=66
-var box = 1 &gt; 对象;        //false,如果有 toString()或 valueOf()则返回 1 &gt; 返回数的值
-</code></pre>
-
-<p>在相等和不等的比较上,如果操作数是非数值,则遵循一下规则:</p>
-
-<p>1.一个操作数是布尔值,则比较之前将其转换为数值, <code>false</code> 转成 <code>0</code> , <code>true</code> 转成 <code>1</code> ; <br/>
-2.一个操作数是字符串,则比较之前将其转成为数值再比较; <br/>
-3.一个操作数是对象,则先调用 <code>valueOf()</code> 或 <code>toString()</code> 方法后再和返回值比较; <br/>
-4.不需要任何转换的情况下, <code>null</code> 和 <code>undefined</code> 是相等的;<br/>
-5.一个操作数是 NaN,则==返回 false,!=返回 true;并且 NaN 和自身不等;<br/>
-6.两个操作数都是对象 ,则比较他们是否是同一个对象 ,如果都指向同一个对象 ,则返 回 <code>true</code> ,否则返回 <code>false</code> 。<br/>
-7.在全等和全不等的判断上,比如值和类型都相等,才返回 <code>true</code> ,否则返回 <code>false</code>。</p>
-
-<h2>五、逻辑运算符</h2>
-
-<p>逻辑运算符通常用于布尔值的操作,一般和关系运算符配合使用,有三个逻辑运算符 :
-逻辑与 &amp;&amp; (AND)、逻辑或 || (OR)、逻辑非 ! (NOT)。</p>
-
-<p>1.逻辑与(AND) :&amp;&amp;</p>
-
-<pre><code>var box = (5 &gt; 4) &amp;&amp; (4 &gt; 3) //true,两边都为 true,返回 
-</code></pre>
-
-<p>如果两边的操作数有一个操作数不是布尔值的情况下,与运算就不一定返回布尔值 ,此 时,遵循已下规则:</p>
-
-<p>1.第一个操作数是对象,则返回第二个操作数; <br/>
-2.第二个操作数是对象,则第一个操作数返回 true,才返回第二个操作数,否则返回 false; <br/>
-3.有一个操作数是 null,则返回 null;<br/>
-4.有一个操作数是 undefined,则返回 undefined。</p>
-
-<pre><code>var box = 对象 &amp;&amp; (5 &gt; 4);      //true,返回第二个操作数
-var box = (5 &gt; 4) &amp;&amp; 对象;      //[object Object]
-var box = (3 &gt; 4) &amp;&amp; 对象;      //false
-var box = (5 &gt; 4) &amp;&amp; null;     //null
-</code></pre>
-
-<p>逻辑与运算符属于短路操作,顾名思义,如果第一个操作数返回是 false,第二个数不 管是 true 还是 false 都返回的 false。</p>
-
-<pre><code>var box = true &amp;&amp; age;            //出错,age 未定义 
-var box = false &amp;&amp; age;           //false,不执行 age 了
-</code></pre>
-
-<p>2.逻辑或(OR):||</p>
-
-<p>如果两边的操作数有一个操作数不是布尔值的情况下,逻辑与运算就不一定返回布尔 值,此时,遵循已下规则:</p>
-
-<p>1.第一个操作数是对象,则返回第一个操作数;<br/>
-2.第一个操作数的求值结果为 false,则返回第二个操作数;<br/>
-3.两个操作数都是对象,则返回第一个操作数; <br/>
-4.两个操作数都是 null,则返回 null;<br/>
-5.两个操作数都是 NaN,则返回 NaN; <br/>
-6.两个操作数都是 undefined,则返回 undefined;</p>
-
-<pre><code>var box = 对象 || (5 &gt; 3);          //[object Object]
-varbox=(5&gt;3)|| 对象;                //true
-var box = 对象 1 || 对象 2;          //[object Object]1
-var box = null || null;             //null
-var box = NaN || NaN;               //NaN
-var box = undefined || undefined;   //undefined
-</code></pre>
-
-<p>3.逻辑非(NOT):!</p>
-
-<p>逻辑非运算符可以用于任何值 。无论这个值是什么数据类型 ,这个运算符都会返回一个 布尔值。它的流程是:先将这个值转换成布尔值,然后取反,规则如下:</p>
-
-<p>1.操作数是一个对象,返回 false;  <br/>
-2.操作数是一个空字符串,返回 true; <br/>
-3.操作数是一个非空字符串,返回 false; <br/>
-4.操作数是数值 0,返回 true; <br/>
-5.操作数是任意非 0 数值(包括 Infinity),false; <br/>
-6.操作数是 null,返回 true;
-7.操作数是 NaN,返回 true; <br/>
-8.操作数是 <code>undefined</code>,返回 <code>true</code>;
-<code>
-    var box = !(5 &gt; 4);       //false
-    var box = !{};            //false
-    var box = !'';            //true
-    var box = !'Lee';         //false
-    var box = !0;             //true
-    var box = !8;             //false
-    var box = !null;          //true      
-    var box = !NaN;           //true
-    var box = !undefined;     //true
-</code></p>
-
-<p>三元条件运算符</p>
-
-<p>三元条件运算符其实就是后面将要学到的 if 语句的简写形式。</p>
-
-<pre><code>var box = 5 &gt; 4 ? '对' : '错';       //对,5&gt;4 返回 true 则把'对'赋值给 box,反之。
-</code></pre>
-
-<p>相当于:</p>
-
-<pre><code>var box = ''; 
-if (5 &gt; 4) {
-    box = '对'; 
-} else {
-    box = '错';
-} 
 </code></pre>
 ]]></content>
   </entry>
