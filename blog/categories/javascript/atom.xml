@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-25T00:41:10+08:00</updated>
+  <updated>2015-10-29T01:08:27+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -14,11 +14,305 @@
 
   
   <entry>
+    <title type="html"><![CDATA[JavaScript 之 面向对象与原型]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/"/>
+    <updated>2015-10-28T23:46:09+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 基本包装类型]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/"/>
+    <updated>2015-10-28T23:43:32+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing</id>
+    <content type="html"><![CDATA[<p>为了便于操作基本类型值 ,ECMAScript 提供了 3 个特殊的引用类型 : <code>Boolean</code> 、<code>Number</code> 和 <code>String</code>。这些类型与其他引用类型相似 ,但同时也具有与各自的基本类型相应的特殊行为 。 实际上,每当读取一个基本类型值的时候,后台就会创建一个对应的基本包装类型的对象 , 从而能够调用一些方法来操作这些数据。</p>
+
+<h3>一、基本包装类型概述</h3>
+
+<pre><code>var box = 'Mr. Lee';                     //定义一个字符串
+var box2 = box.substring(2);             //截掉字符串前两位
+alert(box2);
+</code></pre>
+
+<p>变量 box 是一个字符串类型,而 <code>box.substring(2)</code>又说明它是一个对象(<code>PS:只有对象才 会调用方法</code>),最后把处理结果赋值给 box2。<code>'Mr. Lee'</code>是一个字符串类型的值,按道理它不 应该是对象,不应该会有自己的方法,比如:</p>
+
+<pre><code>alert('Mr. Lee'.substring(2));            //直接通过值来调用方法
+</code></pre>
+
+<p>1.字面量写法:</p>
+
+<pre><code>var box = 'Mr. Lee';             //字面量 
+box.name = 'Lee';                //无效属性
+box.age = function () {          //无效方法
+    return 100; 
+};
+alert(box);                      //Mr. Lee 
+alert(box.substring(2));         //. Lee 
+alert(typeof box);               //string
+alert(box.name);                 //undefined
+alert(box.age());                //错误
+</code></pre>
+
+<!--more-->
+
+
+<p>2.new 运算符写法:</p>
+
+<pre><code>var box = new String('Mr. Lee');      //new 运算符
+box.name = 'Lee';                     //有效属性
+box.age = function () {               //有效方法
+    return 100;
+};
+alert(box);                          //Mr. Lee
+alert(box.substring(2));             //. Lee
+alert(typeof box);                   //object
+alert(box.name);                     //Lee
+alert(box.age());                    //100
+</code></pre>
+
+<p>以上字面量声明和 new 运算符声明很好的展示了他们之间的区别。但有一定还是可以 肯定的,那就是不管字面量形式还是 new 运算符形式,都可以使用它的内置方法。并 且 <code>Boolean</code> 和 <code>Number</code> 特性与 <code>String</code> 相同,三种类型可以成为基本包装类型。</p>
+
+<p>PS:在使用 new 运算符创建以上三种类型的对象时,可以给自己添加属性和方法,但 我们建议不要这样使用,因为这样会导致根本分不清到底是基本类型值还是引用类型值。</p>
+
+<h2>二、Boolean 类型</h2>
+
+<p>Boolean 类型没有特定的属性或者方法。</p>
+
+<h2>三、Number 类型</h2>
+
+<p>Number 类型有一些静态属性(直接通过 <code>Number</code> 调用的属性,而无须 <code>new</code> 运算符)和方法。</p>
+
+<p>Number 静态属性</p>
+
+<pre><code>属性                   描述    
+MAX_V ALUE            表示最大数    
+MIN_V ALUE            表示最小值    
+NaN                   非数值
+NEGA TIVE_INFINITY    负无穷大,溢出返回该值
+POSITIVE_INFINITY     无穷大,溢出返回该值
+prototype             原型,用于增加新属性和方法
+</code></pre>
+
+<p>Number 对象的方法</p>
+
+<pre><code>方法                    描述
+toString()             将数值转化为字符串,并且可以转换进制
+toLocaleString()       根据本地数字格式转换为字符串
+toFixed()              将数字保留小数点后指定位数并转化为字符串
+toExponential()        将数字以指数形式表示 ,保留小数点后指定位数并转化为 字符串
+toPrecision()          指数形式或点形式表述数 ,保留小数点后面指定位数并转 化为字符串
+</code></pre>
+
+<pre><code>
+    var box = 1000.789;            
+    alert(box.toString());             //转换为字符串,传参可以转换进制 
+    alert(box.toLocaleString());       //本地形式, 1,000.789
+    alert(box.toFixed(2));             //小数点保留, 1000.78 
+    alert(box.toExponential());        //指数形式,传参会保留小数点
+    alert(box.toPrecision(3));         //指数或点形式,传参保留小数点
+</code></pre>
+
+<h2>四、String 类型</h2>
+
+<p><code>String</code> 类型包含了三个属性和大量的可用内置方法。</p>
+
+<ul>
+<li><p>String 对象属性</p>
+
+<p>  属性                     描述
+  length                  返回字符串的字符长度
+  constructor             返回创建 String 对象的函数
+  prototype               通过添加属性和方法扩展字符串定义</p></li>
+</ul>
+
+
+<p>String 也包含对象的通用方法,比如 <code>valueOf()</code>、<code>toLocaleString()</code>和 <code>toString()</code> 方法,但这 些方法都返回字符串的基本值。</p>
+
+<ul>
+<li><p>字符方法</p>
+
+<p>  charAt(n)          返回指定索引位置的字符
+  charCodeAt(n)      以 Unicode 编码形式返回指定索引位置的字符</p></li>
+</ul>
+
+
+<pre><code>    var box = 'Mr.Lee'; 
+    alert(box.charAt(1));               //r
+    alert(box.charCodeAt(1));           //114
+    alert(box[1]);                      //r,通过数组方式截取
+</code></pre>
+
+<p>PS: <code>box[1]</code> 在 IE 浏览器会显示 <code>undefined</code>,所以使用时要慎重。</p>
+
+<ul>
+<li><p>字符串操作方法</p>
+
+<p>  concat(str1&hellip;str2)          将字符串参数串联到调用该方法的字符串
+  slice(n,m)                   返回字符串 n 到 m 之间位置的字符串
+  substring(n,m)               同上
+  substr(n,m)                  返回字符串 n 开始的 m 个字符串</p></li>
+</ul>
+
+
+<pre><code>    var box = 'Mr.Lee';
+    alert(box.concat(' is ', ' Teacher ', '!'));           //Mr.Lee is Teacher 
+    alert(box.slice(3));                                   //Lee
+    alert(box.slice(3,5));                                 //Le
+
+    alert(box.substring(3));                               //Lee
+    alert(box.substring(3,5));                             //Le
+    alert(box.substr(3));                                  //Lee
+    alert(box.substr(3,5));                                //Lee
+
+    var box = 'Mr.Lee'; 
+    alert(box.slice(-3));                //Lee,6+(-3)=3 位开始                          
+    alert(box.substring(-3));            //Mr.Lee 负数返回全部
+    alert(box.substr(-3));               //Lee,6+(-3)=3 位开始
+
+    var box = 'Mr.Lee'; 
+    alert(box.slice(3, -1));             //Le 6+(-1)=5, (3,5)
+    alert(box.substring(3, -1));         //Mr. 第二参为负,直接转 0, 并且方法会把较小的数字提前, (0,3)
+    alert(box.substr(3, -1));            //'' 第二参数为负,直接转 0 ,(3,0)
+</code></pre>
+
+<p>PS:IE 的 JavaScript 实现在处理向 substr()方法传递负值的情况下存在问题,它会返回 原始字符串,使用时要切记。</p>
+
+<ul>
+<li><p>字符串位置方法</p>
+
+<p>  indexOf(str, n)        从 n 开始搜索的第一个 str,并将搜索的索引值返回
+  lastIndexOf(str, n)    从 n 开始搜索的最后一个 str,并将搜索的索引值返回</p></li>
+</ul>
+
+
+<pre><code class="">var box = 'Mr.Lee is Lee'; 
+alert(box.indexOf('L'));                  //3
+alert(box.indexOf('L', 5));               //10           
+alert(box.lastIndexOf('L'));              //10
+alert(box.lastIndexOf('L', 5));           //3,从指定的位置向前搜索
+</code></pre>
+
+<p>PS:如果没有找到想要的字符串,则返回 -1。</p>
+
+<p>示例:找出全部的 L</p>
+
+<pre><code>var box = 'Mr.Lee is Lee';            //包含两个 L 的字符串
+var boxarr = [];                      //存放 L 位置的数组 
+var pos = box.indexOf('L');           //先获取第一个 L 的位置
+while (pos &gt; -1) {                    //如果位置大于-1,说明还存在 L 
+    boxarr.push(pos);                 //添加到数组
+    pos = box.indexOf('L', pos + 1);  //从新赋值 pos 目前的位置
+}
+alert(boxarr);
+</code></pre>
+
+<ul>
+<li><p>大小写转换方法</p>
+
+<p>  var box = &lsquo;Mr.Lee is Lee&rsquo;;
+  alert(box.toLowerCase());          //全部小写
+  alert(box.toUpperCase());          //全部大写
+  alert(box.toLocaleLowerCase());    //将字符串全部转换为小写,并且本地化
+  alert(box.toLocaleUpperCase());    //将字符串全部转换为大写,并且本地化</p></li>
+<li><p>字符串的模式匹配方法</p>
+
+<p>  match(pattern)                    返回 pattern 中的子串或 null
+  replace(pattern, replacement)     用 replacement 替换 pattern
+  search(pattern)                   返回字符串中 pattern 开始位置
+  split(pattern)                    返回字符串按指定 pattern 拆分的数组</p></li>
+</ul>
+
+
+<pre><code>    var box = 'Mr.Lee is Lee'; 
+    alert(box.match('L'));             //找到 L,返回 L 否则返回 null 
+    alert(box.search('L'));            //找到 L 的位置,和 indexOf 类型
+    alert(box.replace('L', 'Q'));      //把 L 替换成 Q 
+    alert(box.split(' '));             //以空格分割成字符串     
+</code></pre>
+
+<ul>
+<li>其他方法</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[JavaScript 之 变量、作用域及内存]]></title>
     <link href="http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/"/>
     <updated>2015-10-25T00:40:04+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>JavaScript 的变量与其他语言的变量有很大区别。 JavaScript 变量是松散型的 (不强制类 型)本质,决定了它只是在特定时间用于保存特定值的一个名字而已。由于不存在定义某个 变量必须要保存何种数据类型值的规则 ,变量的值及其数据类型可以在脚本的生命周期内改 变。</p>
+
+<h3>一、变量及作用域</h3>
+
+<p>1.基本类型和引用类型的值</p>
+
+<p>ECMAScript 变量可能包含两种不同的数据类型的值:<code>基本类型值和引用类型值</code>。基本
+类型值指的是那些保存在栈内存中的简单数据段,即这种值完全保存在内存中的一个位置 。 而引用类型值则是指那些保存在堆内存中的对象,意思是变量中保存的实际上只是一个指 针,这个指针指向内存中的另一个位置,该位置保存对象。</p>
+
+<p>将一个值赋给变量时 ,解析器必须确定这个值是基本类型值 ,还是引用类型值 。基本类 型值有以下几种:<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code> 和 <code>String</code>。这些类型在内存中分别占 有固定大小的空间,他们的值保存在栈空间,我们通过按值来访问的。</p>
+
+<p>PS:在某些语言中,字符串以对象的形式来表示 ,因此被认为是引用类型 。ECMAScript 放弃这一传统。</p>
+
+<p>如果赋值的是引用类型的值 ,则必须在堆内存中为这个值分配空间 。由于这种值的大小 不固定,因此不能把它们保存到栈内存中 。但内存地址大小的固定的 ,因此可以将内存地址 保存在栈内存中 。这样,当查询引用类型的变量时 ,先从栈中读取内存地址 ,然后再通过地 址找到堆中的值。对于这种,我们把它叫做<code>按引用访问</code>。</p>
+
+<p>2.动态属性</p>
+
+<p>定义基本类型值和引用类型值的方式是相似的:创建一个变量并为该变量赋值。但是 , 当这个值保存到变量中以后,对不同类型值可以执行的操作则大相径庭。</p>
+
+<pre><code>var box = new Object();     //创建引用类型
+box.name = 'Lee';           //新增一个属性 
+alert(box.name);
+</code></pre>
+
+<p>如果是基本类型的值添加属性的话,就会出现问题了。</p>
+
+<pre><code>var box = 'Lee';            //创建一个基本类型
+box.age = 27;               //给基本类型添加属性
+alert(box.age);             //undefined
+</code></pre>
+
+<!--more-->
+
+
+<p>3.复制变量值</p>
+
+<p>在变量复制方面 ,基本类型和引用类型也有所不同 。基本类型复制的是值本身 ,而引用 类型复制的是地址。</p>
+
+<pre><code>var box = 'Lee';         //在栈内存生成一个 box 'Lee' 
+var box2 = box;          //在栈内存再生成一个 box2 'Lee'
+</code></pre>
+
+<p>box2 是虽然是 box1 的一个副本,但从图示可以看出,它是完全独立的。也就是说 ,两 个变量分别操作时互不影响。</p>
+
+<pre><code>var box = new Object();     //创建一个引用类型
+box.name = 'Lee';           //新增一个属性
+var box2 = box;             //把引用地址赋值给 box2
+</code></pre>
+
+<p>在引用类型中,box2 其实就是 box,因为他们指向的是同一个对象 。如果这个对象中的 name 属性被修改了,<code>box2.name</code> 和 <code>box.name</code>输出的值都会被相应修改掉了。</p>
+
+<p>4.传递参数</p>
+
+<p>ECMAScript 中所有函数的参数都是按值传递的,言下之意就是说,参数不会按引用传 递,虽然变量有基本类型和引用类型之分。</p>
+
+<p>5.检测类型</p>
+
+<p>要检测一个变量的类型,我们可以通过 typeof 运算符来判别。诸如:</p>
+
+<pre><code>var box = 'Lee';
+alert(typeof box);    //string
+</code></pre>
+
+<p>虽然 typeof 运算符在检查基本数据类型的时候非常好用 ,但检测引用类型的时候 ,它就 不是那么好用了 。通常,我们并不想知道它是不是对象 ,而是想知道它到底是什么类型的对 象。因为数组也是 object,null 也是 Object 等等。
+这时我们应该采用 <code>instanceof</code> 运算符来查看。</p>
+
+<p>PS:当使用 instanceof 检查基本类型的值时,它会返回 false。</p>
+
+<p>待。。。</p>
 ]]></content>
   </entry>
   
@@ -561,261 +855,6 @@ alert(box);
 var box2 = box.splice(1,1,100);                  //截取了第 2 条,替换成 100
 alert(box2);                                     //输出截取的 28
 alert(box);
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 函数]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu/"/>
-    <updated>2015-10-18T21:15:57+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/18/javascrhan-shu</id>
-    <content type="html"><![CDATA[<h3>一、函数声明</h3>
-
-<p>函数对任何语言来说都是一个核心的概念 。通过函数可以封装任意多条语句 ,而且可以 在任何地方、任何时候调用执行。 ECMAScript 中的函数使用 function 关键字来声明,后跟 一组参数以及函数体。</p>
-
-<pre><code>function box() {                              //没有参数的函数 
-    alert('只有函数被调用,我才会被之执行 ');
-} box();                                      //直接调用函数
-
-function box(name, age) {                     //带参数的函数
-    alert('你的姓名:'+name+',年龄:'+age);
-}
-box('李',28);                                 //调用函数,并传参
-</code></pre>
-
-<h2>二、return 返回值</h2>
-
-<p>带参和不带参的函数 ,都没有定义返回值 ,而是调用后直接执行的 。实际上,任何函数 都可以通过 return 语句跟后面的要返回的值来实现返回值。</p>
-
-<!--more-->
-
-
-<pre><code>function box() {                     //没有参数的函数
-    return '我被返回了!';             //通过 return 把函数的最终值返回
-} 
-alert(box());                       //调用函数会得到返回值 ,然后外面输出
-
-
-function box(name, age) {                      //有参数的函数
-    return '你的姓名:'+name+',年龄:'+age;        //通过 return 把函数的最终值返回
-}
-alert(box('李炎恢', 28));                       /调用函数得到返回值,然后外面输出
-</code></pre>
-
-<p>我们还可以把函数的返回值赋给一个变量,然后通过变量进行操作。</p>
-
-<pre><code>function box(num1, num2) { 
-    return num1 * num2;
-}
-var num = box(10, 5); //函数得到的返回值赋给变量 
-alert(num);
-</code></pre>
-
-<p><code>return</code> 语句还有一个功能就是退出当前函数 ,注意和 <code>break</code> 的区别。PS: <code>break</code> 用在循环 和 <code>switch</code> 分支语句里。</p>
-
-<pre><code>function box(num) {
-    if (num &lt; 5) return num;            //满足条件,就返回 num
-    return 100;                         //返回之后,就不执行下面的语句了
-} alert(box(10));
-</code></pre>
-
-<h2>三、arguments 对象</h2>
-
-<p>ECMAScript 函数不介意传递进来多少参数,也不会因为参数不统一而错误。实际上, 函数体内可以通过 arguments 对象来接收传递进来的参数。</p>
-
-<pre><code>function box() {
-    return arguments[0]+' | '+arguments[1];           //得到每次参数的值
-}
-alert(box(1,2,3,4,5,6));                              //传递参数
-</code></pre>
-
-<p>arguments 对象的 length 属性可以得到参数的数量。</p>
-
-<pre><code>function box() {
-    return arguments.length;            //得到 6
-    }
-alert(box(1,2,3,4,5,6));
-</code></pre>
-
-<p>我们可以利用 <code>length</code> 这个属性,来智能的判断有多少参数 ,然后把参数进行合理的应用 。 比如,要实现一个加法运算,将所有传进来的数字累加,而数字的个数又不确定。</p>
-
-<pre><code>function box() { 
-var sum = 0;
-    if (arguments.length == 0) return sum;                //如果没有参数,退出
-    for(var i = 0;i &lt; arguments.length; i++) {            //如果有,就累加
-    sum = sum + arguments[i]; 
-    }
-return sum;                                               //返回累加结果
-}
-alert(box(5,9,12));
-</code></pre>
-
-<p>ECMAScript 中的函数,没有像其他高级语言那种函数重载功能。</p>
-
-<pre><code>function box(num) {
-    return num + 100; 
-}
-
-function box (num) {              //会执行这个函数
-    return num + 200;             //返回结果
-} 
-alert(box(50));
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 流程控制语句]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/"/>
-    <updated>2015-10-18T20:41:18+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju</id>
-    <content type="html"><![CDATA[<h3>一、语句的定义</h3>
-
-<p>语句的种类
-```
-    声明语句   变量声明语句   var box = 100;
-              标签声明语句   label : box;</p>
-
-<pre><code>达式语句   变量赋值语句    box = 100;
-          函数调用语句    box();
-          属性赋值语句    box.property = 100;
-          方法调用语句    box.method();
-
-分支语句   条件分支语句    if () {} else {}
-          多重分支语句    switch () { case n : ...};
-</code></pre>
-
-<p>```
-语句的种类 (续)</p>
-
-<!--more-->
-
-
-<pre><code>    循环语句       for            for (;;;) {}
-                  for ... in     for ( x in x) {}
-                  while          while () {};
-                  do ... while   do {} while ();
-
-    控制结构       继续执行子句     continue ;
-                  终断执行子句     break ;
-                  函数返回子句     return ;
-                  异常触发子句     throw ;
-                  异常捕获与处理    try {} catch () {} finally {}
-
-    其他           空语句          ;
-                   with 语句      with () {}
-</code></pre>
-
-<h3>二、if 语句</h3>
-
-<p>略</p>
-
-<h2>三、switch 语句</h2>
-
-<p>switch 语句是多重条件判断,用于多个值相等的比较。
-<code>
-    var box = 1;
-    switch (box) {                        //用于判断 box 相等的多个值
-        case 1 :
-            alert('one');
-            break;                        //break;用于防止语句的穿透
-        case 2 :
-            alert('two');
-            break;
-        case 3 :
-            alert('three');
-            break;
-            default :                    //相当于 if 语句里的 else,否则的意思
-            alert('error');
-    }
-</code></p>
-
-<h2>四、do&hellip;while 语句</h2>
-
-<p>do&hellip;while 语句是一种先运行,后判断的循环语句。也就是说,不管条件是否满足,至少先运行一次循环体。</p>
-
-<pre><code>var box = 1;       //如果是 1,执行五次,如果是 10,执行 1 次     
-do {
-    alert(box);
-    box++;
-} while (box &lt;= 5);   //先运行一次,再判断
-</code></pre>
-
-<h2>五、while 语句</h2>
-
-<p>while 语句是一种先判断,后运行的循环语句。也就是说,必须满足条件了之后,方可运行循环体。</p>
-
-<pre><code>var box = 1;        //如果是 1,执行五次,如果是 10,不执行 
-while (box &lt;= 5) {  //先判断,再执行
-    alert(box);
-    box++; 
-}
-</code></pre>
-
-<h2>六、for 语句</h2>
-
-<p>for 语句也是一种先判断,后运行的循环语句。但它具有在执行循环之前初始变量和定义循环后要执行代码的能力。</p>
-
-<pre><code>for (var box = 1; box &lt;= 5 ; box++) {     //第一步,声明变量 var box = 1;
-    alert(box);                           //第二步,判断 box &lt;=5
-}                                         //第三步,alert(box)
-                                          //第四步,box++ //第五步,从第二步再来,直到判断为 false
-</code></pre>
-
-<h2>七、 for&hellip;in 语句</h2>
-
-<p>for&hellip;in 语句是一种精准的迭代语句,可以用来枚举对象的属性。</p>
-
-<pre><code>var box = {                         //创建一个对象 
-    'name' : '李炎恢',               //键值对,左边是属性名,右边是值
-    'age' : 28,
-    'height' : 178 };
-for (var p in box) {                //列举出对象的所有属性
-    alert(p);
-</code></pre>
-
-<h2>八、break 和 continue 语句</h2>
-
-<p>break 和 continue 语句用于在循环中精确地控制代码的执行 。其中,break 语句会立即退出循环,强制继续执行循环体后面的语句 。而 continue 语句退出当前循环,继续后面的循环。</p>
-
-<pre><code>for (var box = 1; box &lt;= 10; box++) {
-    if (box == 5) break;                //如果 box 是 5,就退出循环
-    document.write(box); 
-    document.write('&lt;br /&gt;');
-}
-</code></pre>
-
-<p>continue</p>
-
-<pre><code>for (var box = 1; box &lt;= 10; box++) { 
-    if (box == 5) continue;      //如果 box 是 5,就退出当前循环
-    document.write(box); 
-    document.write('&lt;br /&gt;');
-}
-</code></pre>
-
-<h2>九、with 语句</h2>
-
-<p>with 语句的作用是将代码的作用域设置到一个特定的对象中。</p>
-
-<pre><code>var box = {                  //创建一个对象 
-    'name' : '李炎恢',        //键值对
-    'age' : 28,
-    'height' : 178 
-};
-var n = box.name;            //从对象里取值赋给变量
-var a = box.age; 
-var h = box.height;
-</code></pre>
-
-<p>可以将上面的三段赋值操作改写成:</p>
-
-<pre><code>with (box) {                 //省略了 box 对象名   
-    var n = name;           
-    var a = age;            
-    var h = height;         
-}
 </code></pre>
 ]]></content>
   </entry>

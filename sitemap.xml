@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/</loc>
+    <lastmod>2015-10-28T23:46:09+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/</loc>
+    <lastmod>2015-10-28T23:43:32+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/</loc>
     <lastmod>2015-10-25T00:40:04+08:00</lastmod>
   </url>
@@ -124,11 +132,5 @@
   </url>
   <url>
     <loc>http://amy-liu.github.io/blog/categories/javascript/</loc>
-  </url>
-  <url>
-    <loc>http://amy-liu.github.io/posts/2/</loc>
-  </url>
-  <url>
-    <loc>http://amy-liu.github.io/posts/3/</loc>
   </url>
 </urlset>

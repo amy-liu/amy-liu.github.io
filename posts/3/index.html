@@ -9,7 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="一、字面意思 “Line-height”顾名思意指一行文字的高度。具体来说是指两行文字间基线之间的距离。基线实在英文字母中用到的一个概念，我们刚学英语的时使用的那个英语本子每行有四条线，其中底部第二条线就是基线。 二、line-height与line boxes高度 &hellip;">
+  <meta name="description" content="你真的了解margin吗？你知道margin有什么特性吗？你知道什么是垂直外边距合并？&hellip; 我真的有点晕！！ 一、Margin是什么 边界，元素周围生成额外的空白区。“空白区”通常是指其他元素不能出现且父元素背景可见的区域。——CSS权威指南">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/05/css-zhi-margin/">Css 之 Margin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-05T10:53:49+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:53 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>你真的了解margin吗？你知道margin有什么特性吗？你知道什么是垂直外边距合并？&hellip; 我真的有点晕！！</p>
+
+<h4>一、Margin是什么</h4>
+
+<p>边界，元素周围生成额外的空白区。“空白区”通常是指其他元素不能出现且父元素背景可见的区域。——CSS权威指南</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/05/css-zhi-margin/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/">Css 之 图片垂直居中</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-04T23:05:07+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:05 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>大小不固定，图片的垂直居中</h3>
+
+<h4>① 透明gif图片+背景定位</h4>
+
+<p>这里利用了<code>background-position:center</code>实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。 方法的原理很简单，使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，然后给这个gif图片一个<code>background-position:center center</code>的属性。而background-image建议写在页面上，因为实际项目中，这肯定是个动态的URL地址，css文件似乎不支持动态URL地址。下面就是此方法的实例表现。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/04/css-zhi-tu-pian-chui-zhi-ju-zhong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -359,7 +433,7 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css/'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3/'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript/'>javascript (7)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (9)</a></li>
 <li class='category'><a href='/blog/categories/jquery/'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
 
@@ -367,6 +441,14 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/">JavaScript 之 面向对象与原型</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/">JavaScript 之 基本包装类型</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/">JavaScript 之 变量、作用域及内存</a>
@@ -378,14 +460,6 @@
     
       <li class="post">
         <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/18/javascrhan-shu/">JavaScript 之 函数</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/18/javascript-zhi-liu-cheng-kong-zhi-yu-ju/">JavaScript 之 流程控制语句</a>
       </li>
     
   </ul>
