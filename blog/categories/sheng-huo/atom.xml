@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 生活 | 云端笔记]]></title>
+  <link href="http://amy-liu.github.io/blog/categories/sheng-huo/atom.xml" rel="self"/>
+  <link href="http://amy-liu.github.io/"/>
+  <updated>2015-10-29T01:57:54+08:00</updated>
+  <id>http://amy-liu.github.io/</id>
+  <author>
+    <name><![CDATA[amy-liu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[生活]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/29/huo/"/>
+    <updated>2015-10-29T01:43:03+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/29/huo</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
