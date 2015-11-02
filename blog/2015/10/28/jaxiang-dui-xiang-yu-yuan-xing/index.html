@@ -241,6 +241,12 @@ alert(box1.run == box2.run);   //true,方法的引用地址保持一致
 <p><img src="/images/creat.jpg" alt="creat" /></p>
 
 <p><img src="/images/proto.png" alt="proto" /></p>
+
+<p>在原型模式声明中,多了两个属性,这两个属性都是创建对象时自动生成的 。<code>__proto__</code> 属性是实例指向原型对象的一个指针,它的作用就是指向构造函数的原型属性 <code>constructor</code>。 通过这两个属性,就可以访问到原型里的属性和方法了。  <br/>
+PS:IE 浏览器在脚本访问<code>__proto__</code> 会不能识别,火狐和谷歌浏览器及其他某些浏览器 均能识别。虽然可以输出,但无法获取内部信息。</p>
+
+<pre><code>alert(box1.__proto__); //[object Object]
+</code></pre>
 </div>
 
 

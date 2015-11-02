@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-11-02T21:33:42+08:00</updated>
+  <updated>2015-11-02T21:37:18+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -477,6 +477,12 @@ alert(box1 instanceof Object);  //true
 <span class='line-number'>416</span>
 <span class='line-number'>417</span>
 <span class='line-number'>418</span>
+<span class='line-number'>419</span>
+<span class='line-number'>420</span>
+<span class='line-number'>421</span>
+<span class='line-number'>422</span>
+<span class='line-number'>423</span>
+<span class='line-number'>424</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>function Box(name, age) { //构造函数模式
 </span><span class='line'>    this.name = name;
 </span><span class='line'>    this.age = age;
@@ -562,6 +568,12 @@ alert(box1 instanceof Object);  //true
 </span><span class='line'>&lt;p&gt;&lt;img src="/images/creat.jpg" alt="creat" /&gt;&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;&lt;img src="/images/proto.png" alt="proto" /&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;在原型模式声明中,多了两个属性,这两个属性都是创建对象时自动生成的 。&lt;code&gt;__proto__&lt;/code&gt; 属性是实例指向原型对象的一个指针,它的作用就是指向构造函数的原型属性 &lt;code&gt;constructor&lt;/code&gt;。 通过这两个属性,就可以访问到原型里的属性和方法了。  &lt;br/&gt;
+</span><span class='line'>PS:IE 浏览器在脚本访问&lt;code&gt;__proto__&lt;/code&gt; 会不能识别,火狐和谷歌浏览器及其他某些浏览器 均能识别。虽然可以输出,但无法获取内部信息。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;alert(box1.__proto__); //[object Object]
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>]]&gt;&lt;/content&gt;
 </span><span class='line'>  &lt;/entry&gt;
 </span><span class='line'>  
