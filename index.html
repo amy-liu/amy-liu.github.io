@@ -9,8 +9,7 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="ECMAScript 有两种开发模式:1.函数式(过程化),2.面向对象(OOP)。面向对象的语言 有一个标志,那就是类的概念,而通过类可以创建任意多个具有相同属性和方法的对象 。但 是,ECMAScript 没有类的概念,因此它的对象也与基于类的语言中的对象有所不同。 一、创建对象 创建一个对象 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,9 +86,70 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>ECMAScript 有两种开发模式:1.函数式(过程化),2.面向对象(OOP)。面向对象的语言 有一个标志,那就是类的概念,而通过类可以创建任意多个具有相同属性和方法的对象 。但 是,ECMAScript 没有类的概念,因此它的对象也与基于类的语言中的对象有所不同。</p>
+
+<h3>一、创建对象</h3>
+
+<p>创建一个对象,然后给这个对象新建属性和方法。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = new Object();            //创建一个 Object 对象 
+</span><span class='line'>box.name = 'Lee';                  //创建一个 name 属性并赋值
+</span><span class='line'>box.age = 100;                     //创建一个 age 属性并赋值
+</span><span class='line'>box.run = function () {            //创建一个 run()方法并返回值
+</span><span class='line'>  return this.name + this.age + '运行中...'; 
+</span><span class='line'>};
+</span><span class='line'>alert(box.run()); //输出属性和方法的值</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面创建了一个对象,并且创建属性和方法,在 run()方法里的 this,就是代表 box 对象 本身。这种是 JavaScript 创建对象最基本的方法,但有个缺点,想创建一个类似的对象 ,就 会产生大量的代码。</p>
+
+<p>为了解决多个类似对象声明的问题 ,我们可以使用一种叫做 工厂模式的方法,这种方法 就是为了解决实例化对象产生大量重复的问题。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function createObject(name, age) { //集中实例化的函数 var obj = new Object();
+</span><span class='line'>  obj.name = name;
+</span><span class='line'>  obj.age = age;
+</span><span class='line'>  obj.run = function () {
+</span><span class='line'>      return this.name + this.age + '运行中...';
+</span><span class='line'>  };
+</span><span class='line'>      return obj; 
+</span><span class='line'>  }
+</span><span class='line'>var box1 = createObject('Lee', 100); 
+</span><span class='line'>var box2 = createObject('Jack', 200); 
+</span><span class='line'>alert(box1.run());
+</span><span class='line'>alert(box2.run());</span></code></pre></td></tr></table></div></figure>
+
+
+<p>工厂模式解决了重复实例化的问题 ,但还有一个问题,那就是识别问题,因为根本无法 搞清楚他们到底是哪个对象的实例。</p>
+
+<pre><code>alert(typeof box1);             //Object 
+alert(box1 instanceof Object);  //true
+</code></pre>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/">Read on &rarr;</a>
+    </footer>
   
 
 

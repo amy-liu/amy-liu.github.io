@@ -4,7 +4,7 @@
   <title><![CDATA[云端笔记]]></title>
   <link href="http://amy-liu.github.io/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-30T00:58:08+08:00</updated>
+  <updated>2015-11-02T21:33:42+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -18,7 +18,164 @@
     <link href="http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/"/>
     <updated>2015-10-28T23:46:09+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>ECMAScript 有两种开发模式:1.函数式(过程化),2.面向对象(OOP)。面向对象的语言 有一个标志,那就是类的概念,而通过类可以创建任意多个具有相同属性和方法的对象 。但 是,ECMAScript 没有类的概念,因此它的对象也与基于类的语言中的对象有所不同。</p>
+
+<h3>一、创建对象</h3>
+
+<p>创建一个对象,然后给这个对象新建属性和方法。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var box = new Object();            //创建一个 Object 对象 
+</span><span class='line'>box.name = 'Lee';                  //创建一个 name 属性并赋值
+</span><span class='line'>box.age = 100;                     //创建一个 age 属性并赋值
+</span><span class='line'>box.run = function () {            //创建一个 run()方法并返回值
+</span><span class='line'>  return this.name + this.age + '运行中...'; 
+</span><span class='line'>};
+</span><span class='line'>alert(box.run()); //输出属性和方法的值</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面创建了一个对象,并且创建属性和方法,在 run()方法里的 this,就是代表 box 对象 本身。这种是 JavaScript 创建对象最基本的方法,但有个缺点,想创建一个类似的对象 ,就 会产生大量的代码。</p>
+
+<p>为了解决多个类似对象声明的问题 ,我们可以使用一种叫做 工厂模式的方法,这种方法 就是为了解决实例化对象产生大量重复的问题。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function createObject(name, age) { //集中实例化的函数 var obj = new Object();
+</span><span class='line'>  obj.name = name;
+</span><span class='line'>  obj.age = age;
+</span><span class='line'>  obj.run = function () {
+</span><span class='line'>      return this.name + this.age + '运行中...';
+</span><span class='line'>  };
+</span><span class='line'>      return obj; 
+</span><span class='line'>  }
+</span><span class='line'>var box1 = createObject('Lee', 100); 
+</span><span class='line'>var box2 = createObject('Jack', 200); 
+</span><span class='line'>alert(box1.run());
+</span><span class='line'>alert(box2.run());</span></code></pre></td></tr></table></div></figure>
+
+
+<p>工厂模式解决了重复实例化的问题 ,但还有一个问题,那就是识别问题,因为根本无法 搞清楚他们到底是哪个对象的实例。</p>
+
+<pre><code>alert(typeof box1);             //Object 
+alert(box1 instanceof Object);  //true
+</code></pre>
+
+<!--more-->
+
+
+<p>ECMAScript 中可以采用构造函数(构造方法)可用来创建特定的对象。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function Box(name, age) { //构造函数模式 
+</span><span class='line'>  this.name = name;
+</span><span class='line'>  this.age = age; 
+</span><span class='line'>  this.run = function () {
+</span><span class='line'>      return this.name + this.age + '运行中...'; };
+</span><span class='line'>  }
+</span><span class='line'>var box1 = new Box('Lee', 100); //new Box()即可 
+</span><span class='line'>var box2 = new Box('Jack', 200);
+</span><span class='line'>
+</span><span class='line'>alert(box1.run());
+</span><span class='line'>alert(box1 instanceof Box); //很清晰的识别他从属于 Box</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用构造函数的方法 ,即解决了重复实例化的问题 ,又解决了对象识别的问题,构造函数的方法有一些规范:</p>
+
+<ul>
+<li>函数名和实例化构造名相同且大写, (PS:非强制,但这么写有助于区分构造函数和 普通函数);</li>
+<li>通过构造函数创建对象,必须使用 new 运算符。</li>
+</ul>
+
+
+<p>既然通过构造函数可以创建对象,那么这个对象是哪里来的, <code>new Object()</code>在什么地方 执行了?执行的过程如下:</p>
+
+<ul>
+<li>当使用了构造函数,并且 new 构造函数(),那么就后台执行了 <code>new Object()</code>;</li>
+<li>将构造函数的作用域给新对象 ,(即 <code>new Object()</code>创建出的对象),而函数体内的 <code>this</code> 就 代表 <code>new Object()</code>出来的对象。</li>
+<li>执行构造函数内的代码;</li>
+<li>返回新对象(后台直接返回)。</li>
+</ul>
+
+
+<p>关于 <code>this</code> 的使用,<code>this</code> 其实就是代表当前作用域对象的引用 。如果在全局范围 this 就代 表 window 对象,如果在构造函数体内,就代表当前的构造函数所声明的对象。</p>
+
+<pre><code>var box = 2;
+alert(this.box); //全局,代表 window
+</code></pre>
+
+<p>构造函数和普通函数的唯一区别 ,就是他们调用的方式不同 。只不过,构造函数也是函 数,必须用 new 运算符来调用,否则就是普通函数。</p>
+
+<pre><code>var box = new Box('Lee', 100);           //构造模式调用
+alert(box.run());
+
+Box('Lee', 20);                          //普通模式调用,无效
+
+var o = new Object(); 
+Box.call(o, 'Jack', 200)                //对象冒充调用
+alert(o.run());  
+</code></pre>
+
+<p>可以把构造函数里的方法(或函数)用 new Function()方法来代替,得到一样的效果,更加证明,他们最终判断的是引用地址,唯一性。</p>
+
+<pre><code>function Box(name, age) { //new Function()唯一性
+    this.name = name;
+    this.age = age;
+    this.run = new Function("return this.name + this.age + '运行中...'");
+}
+</code></pre>
+
+<p>虽然使用了全局的函数 run()来解决了保证引用地址一致的问题,但这种方式又带来了 一个新的问题,全局中的 this 在对象调用的时候是 Box 本身,而当作普通函数调用的时候 , this 又代表 window。</p>
+
+<h2>二、原型</h2>
+
+<p>我们创建的每个函数都有一个 <code>prototype(原型)</code> 属性,这个属性是一个对象,它的用途是包含可以由特定类型的所有实例共享的属性和方法。逻辑上可以这么理解: <code>prototype</code> 通过 调用构造函数而创建的那个对象的原型对象 。使用原型的好处可以让所有对象实例共享它所 包含的属性和方法。也就是说,不必在构造函数中定义对象信息 ,而是可以直接将这些信息 添加到原型中。</p>
+
+<pre><code>function Box() {}                   //声明一个构造函数
+Box.prototype.name = 'Lee';         //在原型里添加属性
+Box.prototype.age = 100; 
+Box.prototype.run = function () {   //在原型里添加方法
+    return this.name + this.age + '运行中...'; 
+    };
+</code></pre>
+
+<p>比较一下原型内的方法地址是否一致:</p>
+
+<pre><code>var box1 = new Box();
+var box2 = new Box();
+alert(box1.run == box2.run);   //true,方法的引用地址保持一致
+</code></pre>
+
+<p>为了更进一步了解构造函数的声明方式和原型模式的声明方式 ,我们通过图示来了解一 下:</p>
+
+<p><img src="http://amy-liu.github.io/images/creat.jpg" alt="creat" /></p>
+
+<p><img src="http://amy-liu.github.io/images/proto.png" alt="proto" /></p>
 ]]></content>
   </entry>
   

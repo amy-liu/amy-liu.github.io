@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | 云端笔记]]></title>
   <link href="http://amy-liu.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://amy-liu.github.io/"/>
-  <updated>2015-10-30T00:58:08+08:00</updated>
+  <updated>2015-11-02T21:33:42+08:00</updated>
   <id>http://amy-liu.github.io/</id>
   <author>
     <name><![CDATA[amy-liu]]></name>
@@ -18,340 +18,47 @@
     <link href="http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/"/>
     <updated>2015-10-28T23:46:09+08:00</updated>
     <id>http://amy-liu.github.io/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 基本包装类型]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/"/>
-    <updated>2015-10-28T23:43:32+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing</id>
-    <content type="html"><![CDATA[<p>为了便于操作基本类型值 ,ECMAScript 提供了 3 个特殊的引用类型 : <code>Boolean</code> 、<code>Number</code> 和 <code>String</code>。这些类型与其他引用类型相似 ,但同时也具有与各自的基本类型相应的特殊行为 。 实际上,每当读取一个基本类型值的时候,后台就会创建一个对应的基本包装类型的对象 , 从而能够调用一些方法来操作这些数据。</p>
+    <content type="html"><![CDATA[<p>ECMAScript 有两种开发模式:1.函数式(过程化),2.面向对象(OOP)。面向对象的语言 有一个标志,那就是类的概念,而通过类可以创建任意多个具有相同属性和方法的对象 。但 是,ECMAScript 没有类的概念,因此它的对象也与基于类的语言中的对象有所不同。</p>
 
-<h3>一、基本包装类型概述</h3>
+<h3>一、创建对象</h3>
 
-<pre><code>var box = 'Mr. Lee';                     //定义一个字符串
-var box2 = box.substring(2);             //截掉字符串前两位
-alert(box2);
-</code></pre>
-
-<p>变量 box 是一个字符串类型,而 <code>box.substring(2)</code>又说明它是一个对象(<code>PS:只有对象才 会调用方法</code>),最后把处理结果赋值给 box2。<code>'Mr. Lee'</code>是一个字符串类型的值,按道理它不 应该是对象,不应该会有自己的方法,比如:</p>
-
-<pre><code>alert('Mr. Lee'.substring(2));            //直接通过值来调用方法
-</code></pre>
-
-<p>1.字面量写法:</p>
-
-<pre><code>var box = 'Mr. Lee';             //字面量 
-box.name = 'Lee';                //无效属性
-box.age = function () {          //无效方法
-    return 100; 
-};
-alert(box);                      //Mr. Lee 
-alert(box.substring(2));         //. Lee 
-alert(typeof box);               //string
-alert(box.name);                 //undefined
-alert(box.age());                //错误
-</code></pre>
-
-<!--more-->
-
-
-<p>2.new 运算符写法:</p>
-
-<pre><code>var box = new String('Mr. Lee');      //new 运算符
-box.name = 'Lee';                     //有效属性
-box.age = function () {               //有效方法
-    return 100;
-};
-alert(box);                          //Mr. Lee
-alert(box.substring(2));             //. Lee
-alert(typeof box);                   //object
-alert(box.name);                     //Lee
-alert(box.age());                    //100
-</code></pre>
-
-<p>以上字面量声明和 new 运算符声明很好的展示了他们之间的区别。但有一定还是可以 肯定的,那就是不管字面量形式还是 new 运算符形式,都可以使用它的内置方法。并 且 <code>Boolean</code> 和 <code>Number</code> 特性与 <code>String</code> 相同,三种类型可以成为基本包装类型。</p>
-
-<p>PS:在使用 new 运算符创建以上三种类型的对象时,可以给自己添加属性和方法,但 我们建议不要这样使用,因为这样会导致根本分不清到底是基本类型值还是引用类型值。</p>
-
-<h2>二、Boolean 类型</h2>
-
-<p>Boolean 类型没有特定的属性或者方法。</p>
-
-<h2>三、Number 类型</h2>
-
-<p>Number 类型有一些静态属性(直接通过 <code>Number</code> 调用的属性,而无须 <code>new</code> 运算符)和方法。</p>
-
-<p>Number 静态属性</p>
-
-<pre><code>属性                   描述    
-MAX_V ALUE            表示最大数    
-MIN_V ALUE            表示最小值    
-NaN                   非数值
-NEGA TIVE_INFINITY    负无穷大,溢出返回该值
-POSITIVE_INFINITY     无穷大,溢出返回该值
-prototype             原型,用于增加新属性和方法
-</code></pre>
-
-<p>Number 对象的方法</p>
-
-<pre><code>方法                    描述
-toString()             将数值转化为字符串,并且可以转换进制
-toLocaleString()       根据本地数字格式转换为字符串
-toFixed()              将数字保留小数点后指定位数并转化为字符串
-toExponential()        将数字以指数形式表示 ,保留小数点后指定位数并转化为 字符串
-toPrecision()          指数形式或点形式表述数 ,保留小数点后面指定位数并转 化为字符串
-</code></pre>
-
-<pre><code>
-    var box = 1000.789;            
-    alert(box.toString());             //转换为字符串,传参可以转换进制 
-    alert(box.toLocaleString());       //本地形式, 1,000.789
-    alert(box.toFixed(2));             //小数点保留, 1000.78 
-    alert(box.toExponential());        //指数形式,传参会保留小数点
-    alert(box.toPrecision(3));         //指数或点形式,传参保留小数点
-</code></pre>
-
-<h2>四、String 类型</h2>
-
-<p><code>String</code> 类型包含了三个属性和大量的可用内置方法。</p>
-
-<ul>
-<li><p>String 对象属性</p>
-
-<p>  属性                     描述
-  length                  返回字符串的字符长度
-  constructor             返回创建 String 对象的函数
-  prototype               通过添加属性和方法扩展字符串定义</p></li>
-</ul>
-
-
-<p>String 也包含对象的通用方法,比如 <code>valueOf()</code>、<code>toLocaleString()</code>和 <code>toString()</code> 方法,但这 些方法都返回字符串的基本值。</p>
-
-<ul>
-<li><p>字符方法</p>
-
-<p>  charAt(n)          返回指定索引位置的字符
-  charCodeAt(n)      以 Unicode 编码形式返回指定索引位置的字符</p></li>
-</ul>
-
-
-<pre><code>    var box = 'Mr.Lee'; 
-    alert(box.charAt(1));               //r
-    alert(box.charCodeAt(1));           //114
-    alert(box[1]);                      //r,通过数组方式截取
-</code></pre>
-
-<p>PS: <code>box[1]</code> 在 IE 浏览器会显示 <code>undefined</code>,所以使用时要慎重。</p>
-
-<ul>
-<li><p>字符串操作方法</p>
-
-<p>  concat(str1&hellip;str2)          将字符串参数串联到调用该方法的字符串
-  slice(n,m)                   返回字符串 n 到 m 之间位置的字符串
-  substring(n,m)               同上
-  substr(n,m)                  返回字符串 n 开始的 m 个字符串</p></li>
-</ul>
-
-
-<pre><code>    var box = 'Mr.Lee';
-    alert(box.concat(' is ', ' Teacher ', '!'));           //Mr.Lee is Teacher 
-    alert(box.slice(3));                                   //Lee
-    alert(box.slice(3,5));                                 //Le
-
-    alert(box.substring(3));                               //Lee
-    alert(box.substring(3,5));                             //Le
-    alert(box.substr(3));                                  //Lee
-    alert(box.substr(3,5));                                //Lee
-
-    var box = 'Mr.Lee'; 
-    alert(box.slice(-3));                //Lee,6+(-3)=3 位开始                          
-    alert(box.substring(-3));            //Mr.Lee 负数返回全部
-    alert(box.substr(-3));               //Lee,6+(-3)=3 位开始
-
-    var box = 'Mr.Lee'; 
-    alert(box.slice(3, -1));             //Le 6+(-1)=5, (3,5)
-    alert(box.substring(3, -1));         //Mr. 第二参为负,直接转 0, 并且方法会把较小的数字提前, (0,3)
-    alert(box.substr(3, -1));            //'' 第二参数为负,直接转 0 ,(3,0)
-</code></pre>
-
-<p>PS:IE 的 JavaScript 实现在处理向 substr()方法传递负值的情况下存在问题,它会返回 原始字符串,使用时要切记。</p>
-
-<ul>
-<li><p>字符串位置方法</p>
-
-<p>  indexOf(str, n)        从 n 开始搜索的第一个 str,并将搜索的索引值返回
-  lastIndexOf(str, n)    从 n 开始搜索的最后一个 str,并将搜索的索引值返回</p></li>
-</ul>
-
-
-<pre><code class="">var box = 'Mr.Lee is Lee'; 
-alert(box.indexOf('L'));                  //3
-alert(box.indexOf('L', 5));               //10           
-alert(box.lastIndexOf('L'));              //10
-alert(box.lastIndexOf('L', 5));           //3,从指定的位置向前搜索
-</code></pre>
-
-<p>PS:如果没有找到想要的字符串,则返回 -1。</p>
-
-<p>示例:找出全部的 L</p>
-
-<pre><code>var box = 'Mr.Lee is Lee';            //包含两个 L 的字符串
-var boxarr = [];                      //存放 L 位置的数组 
-var pos = box.indexOf('L');           //先获取第一个 L 的位置
-while (pos &gt; -1) {                    //如果位置大于-1,说明还存在 L 
-    boxarr.push(pos);                 //添加到数组
-    pos = box.indexOf('L', pos + 1);  //从新赋值 pos 目前的位置
-}
-alert(boxarr);
-</code></pre>
-
-<ul>
-<li><p>大小写转换方法</p>
-
-<p>  var box = &lsquo;Mr.Lee is Lee&rsquo;;
-  alert(box.toLowerCase());          //全部小写
-  alert(box.toUpperCase());          //全部大写
-  alert(box.toLocaleLowerCase());    //将字符串全部转换为小写,并且本地化
-  alert(box.toLocaleUpperCase());    //将字符串全部转换为大写,并且本地化</p></li>
-<li><p>字符串的模式匹配方法</p>
-
-<p>  match(pattern)                    返回 pattern 中的子串或 null
-  replace(pattern, replacement)     用 replacement 替换 pattern
-  search(pattern)                   返回字符串中 pattern 开始位置
-  split(pattern)                    返回字符串按指定 pattern 拆分的数组</p></li>
-</ul>
-
-
-<pre><code>    var box = 'Mr.Lee is Lee'; 
-    alert(box.match('L'));             //找到 L,返回 L 否则返回 null 
-    alert(box.search('L'));            //找到 L 的位置,和 indexOf 类型
-    alert(box.replace('L', 'Q'));      //把 L 替换成 Q 
-    alert(box.split(' '));             //以空格分割成字符串     
-</code></pre>
-
-<ul>
-<li>其他方法</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 变量、作用域及内存]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/"/>
-    <updated>2015-10-25T00:40:04+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun</id>
-    <content type="html"><![CDATA[<p>JavaScript 的变量与其他语言的变量有很大区别。 JavaScript 变量是松散型的 (不强制类 型)本质,决定了它只是在特定时间用于保存特定值的一个名字而已。由于不存在定义某个 变量必须要保存何种数据类型值的规则 ,变量的值及其数据类型可以在脚本的生命周期内改 变。</p>
-
-<h3>一、变量及作用域</h3>
-
-<p>1.基本类型和引用类型的值</p>
-
-<p>ECMAScript 变量可能包含两种不同的数据类型的值:<code>基本类型值和引用类型值</code>。基本
-类型值指的是那些保存在栈内存中的简单数据段,即这种值完全保存在内存中的一个位置 。 而引用类型值则是指那些保存在堆内存中的对象,意思是变量中保存的实际上只是一个指 针,这个指针指向内存中的另一个位置,该位置保存对象。</p>
-
-<p>将一个值赋给变量时 ,解析器必须确定这个值是基本类型值 ,还是引用类型值 。基本类 型值有以下几种:<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code> 和 <code>String</code>。这些类型在内存中分别占 有固定大小的空间,他们的值保存在栈空间,我们通过按值来访问的。</p>
-
-<p>PS:在某些语言中,字符串以对象的形式来表示 ,因此被认为是引用类型 。ECMAScript 放弃这一传统。</p>
-
-<p>如果赋值的是引用类型的值 ,则必须在堆内存中为这个值分配空间 。由于这种值的大小 不固定,因此不能把它们保存到栈内存中 。但内存地址大小的固定的 ,因此可以将内存地址 保存在栈内存中 。这样,当查询引用类型的变量时 ,先从栈中读取内存地址 ,然后再通过地 址找到堆中的值。对于这种,我们把它叫做<code>按引用访问</code>。</p>
-
-<p>2.动态属性</p>
-
-<p>定义基本类型值和引用类型值的方式是相似的:创建一个变量并为该变量赋值。但是 , 当这个值保存到变量中以后,对不同类型值可以执行的操作则大相径庭。</p>
-
-<pre><code>var box = new Object();     //创建引用类型
-box.name = 'Lee';           //新增一个属性 
-alert(box.name);
-</code></pre>
-
-<p>如果是基本类型的值添加属性的话,就会出现问题了。</p>
-
-<pre><code>var box = 'Lee';            //创建一个基本类型
-box.age = 27;               //给基本类型添加属性
-alert(box.age);             //undefined
-</code></pre>
-
-<!--more-->
-
-
-<p>3.复制变量值</p>
-
-<p>在变量复制方面 ,基本类型和引用类型也有所不同 。基本类型复制的是值本身 ,而引用 类型复制的是地址。</p>
-
-<pre><code>var box = 'Lee';         //在栈内存生成一个 box 'Lee' 
-var box2 = box;          //在栈内存再生成一个 box2 'Lee'
-</code></pre>
-
-<p>box2 是虽然是 box1 的一个副本,但从图示可以看出,它是完全独立的。也就是说 ,两 个变量分别操作时互不影响。</p>
-
-<pre><code>var box = new Object();     //创建一个引用类型
-box.name = 'Lee';           //新增一个属性
-var box2 = box;             //把引用地址赋值给 box2
-</code></pre>
-
-<p>在引用类型中,box2 其实就是 box,因为他们指向的是同一个对象 。如果这个对象中的 name 属性被修改了,<code>box2.name</code> 和 <code>box.name</code>输出的值都会被相应修改掉了。</p>
-
-<p>4.传递参数</p>
-
-<p>ECMAScript 中所有函数的参数都是按值传递的,言下之意就是说,参数不会按引用传 递,虽然变量有基本类型和引用类型之分。</p>
-
-<p>5.检测类型</p>
-
-<p>要检测一个变量的类型,我们可以通过 typeof 运算符来判别。诸如:</p>
-
-<pre><code>var box = 'Lee';
-alert(typeof box);    //string
-</code></pre>
-
-<p>虽然 typeof 运算符在检查基本数据类型的时候非常好用 ,但检测引用类型的时候 ,它就 不是那么好用了 。通常,我们并不想知道它是不是对象 ,而是想知道它到底是什么类型的对 象。因为数组也是 object,null 也是 Object 等等。
-这时我们应该采用 <code>instanceof</code> 运算符来查看。</p>
-
-<p>PS:当使用 instanceof 检查基本类型的值时,它会返回 false。</p>
-
-<p>待。。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript 之 Function类型]]></title>
-    <link href="http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing/"/>
-    <updated>2015-10-22T00:29:29+08:00</updated>
-    <id>http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing</id>
-    <content type="html"><![CDATA[<p>在 ECMAScript 中,Function(函数)类型实际上是对象。每个函数都是Function类型的实例,而且都与其他引用类型一样具有属性和方法 。由于函数是对象,因此函数名实际上也 是一个指向函数对象的指针。</p>
-
-<h3>一、函数的声明方式</h3>
-
-<ul>
-<li>普通的函数声明
+<p>创建一个对象,然后给这个对象新建属性和方法。
 <code>
-  function box(num1, num2) {
-      return num1+ num2;
-  }
-</code></li>
-<li>使用变量初始化函数
-<code>
-  var box= function(num1, num2) {
-      return num1 + num2;
-  };
-</code></li>
-<li>使用 Function 构造函数
-<code>
-  var box= new Function('num1', 'num2' ,'return num1 + num2');
+    var box = new Object();            //创建一个 Object 对象
+    box.name = 'Lee';                  //创建一个 name 属性并赋值
+    box.age = 100;                     //创建一个 age 属性并赋值
+    box.run = function () {            //创建一个 run()方法并返回值
+        return this.name + this.age + '运行中...';
+    };
+    alert(box.run()); //输出属性和方法的值
 </code>
-PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码(第一次解析常 规 ECMAScript 代码,第二次是解析传入构造函数中的字符串 ),从而影响性能。但我们可以通 过这种语法来理解 &ldquo;函数是对象,函数名是指针 "的概念。</li>
-</ul>
+上面创建了一个对象,并且创建属性和方法,在 run()方法里的 this,就是代表 box 对象 本身。这种是 JavaScript 创建对象最基本的方法,但有个缺点,想创建一个类似的对象 ,就 会产生大量的代码。</p>
 
+<p>为了解决多个类似对象声明的问题 ,我们可以使用一种叫做 工厂模式的方法,这种方法 就是为了解决实例化对象产生大量重复的问题。
+<code>
+    function createObject(name, age) { //集中实例化的函数 var obj = new Object();
+        obj.name = name;
+        obj.age = age;
+        obj.run = function () {
+            return this.name + this.age + '运行中...';
+        };
+            return obj;
+        }
+    var box1 = createObject('Lee', 100);
+    var box2 = createObject('Jack', 200);
+    alert(box1.run());
+    alert(box2.run());
+</code>
+工厂模式解决了重复实例化的问题 ,但还有一个问题,那就是识别问题,因为根本无法 搞清楚他们到底是哪个对象的实例。</p>
+
+<pre><code>alert(typeof box1);             //Object 
+alert(box1 instanceof Object);  //true
+</code></pre>
 
 <!--more-->
 
 
-<h2>二、作为值的函数</h2>
-
-<p>ECMAScript 中的函数名本身就是变量,所以函数也可以作为值来使用。也就是说,不 仅可以像传递参数一样把一个函数传递给另一个函数 ,而且可以将一个函数作为另一个函数 的结果返回。
+<p>ECMAScript 中可以采用构造函数(构造方法)可用来创建特定的对象。
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -507,161 +214,843 @@ PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码
 <span class='line-number'>153</span>
 <span class='line-number'>154</span>
 <span class='line-number'>155</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>function box(sumFunction, num) {
-</span><span class='line'>    return sumFunction(num);              //Function
-</span><span class='line'>}&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function sum(num) { 
-</span><span class='line'>return num + 10;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>var result = box(sum, 10);            //传递函数到另一个函数里
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;```&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;h2&gt;三、函数内部属性&lt;/h2&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;在函数内部,有两个特殊的对象: &lt;code&gt;arguments&lt;/code&gt; 和 &lt;code&gt;this&lt;/code&gt;. &lt;code&gt;arguments&lt;/code&gt; 是一个类数组对象,包
-</span><span class='line'>含着传入函数中的所有参数 ,主要用途是保存函数参数 。但这个对象还有一个名叫 &lt;code&gt;callee&lt;/code&gt; 的 属性,该属性是一个指针,指向拥有这个 &lt;code&gt;arguments&lt;/code&gt; 对象的函数。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) { 
-</span><span class='line'>if (num &lt;= 1) {
-</span><span class='line'>    return 1; 
-</span><span class='line'>    } else {
-</span><span class='line'>        return num * box(num-1);          //一个简单的的递归
-</span><span class='line'>    } 
-</span><span class='line'>}
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;对于阶乘函数一般要用到递归算法 ,所以函数内部一定会调用自身 ;如果函数名不改变 是没有问题的,但一旦改变函数名,内部的自身调用需要逐一修改。为了解决这个问题 ,我 们可以使用 arguments.callee 来代替。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num) { 
-</span><span class='line'>if (num &lt;= 1) {
-</span><span class='line'>    return 1; 
-</span><span class='line'>    } else {
-</span><span class='line'>        return num * arguments.callee(num-1);         //使用 callee 来执行自身 
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+<span class='line-number'>312</span>
+<span class='line-number'>313</span>
+<span class='line-number'>314</span>
+<span class='line-number'>315</span>
+<span class='line-number'>316</span>
+<span class='line-number'>317</span>
+<span class='line-number'>318</span>
+<span class='line-number'>319</span>
+<span class='line-number'>320</span>
+<span class='line-number'>321</span>
+<span class='line-number'>322</span>
+<span class='line-number'>323</span>
+<span class='line-number'>324</span>
+<span class='line-number'>325</span>
+<span class='line-number'>326</span>
+<span class='line-number'>327</span>
+<span class='line-number'>328</span>
+<span class='line-number'>329</span>
+<span class='line-number'>330</span>
+<span class='line-number'>331</span>
+<span class='line-number'>332</span>
+<span class='line-number'>333</span>
+<span class='line-number'>334</span>
+<span class='line-number'>335</span>
+<span class='line-number'>336</span>
+<span class='line-number'>337</span>
+<span class='line-number'>338</span>
+<span class='line-number'>339</span>
+<span class='line-number'>340</span>
+<span class='line-number'>341</span>
+<span class='line-number'>342</span>
+<span class='line-number'>343</span>
+<span class='line-number'>344</span>
+<span class='line-number'>345</span>
+<span class='line-number'>346</span>
+<span class='line-number'>347</span>
+<span class='line-number'>348</span>
+<span class='line-number'>349</span>
+<span class='line-number'>350</span>
+<span class='line-number'>351</span>
+<span class='line-number'>352</span>
+<span class='line-number'>353</span>
+<span class='line-number'>354</span>
+<span class='line-number'>355</span>
+<span class='line-number'>356</span>
+<span class='line-number'>357</span>
+<span class='line-number'>358</span>
+<span class='line-number'>359</span>
+<span class='line-number'>360</span>
+<span class='line-number'>361</span>
+<span class='line-number'>362</span>
+<span class='line-number'>363</span>
+<span class='line-number'>364</span>
+<span class='line-number'>365</span>
+<span class='line-number'>366</span>
+<span class='line-number'>367</span>
+<span class='line-number'>368</span>
+<span class='line-number'>369</span>
+<span class='line-number'>370</span>
+<span class='line-number'>371</span>
+<span class='line-number'>372</span>
+<span class='line-number'>373</span>
+<span class='line-number'>374</span>
+<span class='line-number'>375</span>
+<span class='line-number'>376</span>
+<span class='line-number'>377</span>
+<span class='line-number'>378</span>
+<span class='line-number'>379</span>
+<span class='line-number'>380</span>
+<span class='line-number'>381</span>
+<span class='line-number'>382</span>
+<span class='line-number'>383</span>
+<span class='line-number'>384</span>
+<span class='line-number'>385</span>
+<span class='line-number'>386</span>
+<span class='line-number'>387</span>
+<span class='line-number'>388</span>
+<span class='line-number'>389</span>
+<span class='line-number'>390</span>
+<span class='line-number'>391</span>
+<span class='line-number'>392</span>
+<span class='line-number'>393</span>
+<span class='line-number'>394</span>
+<span class='line-number'>395</span>
+<span class='line-number'>396</span>
+<span class='line-number'>397</span>
+<span class='line-number'>398</span>
+<span class='line-number'>399</span>
+<span class='line-number'>400</span>
+<span class='line-number'>401</span>
+<span class='line-number'>402</span>
+<span class='line-number'>403</span>
+<span class='line-number'>404</span>
+<span class='line-number'>405</span>
+<span class='line-number'>406</span>
+<span class='line-number'>407</span>
+<span class='line-number'>408</span>
+<span class='line-number'>409</span>
+<span class='line-number'>410</span>
+<span class='line-number'>411</span>
+<span class='line-number'>412</span>
+<span class='line-number'>413</span>
+<span class='line-number'>414</span>
+<span class='line-number'>415</span>
+<span class='line-number'>416</span>
+<span class='line-number'>417</span>
+<span class='line-number'>418</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function Box(name, age) { //构造函数模式
+</span><span class='line'>    this.name = name;
+</span><span class='line'>    this.age = age;
+</span><span class='line'>    this.run = function () {
+</span><span class='line'>        return this.name + this.age + &lsquo;运行中&hellip;&rsquo;; };
 </span><span class='line'>    }
+</span><span class='line'>var box1 = new Box(&lsquo;Lee&rsquo;, 100); //new Box()即可
+</span><span class='line'>var box2 = new Box(&lsquo;Jack&rsquo;, 200);&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;alert(box1.run());
+</span><span class='line'>alert(box1 instanceof Box); //很清晰的识别他从属于 Box
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;```
+</span><span class='line'>使用构造函数的方法 ,即解决了重复实例化的问题 ,又解决了对象识别的问题,构造函数的方法有一些规范:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;函数名和实例化构造名相同且大写, (PS:非强制,但这么写有助于区分构造函数和 普通函数);&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;通过构造函数创建对象,必须使用 new 运算符。&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;既然通过构造函数可以创建对象,那么这个对象是哪里来的, &lt;code&gt;new Object()&lt;/code&gt;在什么地方 执行了?执行的过程如下:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;当使用了构造函数,并且 new 构造函数(),那么就后台执行了 &lt;code&gt;new Object()&lt;/code&gt;;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;将构造函数的作用域给新对象 ,(即 &lt;code&gt;new Object()&lt;/code&gt;创建出的对象),而函数体内的 &lt;code&gt;this&lt;/code&gt; 就 代表 &lt;code&gt;new Object()&lt;/code&gt;出来的对象。&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;执行构造函数内的代码;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;返回新对象(后台直接返回)。&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;关于 &lt;code&gt;this&lt;/code&gt; 的使用,&lt;code&gt;this&lt;/code&gt; 其实就是代表当前作用域对象的引用 。如果在全局范围 this 就代 表 window 对象,如果在构造函数体内,就代表当前的构造函数所声明的对象。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 2;
+</span><span class='line'>alert(this.box); //全局,代表 window
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;构造函数和普通函数的唯一区别 ,就是他们调用的方式不同 。只不过,构造函数也是函 数,必须用 new 运算符来调用,否则就是普通函数。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = new Box('Lee', 100);           //构造模式调用
+</span><span class='line'>alert(box.run());
+</span><span class='line'>
+</span><span class='line'>Box('Lee', 20);                          //普通模式调用,无效
+</span><span class='line'>
+</span><span class='line'>var o = new Object(); 
+</span><span class='line'>Box.call(o, 'Jack', 200)                //对象冒充调用
+</span><span class='line'>alert(o.run());  
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;可以把构造函数里的方法(或函数)用 new Function()方法来代替,得到一样的效果,更加证明,他们最终判断的是引用地址,唯一性。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function Box(name, age) { //new Function()唯一性
+</span><span class='line'>this.name = name;
+</span><span class='line'>this.age = age;
+</span><span class='line'>this.run = new Function("return this.name + this.age + '运行中...'");
 </span><span class='line'>}
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;函数内部另一个特殊对象是 &lt;code&gt;this&lt;/code&gt;, 其行为与 Java 和 C#中的 this 大致相似。换句话说, this 引用的是函数据以执行操作的对象 ,或者说函数调用语句所处的那个作用域 。PS:当在 全局作用域中调用函数时, &lt;code&gt;this&lt;/code&gt; 对象引用的就是 &lt;code&gt;window。&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;虽然使用了全局的函数 run()来解决了保证引用地址一致的问题,但这种方式又带来了 一个新的问题,全局中的 this 在对象调用的时候是 Box 本身,而当作普通函数调用的时候 , this 又代表 window。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;//便于理解的改写例子&lt;/p&gt;
+</span><span class='line'>&lt;h2&gt;二、原型&lt;/h2&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;window.color = '红色的';            //全局的,或者 var color = '红色的';也行 
-</span><span class='line'>alert(this.color);             //打印全局的 color
-</span><span class='line'>var box = {
-</span><span class='line'>color : '蓝色的',               //局部的 color
-</span><span class='line'>sayColor : function () { 
-</span><span class='line'>alert(this.color);             //此时的 this 只能 box 里的 color
-</span><span class='line'>} 
+</span><span class='line'>&lt;p&gt;我们创建的每个函数都有一个 &lt;code&gt;prototype(原型)&lt;/code&gt; 属性,这个属性是一个对象,它的用途是包含可以由特定类型的所有实例共享的属性和方法。逻辑上可以这么理解: &lt;code&gt;prototype&lt;/code&gt; 通过 调用构造函数而创建的那个对象的原型对象 。使用原型的好处可以让所有对象实例共享它所 包含的属性和方法。也就是说,不必在构造函数中定义对象信息 ,而是可以直接将这些信息 添加到原型中。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;function Box() {}                   //声明一个构造函数
+</span><span class='line'>Box.prototype.name = 'Lee';         //在原型里添加属性
+</span><span class='line'>Box.prototype.age = 100; 
+</span><span class='line'>Box.prototype.run = function () {   //在原型里添加方法
+</span><span class='line'>return this.name + this.age + '运行中...'; 
 </span><span class='line'>};
-</span><span class='line'>box.sayColor();                    //打印局部的 color
-</span><span class='line'>alert(this.color);                  //还是全局的
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;h2&gt;四、函数属性和方法&lt;/h2&gt;
+</span><span class='line'>&lt;p&gt;比较一下原型内的方法地址是否一致:&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;ECMAScript 中的函数是对象,因此函数也有属性和方法。每个函数都包含两个属性 : &lt;code&gt;length&lt;/code&gt; 和 &lt;code&gt;prototype&lt;/code&gt;。其中,&lt;code&gt;length&lt;/code&gt;属性表示函数希望接收的命名参数的个数。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(name, age) { 
-</span><span class='line'>alert(name + age);
-</span><span class='line'>}
-</span><span class='line'>alert(box.length);     //2
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box1 = new Box();
+</span><span class='line'>var box2 = new Box();
+</span><span class='line'>alert(box1.run == box2.run);   //true,方法的引用地址保持一致
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;PS:对于 &lt;code&gt;prototype&lt;/code&gt; 属性,它是保存所有实例方法的真正所在 ,也就是原型。这个属性, 我们将在面向对象一章详细介绍 。而 &lt;code&gt;prototype&lt;/code&gt; 下有两个方法:&lt;code&gt;apply()&lt;/code&gt;和 &lt;code&gt;call()&lt;/code&gt;,每个函数都 包含这两个非继承而来的方法 。这两个方法的用途都在特定的作用域中调用函数 ,实际上等 于设置函数体内 &lt;code&gt;this&lt;/code&gt; 对象的值。&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;为了更进一步了解构造函数的声明方式和原型模式的声明方式 ,我们通过图示来了解一 下:&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;function box(num1, num2) {           //原函数
-</span><span class='line'>return num1 + num2;
-</span><span class='line'>}
+</span><span class='line'>&lt;p&gt;&lt;img src="/images/creat.jpg" alt="creat" /&gt;&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>function sayBox(num1, num2) {
-</span><span class='line'>return box.apply(this, [num1, num2]);          //this 表示作用域,这里是 window ,[]表示 box 所需要的参数
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>function sayBox2(num1, num2) { 
-</span><span class='line'>return box.apply(this, arguments);             //arguments 对象表示 box 所需要的参数
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>alert(sayBox(10,10));                             //20
-</span><span class='line'>alert(sayBox2(10,10));                            //20
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;&lt;code&gt;call()&lt;/code&gt; 方法于 &lt;code&gt;apply()&lt;/code&gt; 方法相同,他们的区别仅仅在于接收参数的方式不同 。对于 &lt;code&gt;call()&lt;/code&gt; 方 法而言,第一个参数是作用域,没有变化,变化只是其余的参数都是直接传递给函数的。&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;待续&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;&lt;img src="/images/proto.png" alt="proto" /&gt;&lt;/p&gt;
 </span><span class='line'>]]&gt;&lt;/content&gt;
 </span><span class='line'>  &lt;/entry&gt;
 </span><span class='line'>  
 </span><span class='line'>  &lt;entry&gt;
-</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 对象和数组]]&gt;&lt;/title&gt;
-</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/&gt;
-</span><span class='line'>&lt;updated&gt;2015-10-20T22:19:20+08:00&lt;/updated&gt;
-</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu&lt;/id&gt;
-</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;p&gt;什么是对象,其实就是一种类型,即引用类型。而对象的值就是引用类型的实例。 在 ECMAScript 中引用类型是一种数据结构,用于将数据和功能组织在一起。它也常被称做为 类,但 ECMAScript 中却没有这种东西。虽然 ECMAScript 是一门面向对象的语言,却不具 备传统面向对象语言所支持的类和接口等基本结构。&lt;/p&gt;
+</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 基本包装类型]]&gt;&lt;/title&gt;
+</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/"/&gt;
+</span><span class='line'>&lt;updated&gt;2015-10-28T23:43:32+08:00&lt;/updated&gt;
+</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing&lt;/id&gt;
+</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;p&gt;为了便于操作基本类型值 ,ECMAScript 提供了 3 个特殊的引用类型 : &lt;code&gt;Boolean&lt;/code&gt; 、&lt;code&gt;Number&lt;/code&gt; 和 &lt;code&gt;String&lt;/code&gt;。这些类型与其他引用类型相似 ,但同时也具有与各自的基本类型相应的特殊行为 。 实际上,每当读取一个基本类型值的时候,后台就会创建一个对应的基本包装类型的对象 , 从而能够调用一些方法来操作这些数据。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;h3&gt;一、Object 类型&lt;/h3&gt;
+</span><span class='line'>&lt;h3&gt;一、基本包装类型概述&lt;/h3&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;到目前为止,我们使用的引用类型最多的可能就是 Object 类型了。虽然 Object 的实例
-</span><span class='line'>不具备多少功能,但对于在应用程序中的存储和传输数据而言,它确实是非常理想的选择 。 创建 Object 类型有两种。一种是使用 new 运算符,一种是字面量表示法。&lt;/p&gt;
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Mr. Lee';                     //定义一个字符串
+</span><span class='line'>var box2 = box.substring(2);             //截掉字符串前两位
+</span><span class='line'>alert(box2);
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;1.使用 new 运算符创建 Object
-</span><span class='line'>&lt;code&gt;
-</span><span class='line'>var box = new Object();     //new 方式    new 关键字可以省略
-</span><span class='line'>box.name = 'amy';           //创建属性字段
-</span><span class='line'>box.age = 28;               //创建属性字段
-</span><span class='line'>&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;变量 box 是一个字符串类型,而 &lt;code&gt;box.substring(2)&lt;/code&gt;又说明它是一个对象(&lt;code&gt;PS:只有对象才 会调用方法&lt;/code&gt;),最后把处理结果赋值给 box2。&lt;code&gt;'Mr. Lee'&lt;/code&gt;是一个字符串类型的值,按道理它不 应该是对象,不应该会有自己的方法,比如:&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;2.使用字面量方式创建 Object&lt;/p&gt;
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;alert('Mr. Lee'.substring(2));            //直接通过值来调用方法
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {              //字面量方式
-</span><span class='line'>name : '李',         //创建属性字段
-</span><span class='line'>age : 28 
+</span><span class='line'>&lt;p&gt;1.字面量写法:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Mr. Lee';             //字面量 
+</span><span class='line'>box.name = 'Lee';                //无效属性
+</span><span class='line'>box.age = function () {          //无效方法
+</span><span class='line'>return 100; 
 </span><span class='line'>};
+</span><span class='line'>alert(box);                      //Mr. Lee 
+</span><span class='line'>alert(box.substring(2));         //. Lee 
+</span><span class='line'>alert(typeof box);               //string
+</span><span class='line'>alert(box.name);                 //undefined
+</span><span class='line'>alert(box.age());                //错误
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;!--more--&gt;
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;3.属性字段也可以使用字符串形式&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;2.new 运算符写法:&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {
-</span><span class='line'>'name' : '李炎恢',             //也可以用字符串形式
-</span><span class='line'>'age' : 28 
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = new String('Mr. Lee');      //new 运算符
+</span><span class='line'>box.name = 'Lee';                     //有效属性
+</span><span class='line'>box.age = function () {               //有效方法
+</span><span class='line'>return 100;
 </span><span class='line'>};
+</span><span class='line'>alert(box);                          //Mr. Lee
+</span><span class='line'>alert(box.substring(2));             //. Lee
+</span><span class='line'>alert(typeof box);                   //object
+</span><span class='line'>alert(box.name);                     //Lee
+</span><span class='line'>alert(box.age());                    //100
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;4.使用字面量及传统附值方式&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;以上字面量声明和 new 运算符声明很好的展示了他们之间的区别。但有一定还是可以 肯定的,那就是不管字面量形式还是 new 运算符形式,都可以使用它的内置方法。并 且 &lt;code&gt;Boolean&lt;/code&gt; 和 &lt;code&gt;Number&lt;/code&gt; 特性与 &lt;code&gt;String&lt;/code&gt; 相同,三种类型可以成为基本包装类型。&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {};                     //字面量方式声明空的对象
-</span><span class='line'>box.name = '李炎恢';               //点符号给属性付值
-</span><span class='line'>box.age = 28;
+</span><span class='line'>&lt;p&gt;PS:在使用 new 运算符创建以上三种类型的对象时,可以给自己添加属性和方法,但 我们建议不要这样使用,因为这样会导致根本分不清到底是基本类型值还是引用类型值。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h2&gt;二、Boolean 类型&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Boolean 类型没有特定的属性或者方法。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h2&gt;三、Number 类型&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Number 类型有一些静态属性(直接通过 &lt;code&gt;Number&lt;/code&gt; 调用的属性,而无须 &lt;code&gt;new&lt;/code&gt; 运算符)和方法。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Number 静态属性&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;属性                   描述    
+</span><span class='line'>MAX_V ALUE            表示最大数    
+</span><span class='line'>MIN_V ALUE            表示最小值    
+</span><span class='line'>NaN                   非数值
+</span><span class='line'>NEGA TIVE_INFINITY    负无穷大,溢出返回该值
+</span><span class='line'>POSITIVE_INFINITY     无穷大,溢出返回该值
+</span><span class='line'>prototype             原型,用于增加新属性和方法
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;5.两种属性输出方式&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;Number 对象的方法&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;alert(box.age);                   //点 表示法输出
-</span><span class='line'>alert(box['age']);                //中括号表示法输出,注意引号不能省
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;方法                    描述
+</span><span class='line'>toString()             将数值转化为字符串,并且可以转换进制
+</span><span class='line'>toLocaleString()       根据本地数字格式转换为字符串
+</span><span class='line'>toFixed()              将数字保留小数点后指定位数并转化为字符串
+</span><span class='line'>toExponential()        将数字以指数形式表示 ,保留小数点后指定位数并转化为 字符串
+</span><span class='line'>toPrecision()          指数形式或点形式表述数 ,保留小数点后面指定位数并转 化为字符串
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;6.给对象创建方法&lt;/p&gt;
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'>var box = 1000.789;            
+</span><span class='line'>alert(box.toString());             //转换为字符串,传参可以转换进制 
+</span><span class='line'>alert(box.toLocaleString());       //本地形式, 1,000.789
+</span><span class='line'>alert(box.toFixed(2));             //小数点保留, 1000.78 
+</span><span class='line'>alert(box.toExponential());        //指数形式,传参会保留小数点
+</span><span class='line'>alert(box.toPrecision(3));         //指数或点形式,传参保留小数点
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = {
-</span><span class='line'>run : function () {           //对象中的方法
-</span><span class='line'>return '运行';
-</span><span class='line'>} 
+</span><span class='line'>&lt;h2&gt;四、String 类型&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;&lt;code&gt;String&lt;/code&gt; 类型包含了三个属性和大量的可用内置方法。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;String 对象属性&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  属性                     描述
+</span><span class='line'>  length                  返回字符串的字符长度
+</span><span class='line'>  constructor             返回创建 String 对象的函数
+</span><span class='line'>  prototype               通过添加属性和方法扩展字符串定义&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;String 也包含对象的通用方法,比如 &lt;code&gt;valueOf()&lt;/code&gt;、&lt;code&gt;toLocaleString()&lt;/code&gt;和 &lt;code&gt;toString()&lt;/code&gt; 方法,但这 些方法都返回字符串的基本值。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;字符方法&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  charAt(n)          返回指定索引位置的字符
+</span><span class='line'>  charCodeAt(n)      以 Unicode 编码形式返回指定索引位置的字符&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;    var box = 'Mr.Lee'; 
+</span><span class='line'>alert(box.charAt(1));               //r
+</span><span class='line'>alert(box.charCodeAt(1));           //114
+</span><span class='line'>alert(box[1]);                      //r,通过数组方式截取
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;PS: &lt;code&gt;box[1]&lt;/code&gt; 在 IE 浏览器会显示 &lt;code&gt;undefined&lt;/code&gt;,所以使用时要慎重。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;字符串操作方法&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  concat(str1&hellip;str2)          将字符串参数串联到调用该方法的字符串
+</span><span class='line'>  slice(n,m)                   返回字符串 n 到 m 之间位置的字符串
+</span><span class='line'>  substring(n,m)               同上
+</span><span class='line'>  substr(n,m)                  返回字符串 n 开始的 m 个字符串&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;    var box = 'Mr.Lee';
+</span><span class='line'>alert(box.concat(' is ', ' Teacher ', '!'));           //Mr.Lee is Teacher 
+</span><span class='line'>alert(box.slice(3));                                   //Lee
+</span><span class='line'>alert(box.slice(3,5));                                 //Le
+</span><span class='line'>
+</span><span class='line'>alert(box.substring(3));                               //Lee
+</span><span class='line'>alert(box.substring(3,5));                             //Le
+</span><span class='line'>alert(box.substr(3));                                  //Lee
+</span><span class='line'>alert(box.substr(3,5));                                //Lee
+</span><span class='line'>
+</span><span class='line'>var box = 'Mr.Lee'; 
+</span><span class='line'>alert(box.slice(-3));                //Lee,6+(-3)=3 位开始                          
+</span><span class='line'>alert(box.substring(-3));            //Mr.Lee 负数返回全部
+</span><span class='line'>alert(box.substr(-3));               //Lee,6+(-3)=3 位开始
+</span><span class='line'>
+</span><span class='line'>var box = 'Mr.Lee'; 
+</span><span class='line'>alert(box.slice(3, -1));             //Le 6+(-1)=5, (3,5)
+</span><span class='line'>alert(box.substring(3, -1));         //Mr. 第二参为负,直接转 0, 并且方法会把较小的数字提前, (0,3)
+</span><span class='line'>alert(box.substr(3, -1));            //'' 第二参数为负,直接转 0 ,(3,0)
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;PS:IE 的 JavaScript 实现在处理向 substr()方法传递负值的情况下存在问题,它会返回 原始字符串,使用时要切记。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;字符串位置方法&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  indexOf(str, n)        从 n 开始搜索的第一个 str,并将搜索的索引值返回
+</span><span class='line'>  lastIndexOf(str, n)    从 n 开始搜索的最后一个 str,并将搜索的索引值返回&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code class=""&gt;var box = 'Mr.Lee is Lee'; 
+</span><span class='line'>alert(box.indexOf('L'));                  //3
+</span><span class='line'>alert(box.indexOf('L', 5));               //10           
+</span><span class='line'>alert(box.lastIndexOf('L'));              //10
+</span><span class='line'>alert(box.lastIndexOf('L', 5));           //3,从指定的位置向前搜索
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;PS:如果没有找到想要的字符串,则返回 -1。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;示例:找出全部的 L&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Mr.Lee is Lee';            //包含两个 L 的字符串
+</span><span class='line'>var boxarr = [];                      //存放 L 位置的数组 
+</span><span class='line'>var pos = box.indexOf('L');           //先获取第一个 L 的位置
+</span><span class='line'>while (pos &gt; -1) {                    //如果位置大于-1,说明还存在 L 
+</span><span class='line'>boxarr.push(pos);                 //添加到数组
+</span><span class='line'>pos = box.indexOf('L', pos + 1);  //从新赋值 pos 目前的位置
 </span><span class='line'>}
-</span><span class='line'>alert(box.run());                 //调用对象中的方法
+</span><span class='line'>alert(boxarr);
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;7.使用 delete 删除对象属性&lt;/p&gt;
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;大小写转换方法&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;delete box.name;                 //删除属性
+</span><span class='line'>&lt;p&gt;  var box = &lsquo;Mr.Lee is Lee&rsquo;;
+</span><span class='line'>  alert(box.toLowerCase());          //全部小写
+</span><span class='line'>  alert(box.toUpperCase());          //全部大写
+</span><span class='line'>  alert(box.toLocaleLowerCase());    //将字符串全部转换为小写,并且本地化
+</span><span class='line'>  alert(box.toLocaleUpperCase());    //将字符串全部转换为大写,并且本地化&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;&lt;p&gt;字符串的模式匹配方法&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  match(pattern)                    返回 pattern 中的子串或 null
+</span><span class='line'>  replace(pattern, replacement)     用 replacement 替换 pattern
+</span><span class='line'>  search(pattern)                   返回字符串中 pattern 开始位置
+</span><span class='line'>  split(pattern)                    返回字符串按指定 pattern 拆分的数组&lt;/p&gt;&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;    var box = 'Mr.Lee is Lee'; 
+</span><span class='line'>alert(box.match('L'));             //找到 L,返回 L 否则返回 null 
+</span><span class='line'>alert(box.search('L'));            //找到 L 的位置,和 indexOf 类型
+</span><span class='line'>alert(box.replace('L', 'Q'));      //把 L 替换成 Q 
+</span><span class='line'>alert(box.split(' '));             //以空格分割成字符串     
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;在实际开发过程中,一般我们更加喜欢字面量的声明方式。因为它清晰,语法代码少 , 而且还给人一种封装的感觉。字面量也是向函数传递大量可选参数的首选方式。</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;其他方法&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>]]&gt;&lt;/content&gt;
+</span><span class='line'>  &lt;/entry&gt;
+</span><span class='line'>  
+</span><span class='line'>  &lt;entry&gt;
+</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 变量、作用域及内存]]&gt;&lt;/title&gt;
+</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/"/&gt;
+</span><span class='line'>&lt;updated&gt;2015-10-25T00:40:04+08:00&lt;/updated&gt;
+</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun&lt;/id&gt;
+</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;p&gt;JavaScript 的变量与其他语言的变量有很大区别。 JavaScript 变量是松散型的 (不强制类 型)本质,决定了它只是在特定时间用于保存特定值的一个名字而已。由于不存在定义某个 变量必须要保存何种数据类型值的规则 ,变量的值及其数据类型可以在脚本的生命周期内改 变。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h3&gt;一、变量及作用域&lt;/h3&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;1.基本类型和引用类型的值&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;ECMAScript 变量可能包含两种不同的数据类型的值:&lt;code&gt;基本类型值和引用类型值&lt;/code&gt;。基本
+</span><span class='line'>类型值指的是那些保存在栈内存中的简单数据段,即这种值完全保存在内存中的一个位置 。 而引用类型值则是指那些保存在堆内存中的对象,意思是变量中保存的实际上只是一个指 针,这个指针指向内存中的另一个位置,该位置保存对象。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;将一个值赋给变量时 ,解析器必须确定这个值是基本类型值 ,还是引用类型值 。基本类 型值有以下几种:&lt;code&gt;Undefined&lt;/code&gt;、&lt;code&gt;Null&lt;/code&gt;、&lt;code&gt;Boolean&lt;/code&gt;、&lt;code&gt;Number&lt;/code&gt; 和 &lt;code&gt;String&lt;/code&gt;。这些类型在内存中分别占 有固定大小的空间,他们的值保存在栈空间,我们通过按值来访问的。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;PS:在某些语言中,字符串以对象的形式来表示 ,因此被认为是引用类型 。ECMAScript 放弃这一传统。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;如果赋值的是引用类型的值 ,则必须在堆内存中为这个值分配空间 。由于这种值的大小 不固定,因此不能把它们保存到栈内存中 。但内存地址大小的固定的 ,因此可以将内存地址 保存在栈内存中 。这样,当查询引用类型的变量时 ,先从栈中读取内存地址 ,然后再通过地 址找到堆中的值。对于这种,我们把它叫做&lt;code&gt;按引用访问&lt;/code&gt;。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;2.动态属性&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;定义基本类型值和引用类型值的方式是相似的:创建一个变量并为该变量赋值。但是 , 当这个值保存到变量中以后,对不同类型值可以执行的操作则大相径庭。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = new Object();     //创建引用类型
+</span><span class='line'>box.name = 'Lee';           //新增一个属性 
+</span><span class='line'>alert(box.name);
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;如果是基本类型的值添加属性的话,就会出现问题了。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Lee';            //创建一个基本类型
+</span><span class='line'>box.age = 27;               //给基本类型添加属性
+</span><span class='line'>alert(box.age);             //undefined
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;!--more--&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;3.复制变量值&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;在变量复制方面 ,基本类型和引用类型也有所不同 。基本类型复制的是值本身 ,而引用 类型复制的是地址。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Lee';         //在栈内存生成一个 box 'Lee' 
+</span><span class='line'>var box2 = box;          //在栈内存再生成一个 box2 'Lee'
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;box2 是虽然是 box1 的一个副本,但从图示可以看出,它是完全独立的。也就是说 ,两 个变量分别操作时互不影响。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = new Object();     //创建一个引用类型
+</span><span class='line'>box.name = 'Lee';           //新增一个属性
+</span><span class='line'>var box2 = box;             //把引用地址赋值给 box2
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;在引用类型中,box2 其实就是 box,因为他们指向的是同一个对象 。如果这个对象中的 name 属性被修改了,&lt;code&gt;box2.name&lt;/code&gt; 和 &lt;code&gt;box.name&lt;/code&gt;输出的值都会被相应修改掉了。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;4.传递参数&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;ECMAScript 中所有函数的参数都是按值传递的,言下之意就是说,参数不会按引用传 递,虽然变量有基本类型和引用类型之分。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;5.检测类型&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;要检测一个变量的类型,我们可以通过 typeof 运算符来判别。诸如:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;var box = 'Lee';
+</span><span class='line'>alert(typeof box);    //string
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;虽然 typeof 运算符在检查基本数据类型的时候非常好用 ,但检测引用类型的时候 ,它就 不是那么好用了 。通常,我们并不想知道它是不是对象 ,而是想知道它到底是什么类型的对 象。因为数组也是 object,null 也是 Object 等等。
+</span><span class='line'>这时我们应该采用 &lt;code&gt;instanceof&lt;/code&gt; 运算符来查看。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;PS:当使用 instanceof 检查基本类型的值时,它会返回 false。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;待。。。&lt;/p&gt;
+</span><span class='line'>]]&gt;&lt;/content&gt;
+</span><span class='line'>  &lt;/entry&gt;
+</span><span class='line'>  
+</span><span class='line'>  &lt;entry&gt;
+</span><span class='line'>&lt;title type="html"&gt;&lt;![CDATA[JavaScript 之 Function类型]]&gt;&lt;/title&gt;
+</span><span class='line'>&lt;link href="http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing/"/&gt;
+</span><span class='line'>&lt;updated&gt;2015-10-22T00:29:29+08:00&lt;/updated&gt;
+</span><span class='line'>&lt;id&gt;http://amy-liu.github.io/blog/2015/10/22/javascript-zhi-functionlei-xing&lt;/id&gt;
+</span><span class='line'>&lt;content type="html"&gt;&lt;![CDATA[&lt;p&gt;在 ECMAScript 中,Function(函数)类型实际上是对象。每个函数都是Function类型的实例,而且都与其他引用类型一样具有属性和方法 。由于函数是对象,因此函数名实际上也 是一个指向函数对象的指针。&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h3&gt;一、函数的声明方式&lt;/h3&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;普通的函数声明
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>  function box(num1, num2) {
+</span><span class='line'>  return num1+ num2;
+</span><span class='line'>  }
+</span><span class='line'>&lt;/code&gt;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;使用变量初始化函数
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>  var box= function(num1, num2) {
+</span><span class='line'>  return num1 + num2;
+</span><span class='line'>  };
+</span><span class='line'>&lt;/code&gt;&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;使用 Function 构造函数
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>  var box= new Function('num1', 'num2' ,'return num1 + num2');
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>PS: 第三种方式我们不推荐,因为这种语法会导致解析两次代码(第一次解析常 规 ECMAScript 代码,第二次是解析传入构造函数中的字符串 ),从而影响性能。但我们可以通 过这种语法来理解 &ldquo;函数是对象,函数名是指针 "的概念。&lt;/li&gt;
+</span><span class='line'>&lt;/ul&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;!--more--&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;h2&gt;二、作为值的函数&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;ECMAScript 中的函数名本身就是变量,所以函数也可以作为值来使用。也就是说,不 仅可以像传递参数一样把一个函数传递给另一个函数 ,而且可以将一个函数作为另一个函数 的结果返回。</span></code></pre></td></tr></table></div></figure>
+    function box(sumFunction, num) {
+        return sumFunction(num);              //Function
+    }</p>
+
+<pre><code>function sum(num) { 
+    return num + 10;
+}
+
+var result = box(sum, 10);            //传递函数到另一个函数里
+</code></pre>
+
+<p>```</p>
+
+<h2>三、函数内部属性</h2>
+
+<p>在函数内部,有两个特殊的对象: <code>arguments</code> 和 <code>this</code>. <code>arguments</code> 是一个类数组对象,包
+含着传入函数中的所有参数 ,主要用途是保存函数参数 。但这个对象还有一个名叫 <code>callee</code> 的 属性,该属性是一个指针,指向拥有这个 <code>arguments</code> 对象的函数。</p>
+
+<pre><code>function box(num) { 
+    if (num &lt;= 1) {
+        return 1; 
+        } else {
+            return num * box(num-1);          //一个简单的的递归
+        } 
+}
+</code></pre>
+
+<p>对于阶乘函数一般要用到递归算法 ,所以函数内部一定会调用自身 ;如果函数名不改变 是没有问题的,但一旦改变函数名,内部的自身调用需要逐一修改。为了解决这个问题 ,我 们可以使用 arguments.callee 来代替。</p>
+
+<pre><code>function box(num) { 
+    if (num &lt;= 1) {
+        return 1; 
+        } else {
+            return num * arguments.callee(num-1);         //使用 callee 来执行自身 
+        }
+}
+</code></pre>
+
+<p>函数内部另一个特殊对象是 <code>this</code>, 其行为与 Java 和 C#中的 this 大致相似。换句话说, this 引用的是函数据以执行操作的对象 ,或者说函数调用语句所处的那个作用域 。PS:当在 全局作用域中调用函数时, <code>this</code> 对象引用的就是 <code>window。</code></p>
+
+<p>//便于理解的改写例子</p>
+
+<pre><code>window.color = '红色的';            //全局的,或者 var color = '红色的';也行 
+    alert(this.color);             //打印全局的 color
+var box = {
+    color : '蓝色的',               //局部的 color
+    sayColor : function () { 
+    alert(this.color);             //此时的 this 只能 box 里的 color
+    } 
+};
+box.sayColor();                    //打印局部的 color
+alert(this.color);                  //还是全局的
+</code></pre>
+
+<h2>四、函数属性和方法</h2>
+
+<p>ECMAScript 中的函数是对象,因此函数也有属性和方法。每个函数都包含两个属性 : <code>length</code> 和 <code>prototype</code>。其中,<code>length</code>属性表示函数希望接收的命名参数的个数。</p>
+
+<pre><code>function box(name, age) { 
+    alert(name + age);
+}
+alert(box.length);     //2
+</code></pre>
+
+<p>PS:对于 <code>prototype</code> 属性,它是保存所有实例方法的真正所在 ,也就是原型。这个属性, 我们将在面向对象一章详细介绍 。而 <code>prototype</code> 下有两个方法:<code>apply()</code>和 <code>call()</code>,每个函数都 包含这两个非继承而来的方法 。这两个方法的用途都在特定的作用域中调用函数 ,实际上等 于设置函数体内 <code>this</code> 对象的值。</p>
+
+<pre><code>function box(num1, num2) {           //原函数
+    return num1 + num2;
+}
+
+function sayBox(num1, num2) {
+    return box.apply(this, [num1, num2]);          //this 表示作用域,这里是 window ,[]表示 box 所需要的参数
+}
+
+function sayBox2(num1, num2) { 
+    return box.apply(this, arguments);             //arguments 对象表示 box 所需要的参数
+}
+
+alert(sayBox(10,10));                             //20
+alert(sayBox2(10,10));                            //20
+</code></pre>
+
+<p><code>call()</code> 方法于 <code>apply()</code> 方法相同,他们的区别仅仅在于接收参数的方式不同 。对于 <code>call()</code> 方 法而言,第一个参数是作用域,没有变化,变化只是其余的参数都是直接传递给函数的。</p>
+
+<p>待续</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript 之 对象和数组]]></title>
+    <link href="http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/"/>
+    <updated>2015-10-20T22:19:20+08:00</updated>
+    <id>http://amy-liu.github.io/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu</id>
+    <content type="html"><![CDATA[<p>什么是对象,其实就是一种类型,即引用类型。而对象的值就是引用类型的实例。 在 ECMAScript 中引用类型是一种数据结构,用于将数据和功能组织在一起。它也常被称做为 类,但 ECMAScript 中却没有这种东西。虽然 ECMAScript 是一门面向对象的语言,却不具 备传统面向对象语言所支持的类和接口等基本结构。</p>
+
+<h3>一、Object 类型</h3>
+
+<p>到目前为止,我们使用的引用类型最多的可能就是 Object 类型了。虽然 Object 的实例
+不具备多少功能,但对于在应用程序中的存储和传输数据而言,它确实是非常理想的选择 。 创建 Object 类型有两种。一种是使用 new 运算符,一种是字面量表示法。</p>
+
+<p>1.使用 new 运算符创建 Object
+<code>
+    var box = new Object();     //new 方式    new 关键字可以省略
+    box.name = 'amy';           //创建属性字段
+    box.age = 28;               //创建属性字段
+</code></p>
+
+<p>2.使用字面量方式创建 Object</p>
+
+<pre><code>var box = {              //字面量方式
+    name : '李',         //创建属性字段
+    age : 28 
+};
+</code></pre>
+
+<!--more-->
+
+
+<p>3.属性字段也可以使用字符串形式</p>
+
+<pre><code>var box = {
+    'name' : '李炎恢',             //也可以用字符串形式
+    'age' : 28 
+};
+</code></pre>
+
+<p>4.使用字面量及传统附值方式</p>
+
+<pre><code>var box = {};                     //字面量方式声明空的对象
+box.name = '李炎恢';               //点符号给属性付值
+box.age = 28;
+</code></pre>
+
+<p>5.两种属性输出方式</p>
+
+<pre><code>alert(box.age);                   //点 表示法输出
+alert(box['age']);                //中括号表示法输出,注意引号不能省
+</code></pre>
+
+<p>6.给对象创建方法</p>
+
+<pre><code>var box = {
+    run : function () {           //对象中的方法
+    return '运行';
+    } 
+}
+alert(box.run());                 //调用对象中的方法
+</code></pre>
+
+<p>7.使用 delete 删除对象属性</p>
+
+<pre><code>delete box.name;                 //删除属性
+</code></pre>
+
+<p>在实际开发过程中,一般我们更加喜欢字面量的声明方式。因为它清晰,语法代码少 , 而且还给人一种封装的感觉。字面量也是向函数传递大量可选参数的首选方式。
+```
     function box(obj) {                                 //参数是一个对象
         if (obj.name != undefined) alert(obj.name);     //判断属性是否存在
         if (obj.age != undefined) alert(obj.age);
