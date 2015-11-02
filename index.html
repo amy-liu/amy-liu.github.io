@@ -9,7 +9,8 @@
   <meta name="author" content="amy-liu">
 
   
-  <meta name="description" content="ECMAScript 有两种开发模式:1.函数式(过程化),2.面向对象(OOP)。面向对象的语言 有一个标志,那就是类的概念,而通过类可以创建任意多个具有相同属性和方法的对象 。但 是,ECMAScript 没有类的概念,因此它的对象也与基于类的语言中的对象有所不同。 一、创建对象 创建一个对象 &hellip;">
+  <meta name="description" content="
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +65,145 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/11/02/javascript-ajax/">JavaScript - Ajax</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-11-02T23:10:06+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/11/02/javascript-json/">JavaScript - JSON</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-11-02T23:05:43+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:05 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/11/02/javascript-ni-ming-han-shu-he-bi-bao/">JavaScript - 匿名函数和闭包</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-11-02T22:28:19+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:28 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>匿名函数就是没有名字的函数,闭包是可访问一个函数作用域里变量的函数。</p>
+
+<h3>一、匿名函数</h3>
+
+<pre><code>function () {                 //匿名函数
+    return 'Lee'; 
+}
+</code></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>  function box () {                    //函数里的匿名函数 
+</span><span class='line'>      return function () {            //函数里的匿名函数,产生闭包
+</span><span class='line'>          return 'Lee';
+</span><span class='line'>      } 
+</span><span class='line'>  }
+</span><span class='line'>  alert(box()());                   //调用匿名函数</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>二、闭包</h2>
+
+<p>闭包是指有权访问另一个函数作用域中的变量的函数 ,创建闭包的常见的方式,就是在一个函数内部创建另一个函数,通过另一个函数访问这个函数的局部变量。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function box() {
+</span><span class='line'>  var user = 'Lee'; 
+</span><span class='line'>  return function () {           //通过匿名函数返回 box()局部变量
+</span><span class='line'>      return user; 
+</span><span class='line'>      };
+</span><span class='line'>  } 
+</span><span class='line'>alert(box()());                   //通过 box()()来直接调用匿名函数返回值
+</span><span class='line'>var b = box();                    //另一种调用匿名函数返回值
+</span><span class='line'>alert(b());</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/11/02/javascript-ni-ming-han-shu-he-bi-bao/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -518,171 +658,6 @@ box('李',28);                                 //调用函数,并传参
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">JavaScript 之 运算符</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-17T23:31:08+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:31 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>一、什么是表达式</h3>
-
-<p>表达式是 ECMAScript 中的一个“短语”,解释器会通过计算把它转换成一个值。最简 单的表达式是字面量或者变量名。例如:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>5.96                           //数值字面量
-</span><span class='line'>'Lee'                          //字符串字面量
-</span><span class='line'>true                           //布尔值字面量 
-</span><span class='line'>null                           //空值字面量
-</span><span class='line'>/Java/                         //正则表达式字面量
-</span><span class='line'>{x:1, y:2}                     //对象字面量、对象表达式
-</span><span class='line'>[1,2,3]                        //数组字面量、数组表达式
-</span><span class='line'>function(n) {return x+y;}      //函数字面量、函数表达式
-</span><span class='line'>box                            //变量</span></code></pre></td></tr></table></div></figure>
-
-
-<p>    <br/>
-当然,还可以通过合并简单的表达式来创建复杂的表达式。比如:</p>
-
-<pre><code>box + 5.96      //加法运算的表达式
-typeof(box)     //查看数据类型的表达式
-box &gt; 8         //逻辑运算表达式
-</code></pre>
-
-<p>通过上面的叙述,我们得知,单一的字面量和组合字面量的运算符都可称为表达式。</p>
-
-<h2>二、一元运算符</h2>
-
-<p>只能操作一个值的运算符叫做一元运算符。</p>
-
-<p>1.递增++和递减- -</p>
-
-<pre><code>var box = 100;
-++box; //把 box 累加一个 1,相当于 box = box+1 
---box; //把 box 累减一个 1,相当于 box = box-1
-box++; //同上
-box--; //同上
-</code></pre>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/17/javascript-zhi-yun-suan-fu/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">JavaScript 之 数据类型</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-17T23:23:46+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:23 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ECMAScript 中有 5 种简单数据类型:<code>Undefined、Null、Boolean、Number 和 String。</code> 还有一种复杂数据类型——<code>Object</code>。ECMAScript 不支持任何创建自定义类型的机制,所有 值都成为以上 6 中数据类型之一。</p>
-
-<h3>一、typeof 操作符</h3>
-
-<p><code>typeof</code> 操作符是用来检测变量的数据类型 。对于值或变量使用 <code>typeof</code> 操作符会返回如下字符串。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>undefined  未定义
-</span><span class='line'>boolean    布尔值
-</span><span class='line'>string     字符串
-</span><span class='line'>number     数值
-</span><span class='line'>object     对象或 null
-</span><span class='line'>function   函数</span></code></pre></td></tr></table></div></figure>
-
-
-<p>typeof 操作符可以操作变量,也可以操作字面量。虽然也可以这样使用: typeof(box), 但,typeof 是操作符而非内置函数。PS:函数在 ECMAScript 中是对象,不是一种数据类型。 所以,使用 typeof 来区分 function 和 object 是非常有必要的。</p>
-
-<pre><code>alert(typeof box);
-</code></pre>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/10/17/javascript-zhi-shu-ju-lei-xing/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/15/jquery-ajax/">jQuery 之 Ajax</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-15T21:41:51+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:41 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -698,7 +673,7 @@ box--; //同上
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css'>css (7)</a></li>
 <li class='category'><a href='/blog/categories/css3'>css3 (2)</a></li>
-<li class='category'><a href='/blog/categories/javascript'>javascript (9)</a></li>
+<li class='category'><a href='/blog/categories/javascript'>javascript (12)</a></li>
 <li class='category'><a href='/blog/categories/jquery'>jquery (9)</a></li>
 <li class='category'><a href='/blog/categories/yong-octopressjian-bo'>用octopress建博 (1)</a></li>
 
@@ -708,23 +683,23 @@ box--; //同上
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/11/02/javascript-ajax/">JavaScript - Ajax</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/02/javascript-json/">JavaScript - JSON</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/02/javascript-ni-ming-han-shu-he-bi-bao/">JavaScript - 匿名函数和闭包</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/10/28/jaxiang-dui-xiang-yu-yuan-xing/">JavaScript 之 面向对象与原型</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/10/28/javascript-zhi-ji-ben-bao-zhuang-lei-xing/">JavaScript 之 基本包装类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/25/javascript-zhi-bian-liang-,-zuo-yong-yu-ji-nei-cun/">JavaScript 之 变量、作用域及内存</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/22/javascript-zhi-functionlei-xing/">JavaScript 之 Function类型</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/20/javascript-zhi-dui-xiang-he-shu-zu/">JavaScript 之 对象和数组</a>
       </li>
     
   </ul>
